@@ -1,4 +1,5 @@
-// keys file    
-.keys
-/.keys
+# keys file    
+keys.js
+
+# node_modules
 /node_modules
