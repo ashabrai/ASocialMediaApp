@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "src",
+    "downlevelIteration": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,  /* Useful to prevent bugs that trigger on Linux but not OSX due to case sensitive filesystem differences. */
+    "jsx": "react",
+    "lib": ["dom", "es2015", "es2017", "es2018"],
+    "noEmit": true,
+    "noUnusedLocals": false, /* enforced by eslint instead */
+    "noUnusedParameters": true,
+    "paths": {
+      "*": ["*", "src", "node_modules/@types"]
+    },
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "pretty": true,
+    "strict": false,
+    "strictBindCallApply": true, // delete once full strict mode enabled
+    "sourceMap": true,
+    "target": "es5",
+    "types": ["node", "lodash", "jest", "webpack-env"],
+    "typeRoots": ["node_modules/@types"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
