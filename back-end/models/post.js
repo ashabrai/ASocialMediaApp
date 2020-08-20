@@ -17,6 +17,10 @@ const postSchema = new mongoose.Schema({
     postedBy: {
         type: ObjectId, //id of the user who made post
         ref: "User"
+    },
+    datePosted: {
+        type: Number,
+        default: Date.now()
     }
 })
 
