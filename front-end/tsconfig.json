@@ -6,24 +6,47 @@
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "forceConsistentCasingInFileNames": true,  /* Useful to prevent bugs that trigger on Linux but not OSX due to case sensitive filesystem differences. */
+    "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "lib": ["dom", "es2015", "es2017", "es2018"],
+    "lib": [
+      "dom",
+      "es2015",
+      "es2017",
+      "es2018"
+    ],
     "noEmit": true,
-    "noUnusedLocals": false, /* enforced by eslint instead */
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
-    "paths": {
-      "*": ["*", "src", "node_modules/@types"]
-    },
-    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules"
+      }
+    ],
     "pretty": true,
     "strict": false,
-    "strictBindCallApply": true, // delete once full strict mode enabled
+    "strictBindCallApply": true,
     "sourceMap": true,
     "target": "es5",
-    "types": ["node", "lodash", "jest", "webpack-env"],
-    "typeRoots": ["node_modules/@types"]
+    "types": [
+      "node",
+      "lodash",
+      "jest",
+      "webpack-env"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
