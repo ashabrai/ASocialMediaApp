@@ -5,7 +5,7 @@ import SocialMediaApp from '../../assets/socialMediaApp.png';
 import './Navbar.scss';
 import Button from '../../sharedComponents/ButtonComponent';
 import Homepage from '../Homepage/Homepage';
-import SignIn from '../SignIn/SignIn';
+import Login from '../Login/Login';
 import SignUp from '../SignUp/SignUp';
 
 const App: React.FunctionComponent = () => {
@@ -21,14 +21,14 @@ const App: React.FunctionComponent = () => {
             <Link to="/SignUp">
               <Button title="Sign Up" color="grey" />
             </Link>
-            <Link to="/SignIn">
-              <Button title="Sign In" color="grey" />
+            <Link to="/Login">
+              <Button title="Login" color="grey" />
             </Link>
           </div>
         </div>
         <div>
           <Route exact path="/" component={Homepage} />
-          <Route exact path="/SignIn" component={SignIn} />
+          <Route exact path="/Login" component={Login} />
           <Route exact path="/SignUp" component={SignUp} />
         </div>
       </BrowserRouter>
