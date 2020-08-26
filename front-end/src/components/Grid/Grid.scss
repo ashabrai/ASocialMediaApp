@@ -1,0 +1,12 @@
+.user__gallery {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+
+  img {
+    width: 30%;
+    margin: 1%;
+    margin-top: 2%;
+    margin-right: 2%;
+  }
+}

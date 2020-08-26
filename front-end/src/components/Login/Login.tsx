@@ -1,8 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-restricted-imports */
 import * as React from 'react';
-// import Card from '../../sharedComponents/SimpleCard';
-// import InputField from '../../sharedComponents/InputField';
+
 import './Login.scss';
 import LoginForm from '../../sharedComponents/Form';
 import { Link } from 'react-router-dom';

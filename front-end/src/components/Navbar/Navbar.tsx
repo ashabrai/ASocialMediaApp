@@ -7,6 +7,7 @@ import Button from '../../sharedComponents/ButtonComponent';
 import Homepage from '../Homepage/Homepage';
 import Login from '../Login/Login';
 import SignUp from '../SignUp/SignUp';
+import UserProfile from '../UserProfile/UserProfile';
 
 const App: React.FunctionComponent = () => {
   return (
@@ -24,12 +25,16 @@ const App: React.FunctionComponent = () => {
             <Link to="/Login">
               <Button title="Login" color="grey" />
             </Link>
+            <Link to="/UserProfile">
+              <Button title="Profile" color="grey" />
+            </Link>
           </div>
         </div>
         <div>
           <Route exact path="/" component={Homepage} />
           <Route exact path="/Login" component={Login} />
           <Route exact path="/SignUp" component={SignUp} />
+          <Route exact path="/UserProfile" component={UserProfile} />
         </div>
       </BrowserRouter>
     </div>

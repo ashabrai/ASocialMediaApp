@@ -1,20 +1,18 @@
 .nav {
-    background-color: #fafafa;
-    height: 100vh;
-  
-  
+  background-color: #fafafa;
+  height: 100vh;
+
   .nav__header {
     background-color: white;
     object-fit: contain;
-    padding: 20px;
     border-bottom: 1px solid lightgray;
   }
-  
+
   .nav__links {
-      float: right;
-      margin: 16px 0px 0px 0px;
-      button {
-        margin-left: 10px;
-      }
+    float: right;
+    margin: 16px 0px 0px 0px;
+    button {
+      margin-left: 10px;
+    }
   }
 }
