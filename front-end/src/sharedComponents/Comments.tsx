@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import React from 'react';
-import { Button, Comment, Form, Header } from 'semantic-ui-react';
+import { Comment, Header } from 'semantic-ui-react';
 
 interface iAppProps {
   userName?: String;
@@ -14,12 +14,6 @@ const CommentSection: React.FC<iAppProps> = ({ userName, datePublished, comment 
       <Header as="h3" dividing>
         Comments
       </Header>
-
-      <Form reply>
-        <Form.TextArea />
-        <Button content="Add Reply" labelPosition="left" icon="edit" primary />
-      </Form>
-
       <Comment>
         <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
         <Comment.Content>
