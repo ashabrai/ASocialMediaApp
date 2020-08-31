@@ -4,6 +4,7 @@ export interface Auth {
   userName: String;
   email: String;
   token: String;
+  id?: String;
 }
 
 export enum Auth_Action_Types {

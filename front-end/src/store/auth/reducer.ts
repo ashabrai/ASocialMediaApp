@@ -3,6 +3,7 @@ import { Auth_Action_Types, AuthState } from './types';
 
 export const initialState: AuthState = {
   authData: {
+    id: '',
     name: '',
     userName: '',
     email: '',

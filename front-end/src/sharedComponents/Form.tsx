@@ -17,6 +17,7 @@ export default (props: any) => {
                   icon="user"
                   iconPosition="left"
                   name="name"
+                  required="true"
                   placeholder={props.name}
                   onChange={(e) => props.handleNameChange(e)}
                 />
@@ -26,6 +27,7 @@ export default (props: any) => {
                   fluid
                   icon="user"
                   iconPosition="left"
+                  required="true"
                   name="username"
                   placeholder={props.username}
                   onChange={(e) => props.handleUsernameChange(e)}
@@ -35,6 +37,7 @@ export default (props: any) => {
                 fluid
                 icon="mail"
                 iconPosition="left"
+                required="true"
                 placeholder={props.email}
                 onChange={(e) => props.handleEmailChange(e)}
               />
@@ -42,6 +45,7 @@ export default (props: any) => {
                 fluid
                 icon="lock"
                 iconPosition="left"
+                required="true"
                 placeholder={props.password}
                 onChange={(e) => props.handlePasswordChange(e)}
                 type="password"

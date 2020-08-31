@@ -5,7 +5,10 @@ export default {
     const options = Object.assign(
       {},
       {
-        method: 'POST',
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(payload),
       }
     );

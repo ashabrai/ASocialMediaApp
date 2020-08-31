@@ -7,13 +7,10 @@ import 'semantic-ui-css/semantic.min.css';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
 import configureStore from './configureStore';
-
 const history = createBrowserHistory();
-const initialState: any = {};
-const store = configureStore(history, initialState);
 
 ReactDOM.render(
-  <Provider store={store} history={history}>
+  <Provider store={configureStore} history={history}>
     <App />,
   </Provider>,
   document.getElementById('root')
