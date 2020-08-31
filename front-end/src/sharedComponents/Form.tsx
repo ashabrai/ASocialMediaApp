@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Message, Segment, Input } from 'semantic-ui-react';
 
 export default (props: any) => {
   return (
@@ -10,10 +10,45 @@ export default (props: any) => {
         </Header>
         <Segment>
           <Form size="large">
-            {props.username ? <Form.Input fluid icon="user" iconPosition="left" placeholder={props.username} /> : null}
-            <Form.Input fluid icon="mail" iconPosition="left" placeholder={props.email} />
-            <Form.Input fluid icon="lock" iconPosition="left" placeholder={props.password} type="password" />
-            <Button color="black" fluid size="large">
+            <Form.Field>
+              {props.name ? (
+                <Input
+                  fluid
+                  icon="user"
+                  iconPosition="left"
+                  name="name"
+                  placeholder={props.name}
+                  onChange={(e) => props.handleNameChange(e)}
+                />
+              ) : null}
+              {props.username ? (
+                <Input
+                  fluid
+                  icon="user"
+                  iconPosition="left"
+                  name="username"
+                  placeholder={props.username}
+                  onChange={(e) => props.handleUsernameChange(e)}
+                />
+              ) : null}
+              <Input
+                fluid
+                icon="mail"
+                iconPosition="left"
+                placeholder={props.email}
+                onChange={(e) => props.handleEmailChange(e)}
+              />
+              <Input
+                fluid
+                icon="lock"
+                iconPosition="left"
+                placeholder={props.password}
+                onChange={(e) => props.handlePasswordChange(e)}
+                type="password"
+              />
+            </Form.Field>
+
+            <Button color="black" fluid size="large" onClick={() => props.handleClick()}>
               {props.button}
             </Button>
           </Form>

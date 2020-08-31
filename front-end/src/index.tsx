@@ -4,11 +4,18 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'semantic-ui-css/semantic.min.css';
+import { Provider } from 'react-redux';
+import { createBrowserHistory } from 'history';
+import configureStore from './configureStore';
+
+const history = createBrowserHistory();
+const initialState: any = {};
+const store = configureStore(history, initialState);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store} history={history}>
+    <App />,
+  </Provider>,
   document.getElementById('root')
 );
 

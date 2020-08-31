@@ -1,7 +1,7 @@
 import { action } from 'typesafe-actions';
 import { Auth_Action_Types, Auth } from './types';
 
-export const createUser = () => action(Auth_Action_Types.CREATE_USER);
+export const createUser = (data: any) => action(Auth_Action_Types.CREATE_USER, data);
 export const createUserSucceeded = (authData: Auth) => action(Auth_Action_Types.CREATE_USER_SUCCEEDED, authData);
 export const createUserFailed = (message: string) => action(Auth_Action_Types.CREATE_USER_FAILED, message);
 
