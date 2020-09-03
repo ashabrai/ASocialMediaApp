@@ -3,9 +3,8 @@ import { Auth_Action_Types, AuthState } from './types';
 
 export const initialState: AuthState = {
   authData: {
-    id: '',
     name: '',
-    userName: '',
+    username: '',
     email: '',
     token: '',
   },
@@ -13,6 +12,8 @@ export const initialState: AuthState = {
   isBeingCreated: false,
   isBeingLoggedIn: false,
   isBeingLoggedOut: false,
+  hasBeenCreated: false,
+  isLoggedIn: false,
 };
 
 const reducer: Reducer<AuthState> = (state = initialState, action) => {
@@ -28,6 +29,7 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
       return {
         ...state,
         isBeingCreated: false,
+        hasBeenCreated: true,
         authData: action.payload,
       };
     }
@@ -36,7 +38,8 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
       return {
         ...state,
         isBeingCreated: false,
-        errors: action.payload,
+        hasBeenCreated: false,
+        errors: action.payload.Error,
       };
     }
 
@@ -44,6 +47,7 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
       return {
         ...state,
         isBeingLoggedIn: true,
+        isLoggedIn: false,
       };
     }
 
@@ -52,6 +56,7 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
         ...state,
         isBeingLoggedIn: false,
         authData: action.payload,
+        isLoggedIn: true,
       };
     }
 
@@ -60,6 +65,7 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
         ...state,
         isBeingLoggedIn: false,
         errors: action.payload,
+        isLoggedIn: false,
       };
     }
 
@@ -75,7 +81,7 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
         isBeingLoggedOut: false,
         authData: {
           name: '',
-          userName: '',
+          username: '',
           email: '',
           token: '',
         },

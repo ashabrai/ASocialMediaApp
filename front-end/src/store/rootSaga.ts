@@ -1,7 +1,8 @@
+/* eslint-disable no-restricted-imports */
 import { all } from 'redux-saga/effects';
-// eslint-disable-next-line no-restricted-imports
 import watchAllRequest from '../store/auth/sagas';
+import watchAllUserRequest from '../store/user/sagas';
 
 export function* rootSaga() {
-  yield all([watchAllRequest()]);
+  yield all([watchAllRequest(), watchAllUserRequest()]);
 }

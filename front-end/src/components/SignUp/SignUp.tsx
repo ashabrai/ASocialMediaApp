@@ -1,45 +1,68 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-restricted-imports */
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { ApplicationState } from '../../store/index';
 import { createUser } from '../../store/auth/action';
 import './SignUp.scss';
-import SignUpForm from '../../sharedComponents/Form';
+import SignUpForm from '../../sharedComponents/AuthForm';
+import { isValidEmailAddress } from '../../utils/helper';
 
-interface FormProps {
-  name: String;
-  username: String;
-  email: String;
-  password: String;
+interface PropsFromState {
+  errors: string;
+  hasBeenCreated: boolean;
 }
-
 interface PropsFromDispatch {
-  createUser: (name: any, username: any, email: any, password: any) => any;
+  createUser: (name: string, username: string, email: string, password: string) => string;
 }
 
-type AllProps = FormProps & PropsFromDispatch;
+type AllProps = PropsFromDispatch & PropsFromState;
 
 const SignUp: React.FC<AllProps> = (props: any) => {
+  const history = useHistory();
   const [name, setName] = useState<string>();
   const [username, setUsername] = useState<string>();
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
+  const [emailError, setEmailError] = useState<boolean>(false);
 
   const handleSubmitButtonClick = () => {
     props.createUser({ name, username, email, password });
+    if (props.hasBeenCreated) {
+      history.push('/AccountCreated');
+    }
   };
-  const handleNameChange = (event: any) => {
-    setName(event.target.value);
+
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const name = event.target.value;
+    setName(name);
   };
-  const handleUsernameChange = (event: any) => {
-    setUsername(event.target.value);
+
+  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const username = event.target.value;
+    // TODO: Create a helper function that verifies that username has not been taking
+    setUsername(username);
   };
-  const handleEmailChange = (event: any) => {
-    setEmail(event.target.value);
+
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const email = event.target.value;
+    const verifyEmail = isValidEmailAddress(email);
+
+    if (verifyEmail) {
+      setEmailError(false);
+      setEmail(email);
+    } else if (email === '') {
+      setEmailError(false);
+    } else {
+      setEmailError(true);
+    }
   };
-  const handlePasswordChange = (event: any) => {
-    setPassword(event.target.value);
+
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const password = event.target.value;
+    // TODO: Create a helper function to verify password has proper length and no weird characters
+    setPassword(password);
   };
 
   const linkToLogin = <Link to="/Login">Have an account? Login in here </Link>;
@@ -54,6 +77,7 @@ const SignUp: React.FC<AllProps> = (props: any) => {
         password="Password"
         button="Sign Up"
         message={linkToLogin}
+        emailError={emailError}
         handleNameChange={(e: any) => handleNameChange(e)}
         handleUsernameChange={(e: any) => handleUsernameChange(e)}
         handleEmailChange={(e: any) => handleEmailChange(e)}
@@ -64,11 +88,13 @@ const SignUp: React.FC<AllProps> = (props: any) => {
   );
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = ({ auth }: ApplicationState) => ({
+  hasBeenCreated: auth.hasBeenCreated,
+});
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    createUser: (data: { name: any; username: any; email: any; password: any }) => {
+    createUser: (data: { name: string; username: string; email: string; password: string }) => {
       dispatch(createUser(data));
     },
   };

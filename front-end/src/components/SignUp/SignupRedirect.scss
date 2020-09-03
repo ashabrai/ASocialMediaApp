@@ -1,0 +1,14 @@
+.signUpRedirect {
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+
+  .ui.card {
+    align-items: center;
+  }
+
+  .signUpRedirect__button {
+    margin-top: 10px;
+    margin-left: 20%;
+  }
+}

@@ -8,6 +8,8 @@ import Homepage from '../Homepage/Homepage';
 import Login from '../Login/Login';
 import SignUp from '../SignUp/SignUp';
 import UserProfile from '../UserProfile/UserProfile';
+import SignupRedirect from '../SignUp/SignupRedirect';
+import CreatePost from '../CreatePost/CreatePost';
 
 const App: React.FunctionComponent = () => {
   return (
@@ -35,6 +37,8 @@ const App: React.FunctionComponent = () => {
           <Route exact path="/Login" component={Login} />
           <Route exact path="/SignUp" component={SignUp} />
           <Route exact path="/UserProfile" component={UserProfile} />
+          <Route exact path="/AccountCreated" component={SignupRedirect} />
+          <Route exact path="/CreatePost" component={CreatePost} />
         </div>
       </BrowserRouter>
     </div>

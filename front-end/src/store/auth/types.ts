@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 export interface Auth {
   name: String;
-  userName: String;
+  username: String;
   email: String;
   token: String;
-  id?: String;
+  password?: String;
 }
 
 export enum Auth_Action_Types {
@@ -27,4 +27,6 @@ export interface AuthState {
   readonly isBeingCreated?: boolean;
   readonly isBeingLoggedIn?: boolean;
   readonly isBeingLoggedOut?: boolean;
+  readonly isLoggedIn?: boolean;
+  readonly hasBeenCreated?: boolean;
 }

@@ -18,39 +18,49 @@ const DisplayCard = (props: any) => {
 
   return (
     <Card style={{ width: '40vw' }}>
-      <Image src={props.image} wrapped ui={false} />
+      {props.image ? <Image src={props.image} wrapped ui={false} /> : null}
       <Card.Content>
-        <a>
-          <FontAwesomeIcon
-            icon={faHeart}
-            size="lg"
-            onClick={() => {}}
-            style={{ marginLeft: '5px', marginBottom: '10px' }}
-          />
-        </a>
-        <a>
-          <FontAwesomeIcon
-            icon={faComment}
-            size="lg"
-            onClick={buttonClicked}
-            style={{ marginLeft: '5px', marginBottom: '10px' }}
-          />
-        </a>
-        <Card.Header>{props.userName}</Card.Header>
-        <Card.Meta>
-          <span className="date">{props.datePublished}</span>
-        </Card.Meta>
-        <Card.Description>{props.postDescription}</Card.Description>
+        {props.content ? (
+          props.content
+        ) : (
+          <div>
+            <a>
+              <FontAwesomeIcon
+                icon={faHeart}
+                size="lg"
+                onClick={() => {}}
+                style={{ marginLeft: '5px', marginBottom: '10px' }}
+              />
+            </a>
+            <a>
+              <FontAwesomeIcon
+                icon={faComment}
+                size="lg"
+                onClick={buttonClicked}
+                style={{ marginLeft: '5px', marginBottom: '10px' }}
+              />
+            </a>
+          </div>
+        )}
+        {props.header ? <Card.Header>{props.header}</Card.Header> : null}
+        {props.meta ? (
+          <Card.Meta>
+            <span>{props.meta}</span>
+          </Card.Meta>
+        ) : null}
+        {props.description ? <Card.Description>{props.description}</Card.Description> : null}
       </Card.Content>
-      <Card.Content extra>
-        <Form reply>
-          <Form.TextArea />
-          <Button color="black" fluid size="small">
-            Comment
-          </Button>
-        </Form>
-        {isClicked ? <CommentSection /> : null}
-      </Card.Content>
+      {props.extraContent ? (
+        <Card.Content extra>
+          <Form reply>
+            <Form.TextArea />
+            <Button color="black" fluid size="small">
+              {props.buttonContent}
+            </Button>
+          </Form>
+          {isClicked ? <CommentSection /> : null}
+        </Card.Content>
+      ) : null}
     </Card>
   );
 };

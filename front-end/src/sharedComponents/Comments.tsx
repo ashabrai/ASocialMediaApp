@@ -3,12 +3,12 @@ import React from 'react';
 import { Comment, Header } from 'semantic-ui-react';
 
 interface iAppProps {
-  userName?: String;
+  username?: String;
   datePublished?: String;
   comment?: String;
 }
 
-const CommentSection: React.FC<iAppProps> = ({ userName, datePublished, comment }) => {
+const CommentSection: React.FC<iAppProps> = ({ username, datePublished, comment }) => {
   return (
     <Comment.Group>
       <Header as="h3" dividing>
@@ -17,7 +17,7 @@ const CommentSection: React.FC<iAppProps> = ({ userName, datePublished, comment 
       <Comment>
         <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
         <Comment.Content>
-          <Comment.Author as="a">{userName}</Comment.Author>
+          <Comment.Author as="a">{username}</Comment.Author>
           <Comment.Metadata>
             <div>{datePublished}</div>
           </Comment.Metadata>

@@ -17,7 +17,7 @@ export default (props: any) => {
                   icon="user"
                   iconPosition="left"
                   name="name"
-                  required="true"
+                  required={true}
                   placeholder={props.name}
                   onChange={(e) => props.handleNameChange(e)}
                 />
@@ -27,31 +27,31 @@ export default (props: any) => {
                   fluid
                   icon="user"
                   iconPosition="left"
-                  required="true"
+                  required={true}
                   name="username"
                   placeholder={props.username}
                   onChange={(e) => props.handleUsernameChange(e)}
                 />
               ) : null}
               <Input
+                type="mail"
                 fluid
                 icon="mail"
                 iconPosition="left"
-                required="true"
+                required={true}
                 placeholder={props.email}
+                error={props.emailError}
                 onChange={(e) => props.handleEmailChange(e)}
               />
               <Input
                 fluid
                 icon="lock"
                 iconPosition="left"
-                required="true"
+                required={true}
                 placeholder={props.password}
                 onChange={(e) => props.handlePasswordChange(e)}
-                type="password"
               />
             </Form.Field>
-
             <Button color="black" fluid size="large" onClick={() => props.handleClick()}>
               {props.button}
             </Button>
