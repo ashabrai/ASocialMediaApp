@@ -21,6 +21,7 @@ function* userLoginGenerator(action) {
   try {
     const response = yield call(Api.userLogin, action.payload);
     localStorage.setItem('jwt', response.token);
+    localStorage.setItem('user', JSON.stringify(response.user));
     yield put(userLoginSucceeded(response.user));
   } catch (error) {
     yield put(userLoginFailed(error));

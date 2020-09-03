@@ -48,10 +48,6 @@ const CreatePost: React.FC<AllProps> = (props: any) => {
     props.createPost({ title, body, image });
   };
 
-  //   if (props.createdNewPost) {
-  //     history.push('/');
-  //   }
-
   return (
     <div className="createPostForm">
       <CreatePostForm

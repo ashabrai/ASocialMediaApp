@@ -14,6 +14,7 @@ export const initialState: AuthState = {
   isBeingLoggedOut: false,
   hasBeenCreated: false,
   isLoggedIn: false,
+  userDataSaved: false,
 };
 
 const reducer: Reducer<AuthState> = (state = initialState, action) => {
@@ -92,6 +93,34 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
       return {
         ...state,
         isBeingLoggedOut: false,
+        errors: action.payload,
+      };
+    }
+
+    case Auth_Action_Types.SAVE_USER_DATA: {
+      return {
+        ...state,
+        userDataSaved: false,
+      };
+    }
+
+    case Auth_Action_Types.SAVE_USER_DATA_SUCCEEDED: {
+      return {
+        ...state,
+        authData: action.payload,
+        userDataSaved: true,
+      };
+    }
+
+    case Auth_Action_Types.SAVE_USER_DATA_FAILED: {
+      return {
+        ...state,
+        authData: {
+          name: '',
+          username: '',
+          email: '',
+          token: '',
+        },
         errors: action.payload,
       };
     }

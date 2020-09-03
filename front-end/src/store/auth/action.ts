@@ -12,3 +12,7 @@ export const userLoginFailed = (message: string) => action(Auth_Action_Types.USE
 export const userLogout = () => action(Auth_Action_Types.USER_LOGGOUT);
 export const userLogoutSucceeded = (authData: Auth) => action(Auth_Action_Types.USER_LOGGOUT_SUCCEEDED, authData);
 export const userLogoutFailed = (message: string) => action(Auth_Action_Types.USER_LOGGOUT_FAILED, message);
+
+export const saveUserData = (data: any) => action(Auth_Action_Types.SAVE_USER_DATA, data);
+export const saveUserDataSucceeded = (data: any) => action(Auth_Action_Types.SAVE_USER_DATA_SUCCEEDED, data);
+export const saveUserDataFailed = (data: any) => action(Auth_Action_Types.SAVE_USER_DATA_FAILED, data);

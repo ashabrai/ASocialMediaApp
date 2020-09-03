@@ -21,7 +21,6 @@ export default {
   },
 
   userLogin: async (payload) => {
-    console.log(payload, 'payload in api file');
     const url = 'http://localhost:4000/signin';
     const options = Object.assign(
       {},

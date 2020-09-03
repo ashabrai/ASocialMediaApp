@@ -1,6 +1,5 @@
 export default {
   createPost: async (payload) => {
-    console.log(payload, 'payload in network request');
     const url = 'http://localhost:4000/createPost';
     const options = Object.assign(
       {},

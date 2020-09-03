@@ -19,6 +19,10 @@ export enum Auth_Action_Types {
   USER_LOGGOUT = '@@auth/USER_LOGGOUT',
   USER_LOGGOUT_SUCCEEDED = '@@auth/USER_LOGGOUT_SUCCEEDED',
   USER_LOGGOUT_FAILED = '@@auth/USER_LOGGOUT_FAILED',
+
+  SAVE_USER_DATA = '@@auth/SAVE_USER_DATA',
+  SAVE_USER_DATA_SUCCEEDED = '@@auth/SAVE_USER_DATA_SUCCEEDED',
+  SAVE_USER_DATA_FAILED = '@@auth/SAVE_USER_DATA_FAILED',
 }
 
 export interface AuthState {
@@ -29,4 +33,5 @@ export interface AuthState {
   readonly isBeingLoggedOut?: boolean;
   readonly isLoggedIn?: boolean;
   readonly hasBeenCreated?: boolean;
+  readonly userDataSaved?: boolean;
 }

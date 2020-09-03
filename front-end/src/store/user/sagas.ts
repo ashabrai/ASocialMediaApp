@@ -17,7 +17,6 @@ function* getImageURL(action) {
 }
 
 function* createPost(data) {
-  console.log(data);
   try {
     const response = yield call(Api.createPost, data);
     yield put(createPostSucceeded(response));
