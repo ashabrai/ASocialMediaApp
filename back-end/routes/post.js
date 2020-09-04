@@ -6,9 +6,9 @@ const Post = mongoose.model("Post");
 
 router.get("/allPosts", requireLogin, (req, res) => {
   Post.find()
-    .populate("postedBy", "_id, name")
+    .populate("postedBy", "_id, name, username")
     .then((posts) => {
-      res.json({ posts });
+      res.json(posts);
     })
     .catch((err) => {
       console.log(err);
@@ -25,7 +25,7 @@ router.get("/myPost", requireLogin, (req, res) => {
 });
 
 router.post("/createPost", requireLogin, (req, res) => {
-  console.log(req.body);
+  console.log(req.user);
   const { title, body, imgUrl } = req.body;
   if (!title || !body || !imgUrl) {
     return res.status(422).json({ error: "Please fill all fields" });
