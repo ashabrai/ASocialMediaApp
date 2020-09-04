@@ -1,10 +1,27 @@
 /* eslint-disable no-restricted-imports */
-import * as React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import DisplayCard from '../../sharedComponents/DisplayCard';
 import './Homepage.scss';
-interface IAppProps {}
+import { fetchAllPosts } from 'store/user/action';
+import { ApplicationState } from 'store';
 
-const Homepage: React.FunctionComponent<IAppProps> = () => {
+interface PropsFromState {
+  allPosts: Array<String>;
+}
+
+interface PropsFromDispatch {
+  fetchAllPosts: () => any;
+}
+
+type AllProps = PropsFromState & PropsFromDispatch;
+
+const Homepage: React.FunctionComponent<AllProps> = (props: any) => {
+  useEffect(() => {
+    props.fetchAllPosts();
+  }, [props.fetchAllPosts]);
+
+  console.log(props, 'props in homepage');
   return (
     <div className="home">
       <div className="home__allCards">
@@ -43,4 +60,14 @@ const Homepage: React.FunctionComponent<IAppProps> = () => {
   );
 };
 
-export default Homepage;
+const mapStateToProps = ({ user }: ApplicationState) => ({
+  allPosts: user.allPosts,
+});
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    fetchAllPosts: () => dispatch(fetchAllPosts()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Homepage);

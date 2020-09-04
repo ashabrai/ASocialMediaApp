@@ -1,8 +1,10 @@
 /* eslint-disable no-restricted-imports */
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { saveUserData } from 'store/auth/action';
 import { Route, Switch, BrowserRouter, useHistory } from 'react-router-dom';
+import { ApplicationState } from 'store';
+import { saveUserData } from 'store/auth/action';
+
 import Navbar from './components/Navbar/Navbar';
 import Homepage from '../src/components/Homepage/Homepage';
 import SignUp from '../src/components/SignUp/SignUp';
@@ -11,7 +13,6 @@ import UserProfile from '../src/components/UserProfile/UserProfile';
 import SignupRedirect from '../src/components/SignUp/SignupRedirect';
 import CreatePost from '../src/components/CreatePost/CreatePost';
 import './App.css';
-import { ApplicationState } from 'store';
 
 interface PropsFromDispatch {
   saveUserData: (user: object) => any;
@@ -32,7 +33,7 @@ const Routing: React.FC<AllProps> = (props) => {
     } else if (!history.location.pathname.startsWith('/reset')) {
       history.push('/Login');
     }
-  });
+  }, []);
   return (
     <Switch>
       <Route exact path="/" component={Homepage} />

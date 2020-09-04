@@ -10,21 +10,21 @@ import SignUpForm from '../../sharedComponents/AuthForm';
 import { isValidEmailAddress } from '../../utils/helper';
 
 interface PropsFromState {
-  errors: string;
+  errors: String;
   hasBeenCreated: boolean;
 }
 interface PropsFromDispatch {
-  createUser: (name: string, username: string, email: string, password: string) => string;
+  createUser: (name: String, username: String, email: String, password: String) => String;
 }
 
 type AllProps = PropsFromDispatch & PropsFromState;
 
 const SignUp: React.FC<AllProps> = (props: any) => {
   const history = useHistory();
-  const [name, setName] = useState<string>();
-  const [username, setUsername] = useState<string>();
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
+  const [name, setName] = useState<String>();
+  const [username, setUsername] = useState<String>();
+  const [email, setEmail] = useState<String>();
+  const [password, setPassword] = useState<String>();
   const [emailError, setEmailError] = useState<boolean>(false);
 
   const handleSubmitButtonClick = () => {
@@ -94,7 +94,7 @@ const mapStateToProps = ({ auth }: ApplicationState) => ({
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    createUser: (data: { name: string; username: string; email: string; password: string }) => {
+    createUser: (data: { name: String; username: String; email: String; password: String }) => {
       dispatch(createUser(data));
     },
   };

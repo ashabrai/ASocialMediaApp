@@ -6,9 +6,7 @@ import Login from '../Login/Login';
 import { Link, Route } from 'react-router-dom';
 import './SignupRedirect.scss';
 
-interface IAppProps {}
-
-const SignupRedirect: React.FunctionComponent<IAppProps> = () => {
+const SignupRedirect: React.FunctionComponent = () => {
   const routeToLogin = () => {
     return (
       <div className="signUpRedirect__button">

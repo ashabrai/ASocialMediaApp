@@ -1,6 +1,6 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 import { User_Action_Constants } from './types';
-import { createPostSucceeded, createPostFailed } from './action';
+import { createPostSucceeded, createPostFailed, fetchAllPostsSucceeded, fetchAllPostsFailed } from './action';
 
 import Api from './api';
 
@@ -25,8 +25,18 @@ function* createPost(data) {
   }
 }
 
+function* fetchAllPosts() {
+  try {
+    const response = yield call(Api.fetchAllPosts);
+    yield put(fetchAllPostsSucceeded(response));
+  } catch (e) {
+    yield put(fetchAllPostsFailed(e));
+  }
+}
+
 function* watchAllUserRequest() {
   yield takeLatest(User_Action_Constants.CREATE_POST, getImageURL);
+  yield takeLatest(User_Action_Constants.FETCH_ALL_POSTS, fetchAllPosts);
 }
 
 export default watchAllUserRequest;

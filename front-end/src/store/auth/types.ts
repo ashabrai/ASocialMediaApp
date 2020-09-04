@@ -27,7 +27,7 @@ export enum Auth_Action_Types {
 
 export interface AuthState {
   readonly authData: Auth;
-  readonly errors?: string;
+  readonly errors?: String;
   readonly isBeingCreated?: boolean;
   readonly isBeingLoggedIn?: boolean;
   readonly isBeingLoggedOut?: boolean;

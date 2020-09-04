@@ -5,6 +5,8 @@ export const initialState: UserState = {
   errors: undefined,
   isCreatingNewPost: false,
   createdNewPost: false,
+  isFetchingAllPosts: false,
+  allPosts: [],
 };
 
 const reducer: Reducer<UserState> = (state = initialState, action) => {
@@ -32,6 +34,31 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
         errors: action.payload,
       };
     }
+
+    case User_Action_Constants.FETCH_ALL_POSTS: {
+      return {
+        ...state,
+        isFetchingAllPosts: true,
+      };
+    }
+
+    case User_Action_Constants.FETCH_ALL_POSTS_SUCCEEDED: {
+      return {
+        ...state,
+        isFetchingAllPosts: false,
+        allPosts: action.payload,
+      };
+    }
+
+    case User_Action_Constants.FETCH_ALL_POSTS_FAILED: {
+      return {
+        ...state,
+        isFetchingAllPosts: false,
+        allPosts: [],
+        errors: action.payload,
+      };
+    }
+
     default: {
       return state;
     }

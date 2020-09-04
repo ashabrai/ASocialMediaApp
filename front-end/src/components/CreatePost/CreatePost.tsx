@@ -8,19 +8,19 @@ import { ApplicationState } from '../../store/index';
 import './CreatePost.scss';
 
 interface PropsFromState {
-  errors: string;
+  errors: String;
   createdNewPost: boolean;
 }
 
 interface PropsFromDispatch {
-  createPost: (title: string, body: string, image: object) => any;
+  createPost: (title: String, body: String, image: object) => any;
 }
 type AllProps = PropsFromState & PropsFromDispatch;
 
 const CreatePost: React.FC<AllProps> = (props: any) => {
   const history = useHistory();
-  const [title, setTitle] = useState<string>('');
-  const [body, setBody] = useState<string>('');
+  const [title, setTitle] = useState<String>('');
+  const [body, setBody] = useState<String>('');
   const [image, setImage] = useState<object>({});
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const mapStateToProps = ({ user }: ApplicationState) => ({
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    createPost: (data: { title: string; body: string; image: any }) => {
+    createPost: (data: { title: String; body: String; image: any }) => {
       dispatch(createPost(data));
     },
   };

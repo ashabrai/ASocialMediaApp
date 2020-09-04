@@ -14,14 +14,14 @@ interface PropsFromState {
 }
 
 interface PropsFromDispatch {
-  userLogin: (email: string, password: string) => string;
+  userLogin: (email: String, password: String) => String;
 }
 
 type AllProps = PropsFromState & PropsFromDispatch;
 
 const SignIn: React.FunctionComponent<AllProps> = (props: any) => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState<String>('');
+  const [password, setPassword] = useState<String>('');
   const [emailError, setEmailError] = useState<boolean>(false);
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,7 +83,7 @@ const mapStateToProps = ({ auth }: ApplicationState) => ({
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    userLogin: (data: { email: string; password: string }) => {
+    userLogin: (data: { email: String; password: String }) => {
       dispatch(userLogin(data));
     },
   };

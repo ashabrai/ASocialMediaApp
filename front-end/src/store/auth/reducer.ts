@@ -109,6 +109,7 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
         ...state,
         authData: action.payload,
         userDataSaved: true,
+        isLoggedIn: true,
       };
     }
 
@@ -122,6 +123,7 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
           token: '',
         },
         errors: action.payload,
+        isLoggedIn: false,
       };
     }
 
