@@ -12,6 +12,7 @@ import Login from '../src/components/Login/Login';
 import UserProfile from '../src/components/UserProfile/UserProfile';
 import SignupRedirect from '../src/components/SignUp/SignupRedirect';
 import CreatePost from '../src/components/CreatePost/CreatePost';
+import Logout from '../src/components/Logout/Logout';
 import './App.css';
 
 interface PropsFromDispatch {
@@ -21,6 +22,7 @@ interface PropsFromDispatch {
 type AllProps = PropsFromDispatch;
 
 const Routing: React.FC<AllProps> = (props) => {
+  const { saveUserData } = props;
   const history = useHistory();
   // Added this useEffect here in the case that a user closes browser but does not log out
   // That the user data needed in order to navigate through the app will be pulled from LS if found and stored in the store.
@@ -29,11 +31,11 @@ const Routing: React.FC<AllProps> = (props) => {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
-      props.saveUserData(user);
+      saveUserData(user);
     } else if (!history.location.pathname.startsWith('/reset')) {
       history.push('/Login');
     }
-  }, []);
+  }, [saveUserData, history]);
   return (
     <Switch>
       <Route exact path="/" component={Homepage} />
@@ -42,6 +44,7 @@ const Routing: React.FC<AllProps> = (props) => {
       <Route exact path="/UserProfile" component={UserProfile} />
       <Route exact path="/AccountCreated" component={SignupRedirect} />
       <Route exact path="/CreatePost" component={CreatePost} />
+      <Route exact path="/Logout" component={Logout} />
     </Switch>
   );
 };

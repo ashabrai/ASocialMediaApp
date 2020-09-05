@@ -1,20 +1,29 @@
 /* eslint-disable no-restricted-imports */
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useHistory, Redirect, withRouter } from 'react-router-dom';
 import { ApplicationState } from '../../store/index';
 import { connect } from 'react-redux';
 import SocialMediaApp from '../../assets/socialMediaApp.png';
 import './Navbar.scss';
 import Button from '../../sharedComponents/ButtonComponent';
+import { userLogout } from 'store/auth/action';
 
 interface PropsFromState {
   errors: String;
   isLoggedIn: boolean;
+  isLoggedOut: boolean;
 }
 
-type AllProps = PropsFromState;
+interface PropsFromDispatch {
+  userLogout: () => any;
+}
+type AllProps = PropsFromDispatch & PropsFromState;
 
 const Navbar: React.FunctionComponent<AllProps> = (props) => {
+  const logUserOut = () => {
+    props.userLogout();
+  };
+
   const renderProperLinks = () => {
     if (props.isLoggedIn) {
       return [
@@ -26,6 +35,9 @@ const Navbar: React.FunctionComponent<AllProps> = (props) => {
         </Link>,
         <Link to="/CreatePost" key="createPost">
           <Button title="Create Post" color="grey" />
+        </Link>,
+        <Link to="/Logout" key="logout">
+          <Button title="Logout" color="grey" onClick={() => logUserOut()} />
         </Link>,
       ];
     } else {
@@ -52,6 +64,12 @@ const Navbar: React.FunctionComponent<AllProps> = (props) => {
 
 const mapStateToProps = ({ auth }: ApplicationState) => ({
   isLoggedIn: auth.isLoggedIn,
+  isLoggedOut: auth.isLoggedOut,
 });
 
-export default connect(mapStateToProps, null)(Navbar);
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    userLogout: () => dispatch(userLogout()),
+  };
+};
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar));

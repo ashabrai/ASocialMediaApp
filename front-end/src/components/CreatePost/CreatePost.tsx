@@ -18,16 +18,17 @@ interface PropsFromDispatch {
 type AllProps = PropsFromState & PropsFromDispatch;
 
 const CreatePost: React.FC<AllProps> = (props: any) => {
+  const { createdNewPost, createPost } = props;
   const history = useHistory();
   const [title, setTitle] = useState<String>('');
   const [body, setBody] = useState<String>('');
   const [image, setImage] = useState<object>({});
 
   useEffect(() => {
-    if (props.createdNewPost) {
+    if (createdNewPost) {
       history.push('/');
     }
-  }, [props.createdNewPost, history]);
+  }, [createdNewPost, history]);
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const title = event.target.value;
@@ -45,7 +46,7 @@ const CreatePost: React.FC<AllProps> = (props: any) => {
   };
 
   const handleClick = () => {
-    props.createPost({ title, body, image });
+    createPost({ title, body, image });
   };
 
   return (

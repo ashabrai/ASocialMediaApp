@@ -6,3 +6,8 @@ export const isValidEmailAddress = (address) => {
   }
   return false;
 };
+
+export const dateConverted = (date) => {
+  const convertedDate = new Date(date).toLocaleDateString('en-us');
+  return convertedDate;
+};

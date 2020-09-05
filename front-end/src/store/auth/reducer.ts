@@ -14,6 +14,7 @@ export const initialState: AuthState = {
   isBeingLoggedOut: false,
   hasBeenCreated: false,
   isLoggedIn: false,
+  isLoggedOut: false,
   userDataSaved: false,
 };
 
@@ -80,6 +81,7 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
       return {
         ...state,
         isBeingLoggedOut: false,
+        isLoggedIn: false,
         authData: {
           name: '',
           username: '',
@@ -93,6 +95,7 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
       return {
         ...state,
         isBeingLoggedOut: false,
+        isLoggedIn: false,
         errors: action.payload,
       };
     }

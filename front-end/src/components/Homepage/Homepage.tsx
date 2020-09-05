@@ -1,13 +1,15 @@
 /* eslint-disable no-restricted-imports */
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import DisplayCard from '../../sharedComponents/DisplayCard';
-import './Homepage.scss';
 import { fetchAllPosts } from 'store/user/action';
 import { ApplicationState } from 'store';
+import DisplayCard from '../../sharedComponents/DisplayCard';
+import { dateConverted } from '../../utils/helper';
+import './Homepage.scss';
 
 interface PropsFromState {
   allPosts: Array<String>;
+  isLoggedIn: boolean;
 }
 
 interface PropsFromDispatch {
@@ -17,51 +19,37 @@ interface PropsFromDispatch {
 type AllProps = PropsFromState & PropsFromDispatch;
 
 const Homepage: React.FunctionComponent<AllProps> = (props: any) => {
-  useEffect(() => {
-    props.fetchAllPosts();
-  }, [props.fetchAllPosts]);
+  const { fetchAllPosts, allPosts, isLoggedIn } = props;
 
-  console.log(props, 'props in homepage');
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchAllPosts();
+    }
+  }, [fetchAllPosts, isLoggedIn]);
+
   return (
     <div className="home">
       <div className="home__allCards">
-        <div>
-          <DisplayCard
-            image="https://scontent.fsjc1-3.fna.fbcdn.net/v/t1.0-9/68531485_2645980872088117_1923143302673072128_n.jpg?_nc_cat=109&_nc_sid=7aed08&_nc_ohc=uOwEY-iGq7IAX9AzgfP&_nc_ht=scontent.fsjc1-3.fna&oh=5db93287192fff2336258b45380b3452&oe=5F6ADFBA"
-            header="braiiii"
-            meta="Aug 25,2020"
-            description="Selfie moment"
-            extraContent="true"
-            buttonContent="Comment"
-          />
-        </div>
-        <div>
-          <DisplayCard
-            image="https://scontent.fsjc1-3.fna.fbcdn.net/v/t1.0-9/68531485_2645980872088117_1923143302673072128_n.jpg?_nc_cat=109&_nc_sid=7aed08&_nc_ohc=uOwEY-iGq7IAX9AzgfP&_nc_ht=scontent.fsjc1-3.fna&oh=5db93287192fff2336258b45380b3452&oe=5F6ADFBA"
-            header="braiiii"
-            meta="Aug 25,2020"
-            description="Selfie moment"
-            extraContent="true"
-            buttonContent="Comment"
-          />
-        </div>
-        <div>
-          <DisplayCard
-            image="https://scontent.fsjc1-3.fna.fbcdn.net/v/t1.0-9/68531485_2645980872088117_1923143302673072128_n.jpg?_nc_cat=109&_nc_sid=7aed08&_nc_ohc=uOwEY-iGq7IAX9AzgfP&_nc_ht=scontent.fsjc1-3.fna&oh=5db93287192fff2336258b45380b3452&oe=5F6ADFBA"
-            header="braiiii"
-            meta="Aug 25,2020"
-            description="Selfie moment"
-            extraContent="true"
-            buttonContent="Comment"
-          />
-        </div>
+        {allPosts.map((post, index) => (
+          <div key={index}>
+            <DisplayCard
+              image={post.photo}
+              header={post.postedBy.username}
+              meta={dateConverted(post.datePosted)}
+              description={post.body}
+              extraContent="true"
+              buttonContent="Comment"
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
 };
 
-const mapStateToProps = ({ user }: ApplicationState) => ({
+const mapStateToProps = ({ user, auth }: ApplicationState) => ({
   allPosts: user.allPosts,
+  isLoggedIn: auth.isLoggedIn,
 });
 
 const mapDispatchToProps = (dispatch: any) => {

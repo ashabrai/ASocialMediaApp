@@ -34,4 +34,5 @@ export interface AuthState {
   readonly isLoggedIn?: boolean;
   readonly hasBeenCreated?: boolean;
   readonly userDataSaved?: boolean;
+  readonly isLoggedOut?: boolean;
 }

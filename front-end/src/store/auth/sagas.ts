@@ -7,6 +7,8 @@ import {
   userLoginFailed,
   saveUserDataSucceeded,
   saveUserDataFailed,
+  userLogoutSucceeded,
+  userLogoutFailed,
 } from './action';
 
 import Api from './api';
@@ -35,6 +37,15 @@ function* userLoginGenerator(action) {
   }
 }
 
+function* userLogoutGenerator() {
+  try {
+    localStorage.clear();
+    yield put(userLogoutSucceeded());
+  } catch (e) {
+    yield put(userLogoutFailed(e));
+  }
+}
+
 function* storeUserData(action) {
   try {
     const user = action.payload;
@@ -46,6 +57,7 @@ function* storeUserData(action) {
 function* watchAllRequest() {
   yield takeLatest(Auth_Action_Types.CREATE_USER, createUserGenerator);
   yield takeLatest(Auth_Action_Types.USER_LOGIN, userLoginGenerator);
+  yield takeLatest(Auth_Action_Types.USER_LOGGOUT, userLogoutGenerator);
   yield takeLatest(Auth_Action_Types.SAVE_USER_DATA, storeUserData);
 }
 
