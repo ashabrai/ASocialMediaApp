@@ -20,6 +20,7 @@ interface PropsFromDispatch {
 type AllProps = PropsFromState & PropsFromDispatch;
 
 const SignIn: React.FunctionComponent<AllProps> = (props: any) => {
+  const { userLogin, isLoggedIn } = props;
   const [email, setEmail] = useState<String>('');
   const [password, setPassword] = useState<String>('');
   const [emailError, setEmailError] = useState<boolean>(false);
@@ -45,10 +46,10 @@ const SignIn: React.FunctionComponent<AllProps> = (props: any) => {
   };
 
   const handleLoginButtonClick = () => {
-    props.userLogin({ email, password });
+    userLogin({ email, password });
   };
 
-  if (props.isLoggedIn) {
+  if (isLoggedIn) {
     return (
       <Redirect
         to={{

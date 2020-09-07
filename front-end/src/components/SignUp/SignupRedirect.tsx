@@ -4,9 +4,9 @@ import DisplayCard from '../../sharedComponents/DisplayCard';
 import Button from '../../sharedComponents/ButtonComponent';
 import Login from '../Login/Login';
 import { Link, Route } from 'react-router-dom';
-import './SignupRedirect.scss';
+import './SignUpRedirect.scss';
 
-const SignupRedirect: React.FunctionComponent = () => {
+const SignUpRedirect: React.FunctionComponent = () => {
   const routeToLogin = () => {
     return (
       <div className="signUpRedirect__button">
@@ -25,4 +25,4 @@ const SignupRedirect: React.FunctionComponent = () => {
   );
 };
 
-export default SignupRedirect;
+export default SignUpRedirect;

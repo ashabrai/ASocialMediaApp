@@ -10,7 +10,7 @@ import Homepage from '../src/components/Homepage/Homepage';
 import SignUp from '../src/components/SignUp/SignUp';
 import Login from '../src/components/Login/Login';
 import UserProfile from '../src/components/UserProfile/UserProfile';
-import SignupRedirect from '../src/components/SignUp/SignupRedirect';
+import SignUpRedirect from '../src/components/SignUp/SignUpRedirect';
 import CreatePost from '../src/components/CreatePost/CreatePost';
 import Logout from '../src/components/Logout/Logout';
 import './App.css';
@@ -42,7 +42,7 @@ const Routing: React.FC<AllProps> = (props) => {
       <Route exact path="/Login" component={Login} />
       <Route exact path="/SignUp" component={SignUp} />
       <Route exact path="/UserProfile" component={UserProfile} />
-      <Route exact path="/AccountCreated" component={SignupRedirect} />
+      <Route exact path="/AccountCreated" component={SignUpRedirect} />
       <Route exact path="/CreatePost" component={CreatePost} />
       <Route exact path="/Logout" component={Logout} />
     </Switch>

@@ -5,12 +5,11 @@ import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../store/index';
 import { createUser } from '../../store/auth/action';
-import './SignUp.scss';
 import SignUpForm from '../../sharedComponents/AuthForm';
 import { isValidEmailAddress } from '../../utils/helper';
+import './SignUp.scss';
 
 interface PropsFromState {
-  errors: String;
   hasBeenCreated: boolean;
 }
 interface PropsFromDispatch {
@@ -20,6 +19,7 @@ interface PropsFromDispatch {
 type AllProps = PropsFromDispatch & PropsFromState;
 
 const SignUp: React.FC<AllProps> = (props: any) => {
+  const { createUser, hasBeenCreated } = props;
   const history = useHistory();
   const [name, setName] = useState<String>();
   const [username, setUsername] = useState<String>();
@@ -28,8 +28,8 @@ const SignUp: React.FC<AllProps> = (props: any) => {
   const [emailError, setEmailError] = useState<boolean>(false);
 
   const handleSubmitButtonClick = () => {
-    props.createUser({ name, username, email, password });
-    if (props.hasBeenCreated) {
+    createUser({ name, username, email, password });
+    if (hasBeenCreated) {
       history.push('/AccountCreated');
     }
   };

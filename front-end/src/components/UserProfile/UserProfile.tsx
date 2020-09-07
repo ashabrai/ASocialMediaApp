@@ -1,11 +1,32 @@
-import React from 'react';
+/* eslint-disable no-restricted-imports */
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { ApplicationState } from '../../store/index';
+import { fetchUserPosts } from 'store/user/action';
+import { selectedUserId } from '../../store/auth/selectors';
+import UserGrid from '../UserGrid/UserGrid';
 import './UserProfile.scss';
-// eslint-disable-next-line no-restricted-imports
-import Grid from '../Grid/Grid';
 
-interface IAppProps {}
+interface PropsFromState {
+  userPosts: Array<String>;
+  userId: String;
+  isLoggedIn: boolean;
+}
 
-const UserProfile: React.FunctionComponent<IAppProps> = () => {
+interface PropsFromDispatch {
+  fetchUserPosts: () => any;
+}
+
+type AllProps = PropsFromState & PropsFromDispatch;
+
+const UserProfile: React.FC<AllProps> = (props) => {
+  console.log(props);
+  const { fetchUserPosts } = props;
+
+  useEffect(() => {
+    fetchUserPosts();
+  }, []);
+
   return (
     <div className="user">
       <div className="user__container">
@@ -23,9 +44,21 @@ const UserProfile: React.FunctionComponent<IAppProps> = () => {
           </div>
         </div>
       </div>
-      <Grid />
+      <UserGrid {...props} />
     </div>
   );
 };
 
-export default UserProfile;
+const mapStateToProps = ({ user, auth }: ApplicationState) => ({
+  userPosts: user.userPosts,
+  userId: selectedUserId(auth),
+  isLoggedIn: auth.isLoggedIn,
+});
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    fetchUserPosts: () => {
+      dispatch(fetchUserPosts());
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

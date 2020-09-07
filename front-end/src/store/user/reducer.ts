@@ -7,6 +7,7 @@ export const initialState: UserState = {
   createdNewPost: false,
   isFetchingAllPosts: false,
   allPosts: [],
+  userPosts: [],
 };
 
 const reducer: Reducer<UserState> = (state = initialState, action) => {
@@ -59,6 +60,26 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
       };
     }
 
+    case User_Action_Constants.FETCH_USER_POSTS: {
+      return {
+        ...state,
+        isFetchingUserPosts: true,
+      };
+    }
+    case User_Action_Constants.FETCH_USER_POSTS_SUCCEEDED: {
+      return {
+        ...state,
+        isFetchingUserPosts: false,
+        userPosts: action.payload,
+      };
+    }
+    case User_Action_Constants.FETCH_USER_POSTS_FAILED: {
+      return {
+        ...state,
+        isFetchingUserPosts: false,
+        userPosts: [],
+      };
+    }
     default: {
       return state;
     }

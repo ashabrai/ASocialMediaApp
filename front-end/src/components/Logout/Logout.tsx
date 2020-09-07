@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
-interface IAppProps {}
 
-const Logout: React.FunctionComponent<IAppProps> = () => {
+const Logout: React.FunctionComponent = () => {
   return <Redirect to="/Login" />;
 };
 

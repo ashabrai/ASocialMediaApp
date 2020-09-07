@@ -1,12 +1,12 @@
 /* eslint-disable no-restricted-imports */
-import React, { useEffect } from 'react';
-import { Link, useHistory, Redirect, withRouter } from 'react-router-dom';
+import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import { ApplicationState } from '../../store/index';
+import { userLogout } from 'store/auth/action';
 import { connect } from 'react-redux';
 import SocialMediaApp from '../../assets/socialMediaApp.png';
-import './Navbar.scss';
 import Button from '../../sharedComponents/ButtonComponent';
-import { userLogout } from 'store/auth/action';
+import './Navbar.scss';
 
 interface PropsFromState {
   errors: String;
@@ -20,12 +20,14 @@ interface PropsFromDispatch {
 type AllProps = PropsFromDispatch & PropsFromState;
 
 const Navbar: React.FunctionComponent<AllProps> = (props) => {
+  const { userLogout, isLoggedIn } = props;
+
   const logUserOut = () => {
-    props.userLogout();
+    userLogout();
   };
 
   const renderProperLinks = () => {
-    if (props.isLoggedIn) {
+    if (isLoggedIn) {
       return [
         <Link to="/" key="home">
           <Button title="Home" color="grey" />
