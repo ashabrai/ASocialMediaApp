@@ -5,15 +5,26 @@ import CommentSection from '../sharedComponents/Comments';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { faHeart, faComment } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faComment, faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 
 library.add(fas);
 
 const DisplayCard = (props: any) => {
   const [isClicked, setClicked] = useState(false);
+  const [liked, setLike] = useState(false);
 
   const buttonClicked = () => {
     setClicked(!isClicked);
+  };
+
+  const likeOrUnlikePost = () => {
+    if (liked) {
+      setLike(false);
+      // call unlike func
+    } else {
+      setLike(true);
+      // call like postfu
+    }
   };
 
   return (
@@ -24,14 +35,29 @@ const DisplayCard = (props: any) => {
           props.content
         ) : (
           <div>
-            <a>
-              <FontAwesomeIcon
-                icon={faHeart}
-                size="lg"
-                onClick={() => {}}
-                style={{ marginLeft: '5px', marginBottom: '10px' }}
-              />
-            </a>
+            {!liked ? (
+              <a>
+                <FontAwesomeIcon
+                  icon={faThumbsUp}
+                  size="lg"
+                  onClick={() => {
+                    likeOrUnlikePost();
+                  }}
+                  style={{ marginLeft: '5px', marginBottom: '10px' }}
+                />
+              </a>
+            ) : (
+              <a>
+                <FontAwesomeIcon
+                  icon={faThumbsDown}
+                  size="lg"
+                  onClick={() => {
+                    likeOrUnlikePost();
+                  }}
+                  style={{ marginLeft: '5px', marginBottom: '10px' }}
+                />
+              </a>
+            )}
             <a>
               <FontAwesomeIcon
                 icon={faComment}

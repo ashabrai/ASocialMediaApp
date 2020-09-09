@@ -12,9 +12,13 @@ export enum User_Action_Constants {
   FETCH_USER_POSTS_SUCCEEDED = '@@user/FETCH_USER_POSTS_SUCCEEDED',
   FETCH_USER_POSTS_FAILED = '@@user/FETCH_USER_POSTS_FAILED',
 
-  LIKE_POST = '@@user/LIKE_POST',
-  LIKE_POST_SUCCEEDED = '@@user/LIKE_POST_SUCCEEDED',
-  LIKE_POST_FAILED = '@@user/LIKE_POST_FAILED',
+  LIKE_USER_POST = '@@user/LIKE_USER_POST',
+  LIKE_USER_POST_SUCCEEDED = '@@user/LIKE_USER_POST_SUCCEEDED',
+  LIKE_USER_POST_FAILED = '@@user/LIKE_USER_POST_FAILED',
+
+  UNLIKE_USER_POST = '@@user/UNLIKE_USER_POST',
+  UNLIKE_USER_POST_SUCCEEDED = '@@user/UNLIKE_USER_POST_SUCCEEDED',
+  UNLIKE_USER_POST_FAILED = '@@user/UNLIKE_USER_POST_FAILED',
 }
 
 export interface UserState {
@@ -24,4 +28,5 @@ export interface UserState {
   readonly allPosts: Array<String>;
   readonly isFetchingAllPosts?: boolean;
   readonly userPosts: Array<String>;
+  readonly likes: Array<String>;
 }

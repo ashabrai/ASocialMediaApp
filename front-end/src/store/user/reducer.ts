@@ -8,6 +8,7 @@ export const initialState: UserState = {
   isFetchingAllPosts: false,
   allPosts: [],
   userPosts: [],
+  likes: [],
 };
 
 const reducer: Reducer<UserState> = (state = initialState, action) => {
@@ -66,6 +67,7 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
         isFetchingUserPosts: true,
       };
     }
+
     case User_Action_Constants.FETCH_USER_POSTS_SUCCEEDED: {
       return {
         ...state,
@@ -73,11 +75,41 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
         userPosts: action.payload,
       };
     }
+
     case User_Action_Constants.FETCH_USER_POSTS_FAILED: {
       return {
         ...state,
         isFetchingUserPosts: false,
         userPosts: [],
+      };
+    }
+
+    case User_Action_Constants.LIKE_USER_POST_SUCCEEDED: {
+      return {
+        ...state,
+        likes: action.payload,
+      };
+    }
+
+    case User_Action_Constants.LIKE_USER_POST_FAILED: {
+      return {
+        ...state,
+        likes: [],
+        errors: action.payload,
+      };
+    }
+    case User_Action_Constants.UNLIKE_USER_POST_SUCCEEDED: {
+      return {
+        ...state,
+        likes: action.payload,
+      };
+    }
+
+    case User_Action_Constants.UNLIKE_USER_POST_FAILED: {
+      return {
+        ...state,
+        likes: [],
+        errors: action.payload,
       };
     }
     default: {

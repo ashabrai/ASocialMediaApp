@@ -4,7 +4,7 @@ export default {
     const options = Object.assign(
       {},
       {
-        method: 'post',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + localStorage.getItem('jwt'),
@@ -69,6 +69,46 @@ export default {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + localStorage.getItem('jwt'),
         },
+      }
+    );
+    const response = await fetch(url, options)
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+
+    return response;
+  },
+
+  updateUserPostLikes: async (id) => {
+    const url = 'http://localhost:4000/likeUserPost';
+    const options = Object.assign(
+      {},
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+        },
+        body: JSON.stringify(id),
+      }
+    );
+    const response = await fetch(url, options)
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+
+    return response;
+  },
+
+  updateUserPostUnlikes: async (id) => {
+    const url = 'http://localhost:4000/unlikeUserPost';
+    const options = Object.assign(
+      {},
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+        },
+        body: JSON.stringify(id),
       }
     );
     const response = await fetch(url, options)
