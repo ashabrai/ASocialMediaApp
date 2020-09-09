@@ -47,29 +47,30 @@ router.post("/createPost", requireLogin, (req, res) => {
     });
 });
 
-router.put("/like", requireLogin, (req, res) => {
+router.put("/likeUserPost", requireLogin, (req, res) => {
   Post.findByIdAndUpdate(
     req.body.postId,
     {
-      $push: { likes: req.user._id }, // https://docs.mongodb.com/manual/reference/operator/update/push/ : appends specified value to an array
+      $push: { likes: req.user._id },
     },
     {
       new: true,
     }
   ).exec((err, result) => {
     if (err) {
-      return res.status(422).json(err);
+      return res.status(422).json({ error: err });
     } else {
       res.status(200).json(result);
     }
   });
 });
 
-router.put("/unlike", requireLogin, (req, res) => {
+router.put("/unlikeUserPost", requireLogin, (req, res) => {
+  console.log(req.body.postId);
   Post.findByIdAndUpdate(
     req.body.postId,
     {
-      $pull: { unlike: req.user._id },
+      $pull: { likes: req.user._id },
     },
     {
       new: true,
