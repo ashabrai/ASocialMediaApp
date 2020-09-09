@@ -5,11 +5,13 @@ import CommentSection from '../sharedComponents/Comments';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { faHeart, faComment, faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+import { faComment, faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 
 library.add(fas);
 
 const DisplayCard = (props: any) => {
+  // console.log(props);
+  const { likeUsersPost, unlikeUsersPost, postId } = props;
   const [isClicked, setClicked] = useState(false);
   const [liked, setLike] = useState(false);
 
@@ -20,10 +22,10 @@ const DisplayCard = (props: any) => {
   const likeOrUnlikePost = () => {
     if (liked) {
       setLike(false);
-      // call unlike func
+      unlikeUsersPost(postId);
     } else {
       setLike(true);
-      // call like postfu
+      likeUsersPost(postId);
     }
   };
 
@@ -36,36 +38,34 @@ const DisplayCard = (props: any) => {
         ) : (
           <div>
             {!liked ? (
-              <a>
-                <FontAwesomeIcon
-                  icon={faThumbsUp}
-                  size="lg"
-                  onClick={() => {
-                    likeOrUnlikePost();
-                  }}
-                  style={{ marginLeft: '5px', marginBottom: '10px' }}
-                />
-              </a>
-            ) : (
-              <a>
-                <FontAwesomeIcon
-                  icon={faThumbsDown}
-                  size="lg"
-                  onClick={() => {
-                    likeOrUnlikePost();
-                  }}
-                  style={{ marginLeft: '5px', marginBottom: '10px' }}
-                />
-              </a>
-            )}
-            <a>
               <FontAwesomeIcon
-                icon={faComment}
+                href=""
+                icon={faThumbsUp}
                 size="lg"
-                onClick={buttonClicked}
+                onClick={() => {
+                  likeOrUnlikePost();
+                }}
                 style={{ marginLeft: '5px', marginBottom: '10px' }}
               />
-            </a>
+            ) : (
+              <FontAwesomeIcon
+                icon={faThumbsDown}
+                href=""
+                size="lg"
+                onClick={() => {
+                  likeOrUnlikePost();
+                }}
+                style={{ marginLeft: '5px', marginBottom: '10px' }}
+              />
+            )}
+            {/* <a> */}
+            <FontAwesomeIcon
+              icon={faComment}
+              size="lg"
+              onClick={buttonClicked}
+              style={{ marginLeft: '5px', marginBottom: '10px' }}
+            />
+            {/* </a> */}
           </div>
         )}
         {props.header ? <Card.Header>{props.header}</Card.Header> : null}

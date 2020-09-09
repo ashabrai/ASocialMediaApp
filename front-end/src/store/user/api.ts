@@ -88,7 +88,7 @@ export default {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + localStorage.getItem('jwt'),
         },
-        body: JSON.stringify(id),
+        body: JSON.stringify({ postId: id }),
       }
     );
     const response = await fetch(url, options)
@@ -108,7 +108,7 @@ export default {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + localStorage.getItem('jwt'),
         },
-        body: JSON.stringify(id),
+        body: JSON.stringify({ postId: id }),
       }
     );
     const response = await fetch(url, options)

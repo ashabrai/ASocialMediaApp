@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-imports */
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchAllPosts } from 'store/user/action';
+import { fetchAllPosts, likeUserPost, unlikeUserPost } from 'store/user/action';
 import { ApplicationState } from 'store';
 import DisplayCard from '../../sharedComponents/DisplayCard';
 import { dateConverted } from '../../utils/helper';
@@ -14,12 +14,15 @@ interface PropsFromState {
 
 interface PropsFromDispatch {
   fetchAllPosts: () => any;
+  likeUserPost: (id: String) => any;
+  unlikeUserPost: (id: String) => any;
 }
 
 type AllProps = PropsFromState & PropsFromDispatch;
 
 const Homepage: React.FunctionComponent<AllProps> = (props: any) => {
-  const { fetchAllPosts, allPosts, isLoggedIn } = props;
+  console.log(props);
+  const { fetchAllPosts, allPosts, isLoggedIn, likeUserPost, unlikeUserPost } = props;
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -27,18 +30,31 @@ const Homepage: React.FunctionComponent<AllProps> = (props: any) => {
     }
   }, [fetchAllPosts, isLoggedIn]);
 
+  const likePost = (id: String) => {
+    likeUserPost(id);
+  };
+
+  const unlikePost = (id: String) => {
+    unlikeUserPost(id);
+  };
+
   return (
     <div className="home">
       <div className="home__allCards">
         {allPosts.map((post, index) => (
+          // console.log(post)(
           <div key={index}>
             <DisplayCard
               image={post.photo}
               header={post.postedBy.username}
+              postedBy={post.postedBy._id}
+              postId={post._id}
               meta={dateConverted(post.datePosted)}
               description={post.body}
               extraContent="true"
               buttonContent="Comment"
+              likeUsersPost={(id: String) => likePost(id)}
+              unlikeUsersPost={(id: String) => unlikePost(id)}
             />
           </div>
         ))}
@@ -55,6 +71,8 @@ const mapStateToProps = ({ user, auth }: ApplicationState) => ({
 const mapDispatchToProps = (dispatch: any) => {
   return {
     fetchAllPosts: () => dispatch(fetchAllPosts()),
+    likeUserPost: (id: String) => dispatch(likeUserPost(id)),
+    unlikeUserPost: (id: String) => dispatch(unlikeUserPost(id)),
   };
 };
 

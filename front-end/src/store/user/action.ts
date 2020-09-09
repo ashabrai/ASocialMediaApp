@@ -13,10 +13,10 @@ export const fetchUserPosts = () => action(User_Action_Constants.FETCH_USER_POST
 export const fetchUserPostsSucceeded = (data: any) => action(User_Action_Constants.FETCH_USER_POSTS_SUCCEEDED, data);
 export const fetchUserPostsFailed = (message: String) => action(User_Action_Constants.FETCH_USER_POSTS_FAILED, message);
 
-export const likeUserPost = () => action(User_Action_Constants.LIKE_USER_POST);
+export const likeUserPost = (id: String) => action(User_Action_Constants.LIKE_USER_POST, id);
 export const likeUserPostSucceeded = (data: any) => action(User_Action_Constants.LIKE_USER_POST_SUCCEEDED, data);
 export const likeUserPostFailed = (message: String) => action(User_Action_Constants.LIKE_USER_POST_FAILED, message);
 
-export const unlikeUserPost = () => action(User_Action_Constants.UNLIKE_USER_POST);
+export const unlikeUserPost = (id: String) => action(User_Action_Constants.UNLIKE_USER_POST, id);
 export const unlikeUserPostSucceeded = (data: any) => action(User_Action_Constants.UNLIKE_USER_POST_SUCCEEDED, data);
 export const unlikeUserPostFailed = (message: String) => action(User_Action_Constants.UNLIKE_USER_POST_FAILED, message);
