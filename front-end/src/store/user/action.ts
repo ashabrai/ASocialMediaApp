@@ -20,3 +20,7 @@ export const likeUserPostFailed = (message: String) => action(User_Action_Consta
 export const unlikeUserPost = (id: String) => action(User_Action_Constants.UNLIKE_USER_POST, id);
 export const unlikeUserPostSucceeded = (data: any) => action(User_Action_Constants.UNLIKE_USER_POST_SUCCEEDED, data);
 export const unlikeUserPostFailed = (message: String) => action(User_Action_Constants.UNLIKE_USER_POST_FAILED, message);
+
+export const commentPost = (id: String, comment: String) => action(User_Action_Constants.COMMENT_POST, id, comment);
+export const commentPostSucceeded = (data: any) => action(User_Action_Constants.COMMENT_POST_SUCCEEDED, data);
+export const commentPostFailed = (message: String) => action(User_Action_Constants.COMMENT_POST_FAILED, message);

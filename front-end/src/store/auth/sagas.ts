@@ -16,10 +16,6 @@ import Api from './api';
 function* createUserGenerator(action) {
   try {
     const response = yield call(Api.createUser, action.payload);
-    // // if (response.status !== 200) {
-    //   console.log(response);
-    //   throw new Error(response);
-    // }
     yield put(createUserSucceeded(response.user));
   } catch (error) {
     yield put(createUserFailed(error));

@@ -117,4 +117,24 @@ export default {
 
     return response;
   },
+
+  commentUserPost: async (id, comment) => {
+    const url = 'http://localhost:4000/commentPost';
+    const options = Object.assign(
+      {},
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+        },
+        body: JSON.stringify({ postId: id, comment: comment }),
+      }
+    );
+    const response = await fetch(url, options)
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+
+    return response;
+  },
 };

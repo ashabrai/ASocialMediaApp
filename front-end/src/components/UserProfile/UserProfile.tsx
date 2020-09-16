@@ -20,7 +20,6 @@ interface PropsFromDispatch {
 type AllProps = PropsFromState & PropsFromDispatch;
 
 const UserProfile: React.FC<AllProps> = (props) => {
-  console.log(props);
   const { fetchUserPosts } = props;
 
   useEffect(() => {

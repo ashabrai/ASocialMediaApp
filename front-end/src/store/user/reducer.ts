@@ -6,9 +6,12 @@ export const initialState: UserState = {
   isCreatingNewPost: false,
   createdNewPost: false,
   isFetchingAllPosts: false,
+  isCommenting: false,
+  hasCommented: false,
   allPosts: [],
   userPosts: [],
   likes: [],
+  comments: [],
 };
 
 const reducer: Reducer<UserState> = (state = initialState, action) => {
@@ -109,6 +112,32 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
       return {
         ...state,
         likes: [],
+        errors: action.payload,
+      };
+    }
+
+    case User_Action_Constants.COMMENT_POST: {
+      return {
+        ...state,
+        isCommenting: true,
+        hasCommented: false,
+      };
+    }
+
+    case User_Action_Constants.COMMENT_POST_SUCCEEDED: {
+      return {
+        ...state,
+        hasCommented: true,
+        isCommenting: false,
+        comments: action.payload,
+      };
+    }
+
+    case User_Action_Constants.COMMENT_POST_FAILED: {
+      return {
+        ...state,
+        hasCommented: false,
+        isCommenting: false,
         errors: action.payload,
       };
     }

@@ -11,6 +11,8 @@ import {
   likeUserPostFailed,
   unlikeUserPostSucceeded,
   unlikeUserPostFailed,
+  commentPostSucceeded,
+  commentPostFailed,
 } from './action';
 
 import Api from './api';
@@ -39,7 +41,8 @@ function* createPost(data) {
 function* fetchAllPosts() {
   try {
     const response = yield call(Api.fetchAllPosts);
-    yield put(fetchAllPostsSucceeded(response));
+    const descendOrderOfPost = response.reverse();
+    yield put(fetchAllPostsSucceeded(descendOrderOfPost));
   } catch (e) {
     yield put(fetchAllPostsFailed(e));
   }
@@ -74,12 +77,22 @@ function* unlikeUserPost(action) {
   }
 }
 
+function* commentUserPost(action) {
+  try {
+    const { id, comment } = action.payload;
+    const response = yield call(Api.commentUserPost, id, comment);
+    yield put(commentPostSucceeded(response));
+  } catch (e) {
+    yield put(commentPostFailed(e));
+  }
+}
 function* watchAllUserRequest() {
   yield takeLatest(User_Action_Constants.CREATE_POST, getImageURL);
   yield takeLatest(User_Action_Constants.FETCH_ALL_POSTS, fetchAllPosts);
   yield takeLatest(User_Action_Constants.FETCH_USER_POSTS, fetchUserPosts);
   yield takeLatest(User_Action_Constants.LIKE_USER_POST, likeUserPost);
   yield takeLatest(User_Action_Constants.UNLIKE_USER_POST, unlikeUserPost);
+  yield takeLatest(User_Action_Constants.COMMENT_POST, commentUserPost);
 }
 
 export default watchAllUserRequest;

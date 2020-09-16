@@ -19,6 +19,10 @@ export enum User_Action_Constants {
   UNLIKE_USER_POST = '@@user/UNLIKE_USER_POST',
   UNLIKE_USER_POST_SUCCEEDED = '@@user/UNLIKE_USER_POST_SUCCEEDED',
   UNLIKE_USER_POST_FAILED = '@@user/UNLIKE_USER_POST_FAILED',
+
+  COMMENT_POST = '@@user/COMMENT_POST',
+  COMMENT_POST_SUCCEEDED = '@@user/COMMENT_POST_SUCCEEDED',
+  COMMENT_POST_FAILED = '@@user/COMMENT_POST_FAILED',
 }
 
 export interface UserState {
@@ -29,4 +33,7 @@ export interface UserState {
   readonly isFetchingAllPosts?: boolean;
   readonly userPosts: Array<String>;
   readonly likes: Array<String>;
+  readonly comments: Array<String>;
+  readonly hasCommented?: boolean;
+  readonly isCommenting?: boolean;
 }
