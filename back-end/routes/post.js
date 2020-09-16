@@ -83,4 +83,31 @@ router.put("/unlikeUserPost", requireLogin, (req, res) => {
     }
   });
 });
+
+router.put("/commentPost", requireLogin, (req, res) => {
+  console.log(req.body.comment, " text");
+  const comment = {
+    comment: req.body.comment,
+    postedBy: req.user._id,
+  };
+  console.log(comment, "comment in BE");
+  Post.findByIdAndUpdate(
+    req.body.postId,
+    {
+      $push: { comments: comment },
+    },
+    {
+      new: true,
+    }
+  )
+    .populate("comments.postedBy", "_id name") // what to populate the user name and their id
+    .exec((err, result) => {
+      console.log(result, "result");
+      if (err) {
+        return res.status(422).json({ error: err });
+      } else {
+        res.status(200).json(result);
+      }
+    });
+});
 module.exports = router;
