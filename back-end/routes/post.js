@@ -66,7 +66,6 @@ router.put("/likeUserPost", requireLogin, (req, res) => {
 });
 
 router.put("/unlikeUserPost", requireLogin, (req, res) => {
-  console.log(req.body.postId);
   Post.findByIdAndUpdate(
     req.body.postId,
     {
@@ -85,12 +84,10 @@ router.put("/unlikeUserPost", requireLogin, (req, res) => {
 });
 
 router.put("/commentPost", requireLogin, (req, res) => {
-  console.log(req.body.comment, " text");
   const comment = {
     comment: req.body.comment,
     postedBy: req.user._id,
   };
-  console.log(comment, "comment in BE");
   Post.findByIdAndUpdate(
     req.body.postId,
     {
@@ -102,7 +99,6 @@ router.put("/commentPost", requireLogin, (req, res) => {
   )
     .populate("comments.postedBy", "_id name") // what to populate the user name and their id
     .exec((err, result) => {
-      console.log(result, "result");
       if (err) {
         return res.status(422).json({ error: err });
       } else {
