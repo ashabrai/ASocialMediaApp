@@ -8,10 +8,12 @@ export const initialState: UserState = {
   isFetchingAllPosts: false,
   isCommenting: false,
   hasCommented: false,
+  currentPost: {},
   allPosts: [],
   userPosts: [],
   likes: [],
   comments: [],
+  postId: null,
 };
 
 const reducer: Reducer<UserState> = (state = initialState, action) => {
@@ -121,6 +123,7 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
         ...state,
         isCommenting: true,
         hasCommented: false,
+        postId: action.payload.postId,
       };
     }
 
@@ -129,7 +132,16 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
         ...state,
         hasCommented: true,
         isCommenting: false,
-        comments: action.payload,
+        allPosts: state.allPosts.map((item) => {
+          if (item._id === state.postId) {
+            return {
+              ...item,
+              comments: action.payload.comments,
+            };
+          }
+          return item;
+        }),
+        currentPost: action.payload,
       };
     }
 
@@ -139,6 +151,7 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
         hasCommented: false,
         isCommenting: false,
         errors: action.payload,
+        currentPostId: '',
       };
     }
     default: {

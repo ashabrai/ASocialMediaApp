@@ -43,6 +43,7 @@ const Homepage: React.FunctionComponent<AllProps> = (props: any) => {
               postId={post._id}
               meta={dateConverted(post.datePosted)}
               description={post.body}
+              // post={post}
               comments={post.comments}
             />
           </div>

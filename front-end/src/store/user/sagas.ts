@@ -79,8 +79,8 @@ function* unlikeUserPost(action) {
 
 function* commentUserPost(action) {
   try {
-    const { id, comment } = action.payload;
-    const response = yield call(Api.commentUserPost, id, comment);
+    const { postId, comment } = action.payload;
+    const response = yield call(Api.commentUserPost, postId, comment);
     yield put(commentPostSucceeded(response));
   } catch (e) {
     yield put(commentPostFailed(e));

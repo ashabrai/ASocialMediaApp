@@ -29,11 +29,13 @@ export interface UserState {
   readonly errors?: String;
   readonly isCreatingNewPost?: boolean;
   readonly createdNewPost?: boolean;
-  readonly allPosts: Array<String>;
+  readonly allPosts: Array<any>;
   readonly isFetchingAllPosts?: boolean;
   readonly userPosts: Array<String>;
   readonly likes: Array<String>;
   readonly comments: Array<String>;
   readonly hasCommented?: boolean;
   readonly isCommenting?: boolean;
+  readonly currentPost: Object;
+  readonly postId: any;
 }

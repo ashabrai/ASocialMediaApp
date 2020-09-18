@@ -1,39 +1,50 @@
+/* eslint-disable no-restricted-imports */
 /* eslint-disable @typescript-eslint/naming-convention */
-import React from 'react';
-import { Comment, Header } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import { Comment, Header, Checkbox } from 'semantic-ui-react';
 
 interface iAppProps {
   username?: String;
   datePublished?: String;
-  comments: Array<String>;
+  comments: Array<object>;
+  hasCommented: boolean;
 }
 
-const CommentSection: React.FC<iAppProps> = (props: any) => {
+type AllProps = iAppProps;
+
+const CommentSection: React.FC<AllProps> = (props: any) => {
   const { comments } = props;
-  console.log(props);
+  const [isChecked, setChecked] = useState<boolean>(true);
+  const onChange = () => {
+    setChecked(!isChecked);
+  };
+  const commentsHeader = () => {
+    return !isChecked ? 'Collapse Comments' : `View ${comments.length} Comments`;
+  };
   return (
-    <Comment.Group>
-      <Header as="h3" dividing>
-        Comments
-      </Header>
-      {comments.map((comment, index) => (
-        <div key={index}>
-          <Comment>
-            <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
-            <Comment.Content>
-              <Comment.Author as="a">{comment.postedBy}</Comment.Author>
-              {/* <Comment.Metadata>
+    <div>
+      {comments.length !== 0 ? <Checkbox defaultChecked label={commentsHeader()} onChange={() => onChange()} /> : null}
+      <Comment.Group collapsed={isChecked}>
+        <Header as="h3">Comments</Header>
+        {comments.map((comment, index) => (
+          <div key={index}>
+            <Comment>
+              <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
+              <Comment.Content>
+                <Comment.Author as="a">{comment.postedBy._id}</Comment.Author>
+                {/* <Comment.Metadata>
                 {/* <div>{comment.datePublished}</div> */}
-              {/* </Comment.Metadata> */}
-              <Comment.Text>{comment.comment}</Comment.Text>
-              <Comment.Actions>
-                <Comment.Action>Reply</Comment.Action>
-              </Comment.Actions>
-            </Comment.Content>
-          </Comment>
-        </div>
-      ))}
-    </Comment.Group>
+                {/* </Comment.Metadata> */}
+                <Comment.Text>{comment.comment}</Comment.Text>
+                <Comment.Actions>
+                  <Comment.Action>Reply</Comment.Action>
+                </Comment.Actions>
+              </Comment.Content>
+            </Comment>
+          </div>
+        ))}
+      </Comment.Group>
+    </div>
   );
 };
 

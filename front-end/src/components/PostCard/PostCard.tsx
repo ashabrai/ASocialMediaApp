@@ -1,18 +1,22 @@
 /* eslint-disable no-restricted-imports */
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { ApplicationState } from 'store';
+import { selectedPostComments } from '../../store/user/selectors';
 import DisplayCard from '../../sharedComponents/DisplayCard';
 import CommentSection from '../../sharedComponents/Comments';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { faComment, faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import { likeUserPost, unlikeUserPost, commentPost } from 'store/user/action';
 
 library.add(fas);
 
 interface PropsFromState {
   hasCommented: boolean;
+  currentPost: Object;
+  selectedComments: Array<Object>;
 }
 
 interface PropsFromDispatch {
@@ -50,7 +54,6 @@ const PostCard: React.FunctionComponent<AllProps> = (props: any) => {
 
   const [liked, setLike] = useState(false);
   const [comment, setCommentValue] = useState<String>('');
-  const [isClicked, setClicked] = useState(false);
 
   const likeOrUnlikePost = () => {
     if (liked) {
@@ -60,10 +63,6 @@ const PostCard: React.FunctionComponent<AllProps> = (props: any) => {
       setLike(true);
       likeUserPost(postId);
     }
-  };
-
-  const buttonClicked = () => {
-    setClicked(!isClicked);
   };
 
   const cardContent = () => {
@@ -90,12 +89,6 @@ const PostCard: React.FunctionComponent<AllProps> = (props: any) => {
             style={{ marginLeft: '5px', marginBottom: '10px' }}
           />
         )}
-        <FontAwesomeIcon
-          icon={faComment}
-          size="lg"
-          onClick={() => buttonClicked()}
-          style={{ marginLeft: '5px', marginBottom: '10px' }}
-        />
       </div>
     );
   };
@@ -106,11 +99,12 @@ const PostCard: React.FunctionComponent<AllProps> = (props: any) => {
   };
 
   const handleCommentButtonClick = () => {
-    commentPost(postId, comment);
+    const payload = { postId, comment };
+    commentPost(payload);
   };
 
   const commentSection = () => {
-    return <CommentSection comments={comments} />;
+    return <CommentSection comments={comments} hasCommented={hasCommented} />;
   };
 
   return (
@@ -126,11 +120,17 @@ const PostCard: React.FunctionComponent<AllProps> = (props: any) => {
       textAreaOnChange={(event) => handleCommentChange(event)}
       buttonContent="Comment"
       onButtonClick={() => handleCommentButtonClick()}
-      displayExtraContent={isClicked || hasCommented}
+      displayExtraContent={hasCommented}
       additionalCardSection={commentSection()}
+      hasCommented={hasCommented}
     />
   );
 };
+const mapStateToProps = ({ user }: ApplicationState) => ({
+  hasCommented: user.hasCommented,
+  currentPost: user.currentPost,
+  selectedComments: selectedPostComments(user),
+});
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
@@ -140,4 +140,4 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(PostCard);
+export default connect(mapStateToProps, mapDispatchToProps)(PostCard);

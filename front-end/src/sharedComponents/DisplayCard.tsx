@@ -3,7 +3,6 @@ import React from 'react';
 import { Card, Image, Form, Button, Reveal } from 'semantic-ui-react';
 
 const DisplayCard = (props: any) => {
-  console.log(props, ' propsß');
   const {
     image,
     content,
@@ -15,7 +14,6 @@ const DisplayCard = (props: any) => {
     additionalCardSection,
     onButtonClick,
     buttonContent,
-    displayExtraContent,
   } = props;
 
   return (
@@ -46,7 +44,7 @@ const DisplayCard = (props: any) => {
               {buttonContent}
             </Button>
           </Form>
-          {displayExtraContent ? additionalCardSection : null}
+          {additionalCardSection ? additionalCardSection : null}
         </Card.Content>
       ) : null}
     </Card>
