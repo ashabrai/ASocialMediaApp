@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+// import { createSelector } from 'reselect';
 
 // export const selectedPostComments = (state) => state.comments;
 export const selectedPost = (state) => state.currentPost;

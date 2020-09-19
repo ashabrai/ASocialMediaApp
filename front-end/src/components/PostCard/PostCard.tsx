@@ -10,6 +10,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import { likeUserPost, unlikeUserPost, commentPost } from 'store/user/action';
+import { Button, Label } from 'semantic-ui-react';
 
 library.add(fas);
 
@@ -33,6 +34,7 @@ interface ComponentProps {
   meta: String;
   description: String;
   comments: Array<String>;
+  likes: Array<String>;
 }
 
 type AllProps = PropsFromState & PropsFromDispatch & ComponentProps;
@@ -50,6 +52,7 @@ const PostCard: React.FunctionComponent<AllProps> = (props: any) => {
     postedBy,
     meta,
     description,
+    likes,
   } = props;
 
   const [liked, setLike] = useState(false);
@@ -68,26 +71,38 @@ const PostCard: React.FunctionComponent<AllProps> = (props: any) => {
   const cardContent = () => {
     return (
       <div>
-        {!liked ? (
-          <FontAwesomeIcon
-            href=""
-            icon={faThumbsUp}
-            size="lg"
-            onClick={() => {
-              likeOrUnlikePost();
-            }}
-            style={{ marginLeft: '5px', marginBottom: '10px' }}
-          />
+        {likes.length === 0 ? (
+          <Button as="div" labelPosition="right">
+            <Button icon>
+              <FontAwesomeIcon
+                href=""
+                icon={faThumbsUp}
+                size="lg"
+                onClick={() => {
+                  likeOrUnlikePost();
+                }}
+              />
+            </Button>
+            <Label as="a" basic pointing="left">
+              {likes.length}
+            </Label>
+          </Button>
         ) : (
-          <FontAwesomeIcon
-            icon={faThumbsDown}
-            href=""
-            size="lg"
-            onClick={() => {
-              likeOrUnlikePost();
-            }}
-            style={{ marginLeft: '5px', marginBottom: '10px' }}
-          />
+          <Button as="div" labelPosition="right">
+            <Button icon>
+              <FontAwesomeIcon
+                icon={faThumbsDown}
+                href=""
+                size="lg"
+                onClick={() => {
+                  likeOrUnlikePost();
+                }}
+              />
+            </Button>
+            <Label as="a" basic pointing="left">
+              {likes.length}
+            </Label>
+          </Button>
         )}
       </div>
     );
@@ -104,7 +119,7 @@ const PostCard: React.FunctionComponent<AllProps> = (props: any) => {
   };
 
   const commentSection = () => {
-    return <CommentSection comments={comments} hasCommented={hasCommented} />;
+    return <CommentSection comments={comments} hasCommented={hasCommented} postedBy={postedBy} />;
   };
 
   return (

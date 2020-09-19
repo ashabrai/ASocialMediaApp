@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-imports */
 import React from 'react';
-import { Card, Image, Form, Button, Reveal } from 'semantic-ui-react';
+import { Card, Image, Form, Button } from 'semantic-ui-react';
 
 const DisplayCard = (props: any) => {
   const {

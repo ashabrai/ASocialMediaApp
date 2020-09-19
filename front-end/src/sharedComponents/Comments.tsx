@@ -8,6 +8,7 @@ interface iAppProps {
   datePublished?: String;
   comments: Array<object>;
   hasCommented: boolean;
+  postedBy: String;
 }
 
 type AllProps = iAppProps;
@@ -19,8 +20,9 @@ const CommentSection: React.FC<AllProps> = (props: any) => {
     setChecked(!isChecked);
   };
   const commentsHeader = () => {
-    return !isChecked ? 'Collapse Comments' : `View ${comments.length} Comments`;
+    return !isChecked ? 'Collapse All Comments' : `View ${comments.length} Comments`;
   };
+
   return (
     <div>
       {comments.length !== 0 ? <Checkbox defaultChecked label={commentsHeader()} onChange={() => onChange()} /> : null}
@@ -31,10 +33,10 @@ const CommentSection: React.FC<AllProps> = (props: any) => {
             <Comment>
               <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
               <Comment.Content>
-                <Comment.Author as="a">{comment.postedBy._id}</Comment.Author>
+                <Comment.Author as="a">{comment.postedBy.username}</Comment.Author>
                 {/* <Comment.Metadata>
-                {/* <div>{comment.datePublished}</div> */}
-                {/* </Comment.Metadata> */}
+                  <div>{comment.datePublished}</div>
+                </Comment.Metadata> */}
                 <Comment.Text>{comment.comment}</Comment.Text>
                 <Comment.Actions>
                   <Comment.Action>Reply</Comment.Action>
