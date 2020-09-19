@@ -14,14 +14,18 @@ const DisplayCard = (props: any) => {
     additionalCardSection,
     onButtonClick,
     buttonContent,
+    headerContent,
   } = props;
 
   return (
     <Card style={{ width: '40vw' }}>
+      <Card.Content>
+        {headerContent}
+        <Card.Header>{header}</Card.Header>
+      </Card.Content>
       {image ? <Image src={image} wrapped ui={false} /> : null}
       <Card.Content>
         {content ? props.content : null}
-        {header ? <Card.Header>{header}</Card.Header> : null}
         {meta ? (
           <Card.Meta>
             <span>{meta}</span>

@@ -8,7 +8,7 @@ import CommentSection from '../../sharedComponents/Comments';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp, faThumbsDown, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { likeUserPost, unlikeUserPost, commentPost } from 'store/user/action';
 import { Button, Label } from 'semantic-ui-react';
 
@@ -66,6 +66,21 @@ const PostCard: React.FunctionComponent<AllProps> = (props: any) => {
       setLike(true);
       likeUserPost(postId);
     }
+  };
+
+  const headerContent = () => {
+    return (
+      <Button as="div" floated="right" icon>
+        <FontAwesomeIcon
+          href=""
+          icon={faEllipsisV}
+          size="sm"
+          // onClick={() => {
+          //   likeOrUnlikePost();
+          // }}
+        />
+      </Button>
+    );
   };
 
   const cardContent = () => {
@@ -138,6 +153,7 @@ const PostCard: React.FunctionComponent<AllProps> = (props: any) => {
       displayExtraContent={hasCommented}
       additionalCardSection={commentSection()}
       hasCommented={hasCommented}
+      headerContent={headerContent()}
     />
   );
 };
