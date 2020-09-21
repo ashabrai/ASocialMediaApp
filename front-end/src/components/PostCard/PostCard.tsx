@@ -2,15 +2,16 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { ApplicationState } from 'store';
+import { likeUserPost, unlikeUserPost, commentPost, deleteUserPost } from 'store/user/action';
 import { selectedPostComments } from '../../store/user/selectors';
 import DisplayCard from '../../sharedComponents/DisplayCard';
 import CommentSection from '../../sharedComponents/Comments';
+import PopupContent from '../../sharedComponents/PopupContent';
+import { Button, Label } from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { faThumbsUp, faThumbsDown, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
-import { likeUserPost, unlikeUserPost, commentPost } from 'store/user/action';
-import { Button, Label } from 'semantic-ui-react';
 
 library.add(fas);
 
@@ -24,6 +25,7 @@ interface PropsFromDispatch {
   likeUserPost: (id: String) => any;
   unlikeUserPost: (id: String) => any;
   commentPost: (id: String, comment: any) => any;
+  deleteUserPost: (id: String) => any;
 }
 
 interface ComponentProps {
@@ -68,18 +70,22 @@ const PostCard: React.FunctionComponent<AllProps> = (props: any) => {
     }
   };
 
-  const headerContent = () => {
+  const deletePost = () => {};
+
+  const deletePostButtonContent = () => {
+    return <Button content="Delete Post" onClick={() => {}} />;
+  };
+
+  const headerButtonContent = () => {
     return (
-      <Button as="div" floated="right" icon>
-        <FontAwesomeIcon
-          href=""
-          icon={faEllipsisV}
-          size="sm"
-          // onClick={() => {
-          //   likeOrUnlikePost();
-          // }}
-        />
-      </Button>
+      <PopupContent
+        content={deletePostButtonContent()}
+        triggerButton={
+          <Button as="div" floated="right" icon>
+            <FontAwesomeIcon href="" icon={faEllipsisV} size="sm" />
+          </Button>
+        }
+      />
     );
   };
 
@@ -153,7 +159,7 @@ const PostCard: React.FunctionComponent<AllProps> = (props: any) => {
       displayExtraContent={hasCommented}
       additionalCardSection={commentSection()}
       hasCommented={hasCommented}
-      headerContent={headerContent()}
+      headerContent={headerButtonContent()}
     />
   );
 };
@@ -168,6 +174,7 @@ const mapDispatchToProps = (dispatch: any) => {
     likeUserPost: (id: String) => dispatch(likeUserPost(id)),
     unlikeUserPost: (id: String) => dispatch(unlikeUserPost(id)),
     commentPost: (id: String, comment: any) => dispatch(commentPost(id, comment)),
+    deleteUserPost: (id: String) => dispatch(deleteUserPost(id)),
   };
 };
 

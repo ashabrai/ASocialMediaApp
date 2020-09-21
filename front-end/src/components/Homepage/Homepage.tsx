@@ -8,7 +8,7 @@ import { dateConverted } from '../../utils/helper';
 import './Homepage.scss';
 
 interface PropsFromState {
-  allPosts: Array<String>;
+  allPosts: Array<Object>;
   isLoggedIn: boolean;
   hasCommented: boolean;
 }
@@ -17,12 +17,12 @@ interface PropsFromDispatch {
   fetchAllPosts: () => any;
   likeUserPost: (id: String) => any;
   unlikeUserPost: (id: String) => any;
-  commentPost: (id: String, comment: any) => any;
+  commentPost: (id: String, comment: String) => any;
 }
 
 type AllProps = PropsFromState & PropsFromDispatch;
 
-const Homepage: React.FunctionComponent<AllProps> = (props: any) => {
+const Homepage: React.FC<AllProps> = (props: any) => {
   const { fetchAllPosts, allPosts, isLoggedIn } = props;
 
   useEffect(() => {

@@ -24,3 +24,7 @@ export const unlikeUserPostFailed = (message: String) => action(User_Action_Cons
 export const commentPost = (id: String, comment: String) => action(User_Action_Constants.COMMENT_POST, id, comment);
 export const commentPostSucceeded = (data: any) => action(User_Action_Constants.COMMENT_POST_SUCCEEDED, data);
 export const commentPostFailed = (message: String) => action(User_Action_Constants.COMMENT_POST_FAILED, message);
+
+export const deleteUserPost = (id: String) => action(User_Action_Constants.DELETE_USER_POST, id);
+export const deleteUserPostSucceeded = (data: any) => action(User_Action_Constants.DELETE_USER_POST_SUCCEEDED, data);
+export const deleteUserPostFailed = (message: String) => action(User_Action_Constants.DELETE_USER_POST_FAILED, message);

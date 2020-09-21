@@ -172,6 +172,21 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
         currentPostId: '',
       };
     }
+
+    case User_Action_Constants.DELETE_USER_POST_SUCCEEDED: {
+      return {
+        ...state,
+        allPosts: action.payload,
+      };
+    }
+
+    case User_Action_Constants.DELETE_USER_POST_FAILED: {
+      return {
+        ...state,
+        errors: action.payload,
+      };
+    }
+
     default: {
       return state;
     }
