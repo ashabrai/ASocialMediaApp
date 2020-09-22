@@ -1,9 +1,7 @@
-/* eslint-disable no-restricted-imports */
-/* eslint-disable @typescript-eslint/naming-convention */
 import React, { useState } from 'react';
 import { Comment, Header, Checkbox } from 'semantic-ui-react';
 
-interface iAppProps {
+interface CommentProps {
   username?: String;
   datePublished?: String;
   comments: Array<object>;
@@ -11,7 +9,7 @@ interface iAppProps {
   postedBy: String;
 }
 
-type AllProps = iAppProps;
+type AllProps = CommentProps;
 
 const CommentSection: React.FC<AllProps> = (props: any) => {
   const { comments } = props;

@@ -1,40 +1,43 @@
-/* eslint-disable no-restricted-imports */
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { fetchAllPosts, likeUserPost, unlikeUserPost, commentPost } from 'store/user/action';
-import { ApplicationState } from 'store';
-import PostCard from '../PostCard/PostCard';
-import { dateConverted } from '../../utils/helper';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllPosts } from 'store/user/action';
+import PostCard from 'components/PostCard/PostCard';
+import { dateConverted } from 'utils/helper';
 import './Homepage.scss';
+import { selectAllPosts, selectIsLoggedIn } from 'store/user/selectors';
 
-interface PropsFromState {
-  allPosts: Array<Object>;
-  isLoggedIn: boolean;
-  hasCommented: boolean;
+interface HomePageProps {
+  user: {
+    allPosts: Array<{
+      _id: string;
+      photo: string;
+      postedBy: { username: string; _id: string };
+      datePosted: string;
+      body: string;
+      comments: string;
+      likes: Array<string>;
+    }>;
+  };
+  auth: { isLoggedIn: boolean };
 }
 
-interface PropsFromDispatch {
-  fetchAllPosts: () => any;
-  likeUserPost: (id: String) => any;
-  unlikeUserPost: (id: String) => any;
-  commentPost: (id: String, comment: String) => any;
-}
+const Homepage: React.FC<HomePageProps> = (...props) => {
+  const dispatch = useDispatch();
+  const allPosts = useSelector(selectAllPosts);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
-type AllProps = PropsFromState & PropsFromDispatch;
-
-const Homepage: React.FC<AllProps> = (props: any) => {
-  const { fetchAllPosts, allPosts, isLoggedIn } = props;
+  console.log(props);
 
   useEffect(() => {
     if (isLoggedIn) {
-      fetchAllPosts();
+      dispatch(fetchAllPosts());
     }
-  }, [fetchAllPosts, isLoggedIn]);
+  }, [dispatch, isLoggedIn]);
 
   return (
     <div className="home">
       <div className="home__allCards">
-        {allPosts.map((post, index) => (
+        {allPosts?.map((post, index) => (
           <div key={index}>
             <PostCard
               image={post.photo}
@@ -53,18 +56,4 @@ const Homepage: React.FC<AllProps> = (props: any) => {
   );
 };
 
-const mapStateToProps = ({ user, auth }: ApplicationState) => ({
-  allPosts: user.allPosts,
-  isLoggedIn: auth.isLoggedIn,
-});
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    fetchAllPosts: () => dispatch(fetchAllPosts()),
-    likeUserPost: (id: String) => dispatch(likeUserPost(id)),
-    unlikeUserPost: (id: String) => dispatch(unlikeUserPost(id)),
-    commentPost: (id: String, comment: any) => dispatch(commentPost(id, comment)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Homepage);
+export default Homepage;

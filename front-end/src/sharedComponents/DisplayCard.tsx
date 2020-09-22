@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-imports */
 import React from 'react';
 import { Card, Image, Form, Button } from 'semantic-ui-react';
 

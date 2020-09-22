@@ -1,12 +1,10 @@
-/* eslint-disable no-restricted-globals */
-/* eslint-disable no-restricted-imports */
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { ApplicationState } from '../../store/index';
-import { createUser } from '../../store/auth/action';
-import SignUpForm from '../../sharedComponents/AuthForm';
-import { isValidEmailAddress } from '../../utils/helper';
+import { ApplicationState } from 'store/index';
+import { createUser } from 'store/auth/action';
+import SignUpForm from 'sharedComponents/AuthForm';
+import { isValidEmailAddress } from 'utils/helper';
 import './SignUp.scss';
 
 interface PropsFromState {

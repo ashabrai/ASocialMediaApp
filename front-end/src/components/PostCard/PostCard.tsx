@@ -1,12 +1,11 @@
-/* eslint-disable no-restricted-imports */
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { ApplicationState } from 'store';
 import { likeUserPost, unlikeUserPost, commentPost, deleteUserPost } from 'store/user/action';
-import { selectedPostComments } from '../../store/user/selectors';
-import DisplayCard from '../../sharedComponents/DisplayCard';
-import CommentSection from '../../sharedComponents/Comments';
-import PopupContent from '../../sharedComponents/PopupContent';
+import { selectedPostComments } from 'store/user/selectors';
+import DisplayCard from 'sharedComponents/DisplayCard';
+import CommentSection from 'sharedComponents/Comments';
+import PopupContent from 'sharedComponents/PopupContent';
 import { Button, Label } from 'semantic-ui-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -70,7 +69,8 @@ const PostCard: React.FunctionComponent<AllProps> = (props: any) => {
     }
   };
 
-  const deletePost = () => {};
+  // TODO: COMPLETE DELETE ROUTE
+  // const deletePost = () => {};
 
   const deletePostButtonContent = () => {
     return <Button content="Delete Post" onClick={() => {}} />;
