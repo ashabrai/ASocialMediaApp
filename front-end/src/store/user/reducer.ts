@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { User_Action_Constants, UserState } from './types';
+import { User_Action_Constants, UserState } from './ActionConstants';
 
 export const initialState: UserState = {
   errors: undefined,

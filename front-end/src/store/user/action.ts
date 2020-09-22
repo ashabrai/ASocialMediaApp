@@ -1,5 +1,5 @@
 import { action } from 'typesafe-actions';
-import { User_Action_Constants } from './types';
+import { User_Action_Constants } from './ActionConstants';
 
 export const createPost = (data: any) => action(User_Action_Constants.CREATE_POST, data);
 export const createPostSucceeded = (data: any) => action(User_Action_Constants.CREATE_POST_SUCCEEDED, data);

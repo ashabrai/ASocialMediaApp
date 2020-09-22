@@ -1,3 +1,5 @@
+import AllPosts from 'store/user/types';
+
 export default {
   createPost: async (payload) => {
     const url = 'http://localhost:4000/createPost';
@@ -40,7 +42,7 @@ export default {
     return response;
   },
 
-  fetchAllPosts: async () => {
+  fetchAllPosts(): Promise<Array<AllPosts>> {
     const url = 'http://localhost:4000/allPosts';
     const options = Object.assign(
       {},
@@ -52,7 +54,7 @@ export default {
         },
       }
     );
-    const response = await fetch(url, options)
+    const response = fetch(url, options)
       .then((response) => response.json())
       .catch((error) => console.log(error));
 
