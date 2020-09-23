@@ -1,27 +1,24 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { userLogin } from 'store/auth/action';
 import { connect } from 'react-redux';
 import './Login.scss';
 import LoginForm from 'sharedComponents/AuthForm';
 import { isValidEmailAddress } from 'utils/helper';
 import { ApplicationState } from 'store';
+import { selectIsLoggedIn } from 'store/user/selectors';
 
-interface PropsFromState {
-  isLoggedIn: boolean;
+interface SignInProps {
+  auth: { isLoggedIn: boolean };
 }
 
-interface PropsFromDispatch {
-  userLogin: (email: String, password: String) => String;
-}
-
-type AllProps = PropsFromState & PropsFromDispatch;
-
-const SignIn: React.FC<AllProps> = (props: any) => {
-  const { userLogin, isLoggedIn } = props;
-  const [email, setEmail] = useState<String>('');
-  const [password, setPassword] = useState<String>('');
+const SignIn: React.FC<SignInProps> = (props: any) => {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [emailError, setEmailError] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const password = event.target.value;
@@ -44,7 +41,7 @@ const SignIn: React.FC<AllProps> = (props: any) => {
   };
 
   const handleLoginButtonClick = () => {
-    userLogin({ email, password });
+    dispatch(userLogin({ email, password }));
   };
 
   if (isLoggedIn) {
@@ -82,7 +79,7 @@ const mapStateToProps = ({ auth }: ApplicationState) => ({
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    userLogin: (data: { email: String; password: String }) => {
+    userLogin: (data: { email: string; password: string }) => {
       dispatch(userLogin(data));
     },
   };

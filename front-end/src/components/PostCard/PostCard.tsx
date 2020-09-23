@@ -21,21 +21,21 @@ interface PropsFromState {
 }
 
 interface PropsFromDispatch {
-  likeUserPost: (id: String) => any;
-  unlikeUserPost: (id: String) => any;
-  commentPost: (id: String, comment: any) => any;
-  deleteUserPost: (id: String) => any;
+  likeUserPost: (id: string) => any;
+  unlikeUserPost: (id: string) => any;
+  commentPost: (id: string, comment: any) => any;
+  deleteUserPost: (id: string) => any;
 }
 
 interface ComponentProps {
   image: any;
-  header: String;
-  postedBy: String;
-  postId: String;
-  meta: String;
-  description: String;
-  comments: Array<String>;
-  likes: Array<String>;
+  header: string;
+  postedBy: string;
+  postId: string;
+  meta: string;
+  description: string;
+  comments: Array<string>;
+  likes: Array<string>;
 }
 
 type AllProps = PropsFromState & PropsFromDispatch & ComponentProps;
@@ -57,7 +57,7 @@ const PostCard: React.FC<AllProps> = (props: any) => {
   } = props;
 
   const [liked, setLike] = useState(false);
-  const [comment, setCommentValue] = useState<String>('');
+  const [comment, setCommentValue] = useState<string>('');
 
   const likeOrUnlikePost = () => {
     if (liked) {
@@ -170,10 +170,10 @@ const mapStateToProps = ({ user }: ApplicationState) => ({
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    likeUserPost: (id: String) => dispatch(likeUserPost(id)),
-    unlikeUserPost: (id: String) => dispatch(unlikeUserPost(id)),
-    commentPost: (id: String, comment: any) => dispatch(commentPost(id, comment)),
-    deleteUserPost: (id: String) => dispatch(deleteUserPost(id)),
+    likeUserPost: (id: string) => dispatch(likeUserPost(id)),
+    unlikeUserPost: (id: string) => dispatch(unlikeUserPost(id)),
+    commentPost: (id: string, comment: any) => dispatch(commentPost(id, comment)),
+    deleteUserPost: (id: string) => dispatch(deleteUserPost(id)),
   };
 };
 

@@ -1,8 +1,7 @@
 /* eslint-disable no-restricted-imports */
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Route, Switch, BrowserRouter, useHistory } from 'react-router-dom';
-import { ApplicationState } from 'store';
 import { saveUserData } from 'store/auth/action';
 
 import Navbar from './components/Navbar/Navbar';
@@ -15,15 +14,9 @@ import CreatePost from '../src/components/CreatePost/CreatePost';
 import Logout from '../src/components/Logout/Logout';
 import './App.css';
 
-interface PropsFromDispatch {
-  saveUserData: (user: object) => any;
-}
-
-type AllProps = PropsFromDispatch;
-
-const Routing: React.FC<AllProps> = (props) => {
-  const { saveUserData } = props;
+const Routing: React.FC = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   // Added this useEffect here in the case that a user closes browser but does not log out
   // That the user data needed in order to navigate through the app will be pulled from LS if found and stored in the store.
   // Which should not require the user to log back in again.
@@ -31,11 +24,11 @@ const Routing: React.FC<AllProps> = (props) => {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
-      saveUserData(user);
+      dispatch(saveUserData(user));
     } else if (!history.location.pathname.startsWith('/reset')) {
       history.push('/Login');
     }
-  }, [saveUserData, history]);
+  }, [dispatch, history]);
   return (
     <Switch>
       <Route exact path="/" component={Homepage} />
@@ -49,24 +42,13 @@ const Routing: React.FC<AllProps> = (props) => {
   );
 };
 
-const App: React.FC<AllProps> = (props) => {
+const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Navbar />
-      <Routing {...props} />
+      <Routing />
     </BrowserRouter>
   );
 };
 
-const mapStateToProps = ({ auth }: ApplicationState) => ({
-  userDataSaved: auth.userDataSaved,
-});
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    saveUserData: (user: object) => {
-      dispatch(saveUserData(user));
-    },
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

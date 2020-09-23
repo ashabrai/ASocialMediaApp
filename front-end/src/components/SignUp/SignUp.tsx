@@ -1,32 +1,29 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { ApplicationState } from 'store/index';
+import { useDispatch, useSelector } from 'react-redux';
 import { createUser } from 'store/auth/action';
 import SignUpForm from 'sharedComponents/AuthForm';
 import { isValidEmailAddress } from 'utils/helper';
 import './SignUp.scss';
+import { selectHasBeenCreated } from 'store/user/selectors';
 
-interface PropsFromState {
+interface SignUpProps {
   hasBeenCreated: boolean;
 }
-interface PropsFromDispatch {
-  createUser: (name: String, username: String, email: String, password: String) => String;
-}
 
-type AllProps = PropsFromDispatch & PropsFromState;
-
-const SignUp: React.FC<AllProps> = (props: any) => {
-  const { createUser, hasBeenCreated } = props;
+const SignUp: React.FC<SignUpProps> = () => {
   const history = useHistory();
-  const [name, setName] = useState<String>();
-  const [username, setUsername] = useState<String>();
-  const [email, setEmail] = useState<String>();
-  const [password, setPassword] = useState<String>();
+  const dispatch = useDispatch();
+  const hasBeenCreated = useSelector(selectHasBeenCreated);
+
+  const [name, setName] = useState<string>();
+  const [username, setUsername] = useState<string>();
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string>();
   const [emailError, setEmailError] = useState<boolean>(false);
 
   const handleSubmitButtonClick = () => {
-    createUser({ name, username, email, password });
+    dispatch(createUser({ name, username, email, password }));
     if (hasBeenCreated) {
       history.push('/AccountCreated');
     }
@@ -86,16 +83,4 @@ const SignUp: React.FC<AllProps> = (props: any) => {
   );
 };
 
-const mapStateToProps = ({ auth }: ApplicationState) => ({
-  hasBeenCreated: auth.hasBeenCreated,
-});
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    createUser: (data: { name: String; username: String; email: String; password: String }) => {
-      dispatch(createUser(data));
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default SignUp;

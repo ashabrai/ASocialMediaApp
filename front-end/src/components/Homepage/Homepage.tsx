@@ -21,7 +21,7 @@ interface HomePageProps {
   auth: { isLoggedIn: boolean };
 }
 
-const Homepage: React.FC<HomePageProps> = (...props) => {
+const Homepage: React.FC<HomePageProps> = () => {
   const dispatch = useDispatch();
   const allPosts = useSelector(selectAllPosts);
   const isLoggedIn = useSelector(selectIsLoggedIn);

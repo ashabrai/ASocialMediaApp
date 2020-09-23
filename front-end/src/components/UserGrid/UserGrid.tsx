@@ -1,14 +1,14 @@
 import React from 'react';
 import './UserGrid.scss';
 
-interface PropsFromParent {
-  userPosts: Array<any>;
+interface GridProps {
+  userPosts: Array<{
+    photo: string;
+    title: string;
+  }>;
 }
 
-type AllProps = PropsFromParent;
-
-const Grid: React.FC<AllProps> = (props) => {
-  const { userPosts } = props;
+const Grid: React.FC<GridProps> = ({ userPosts }: GridProps) => {
   return (
     <div className="user__gallery">
       {userPosts.map((post, index) => (

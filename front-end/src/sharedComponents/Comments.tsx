@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Comment, Header, Checkbox } from 'semantic-ui-react';
 
 interface CommentsProps {
-  username?: String;
-  datePublished?: String;
+  username?: string;
+  datePublished?: string;
   comments: Array<object>;
   hasCommented: boolean;
-  postedBy: String;
+  postedBy: string;
 }
 
 type AllProps = CommentsProps;
