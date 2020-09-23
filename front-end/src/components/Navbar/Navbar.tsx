@@ -1,11 +1,10 @@
-/* eslint-disable no-restricted-imports */
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { ApplicationState } from '../../store/index';
+import { ApplicationState } from 'store/index';
 import { userLogout } from 'store/auth/action';
 import { connect } from 'react-redux';
-import SocialMediaApp from '../../assets/socialMediaApp.png';
-import Button from '../../sharedComponents/ButtonComponent';
+import SocialMediaApp from 'assets/socialMediaApp.png';
+import Button from 'sharedComponents/ButtonComponent';
 import './Navbar.scss';
 
 interface PropsFromState {

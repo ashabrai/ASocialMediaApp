@@ -1,10 +1,9 @@
-/* eslint-disable no-restricted-imports */
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { createPost } from '../../store/user/action';
-import CreatePostForm from '../../sharedComponents/CreatePostForm';
-import { ApplicationState } from '../../store/index';
+import { createPost } from 'store/user/action';
+import CreatePostForm from 'sharedComponents/CreatePostForm';
+import { ApplicationState } from 'store/index';
 import './CreatePost.scss';
 
 interface PropsFromState {

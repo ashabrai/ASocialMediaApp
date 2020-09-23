@@ -1,12 +1,10 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable no-restricted-imports */
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { userLogin } from 'store/auth/action';
 import { connect } from 'react-redux';
 import './Login.scss';
-import LoginForm from '../../sharedComponents/AuthForm';
-import { isValidEmailAddress } from '../../utils/helper';
+import LoginForm from 'sharedComponents/AuthForm';
+import { isValidEmailAddress } from 'utils/helper';
 import { ApplicationState } from 'store';
 
 interface PropsFromState {

@@ -1,10 +1,9 @@
-/* eslint-disable no-restricted-imports */
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { ApplicationState } from '../../store/index';
+import { ApplicationState } from 'store/index';
 import { fetchUserPosts } from 'store/user/action';
-import { selectedUserId } from '../../store/auth/selectors';
-import UserGrid from '../UserGrid/UserGrid';
+import { selectedUserId } from 'store/auth/selectors';
+import UserGrid from 'components/UserGrid/UserGrid';
 import './UserProfile.scss';
 
 interface PropsFromState {

@@ -1,10 +1,9 @@
-/* eslint-disable no-restricted-imports */
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchAllPosts, likeUserPost, unlikeUserPost, commentPost } from 'store/user/action';
 import { ApplicationState } from 'store';
-import PostCard from '../PostCard/PostCard';
-import { dateConverted } from '../../utils/helper';
+import PostCard from 'components/PostCard/PostCard';
+import { dateConverted } from 'utils/helper';
 import './Homepage.scss';
 
 interface PropsFromState {
