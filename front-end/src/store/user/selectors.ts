@@ -1,8 +1,10 @@
 // import { createSelector } from 'reselect';
+import { ApplicationState } from 'store';
 
-// export const selectedPostComments = (state) => state.comments;
 export const selectedPost = (state) => state.currentPost;
 
-// create selectedPostComments
-
 export const selectedPostComments = (state) => state.currentPost.comments;
+
+export const selectAllPosts = (state: ApplicationState) => state.user.allPosts;
+
+export const selectIsLoggedIn = (state: ApplicationState) => state.auth.isLoggedIn;

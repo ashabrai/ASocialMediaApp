@@ -6,11 +6,11 @@ import { ApplicationState } from 'store';
 import { saveUserData } from 'store/auth/action';
 
 import Navbar from './components/Navbar/Navbar';
-import Homepage from '../src/components/Homepage/Homepage';
+import Homepage from './components/Homepage/Homepage';
 import SignUp from '../src/components/SignUp/SignUp';
 import Login from '../src/components/Login/Login';
 import UserProfile from '../src/components/UserProfile/UserProfile';
-import SignUpRedirect from '../src/components/SignUp/SignUpRedirect';
+import SignUpRedirect from '../src/components/SignUp/SignupRedirect';
 import CreatePost from '../src/components/CreatePost/CreatePost';
 import Logout from '../src/components/Logout/Logout';
 import './App.css';

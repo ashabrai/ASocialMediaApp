@@ -17,7 +17,7 @@ interface PropsFromDispatch {
 
 type AllProps = PropsFromState & PropsFromDispatch;
 
-const SignIn: React.FunctionComponent<AllProps> = (props: any) => {
+const SignIn: React.FC<AllProps> = (props: any) => {
   const { userLogin, isLoggedIn } = props;
   const [email, setEmail] = useState<String>('');
   const [password, setPassword] = useState<String>('');

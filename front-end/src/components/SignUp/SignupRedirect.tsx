@@ -5,7 +5,7 @@ import Login from 'components/Login/Login';
 import { Link, Route } from 'react-router-dom';
 import './SignUpRedirect.scss';
 
-const SignUpRedirect: React.FunctionComponent = () => {
+const SignUpRedirect: React.FC = () => {
   const routeToLogin = () => {
     return (
       <div className="signUpRedirect__button">

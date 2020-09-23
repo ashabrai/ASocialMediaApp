@@ -18,7 +18,7 @@ interface PropsFromDispatch {
 }
 type AllProps = PropsFromDispatch & PropsFromState;
 
-const Navbar: React.FunctionComponent<AllProps> = (props) => {
+const Navbar: React.FC<AllProps> = (props) => {
   const { userLogout, isLoggedIn } = props;
 
   const logUserOut = () => {

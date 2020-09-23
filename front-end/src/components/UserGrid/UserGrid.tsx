@@ -7,7 +7,7 @@ interface PropsFromParent {
 
 type AllProps = PropsFromParent;
 
-const Grid: React.FunctionComponent<AllProps> = (props) => {
+const Grid: React.FC<AllProps> = (props) => {
   const { userPosts } = props;
   return (
     <div className="user__gallery">

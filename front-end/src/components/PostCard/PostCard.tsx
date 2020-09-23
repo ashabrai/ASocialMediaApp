@@ -40,7 +40,7 @@ interface ComponentProps {
 
 type AllProps = PropsFromState & PropsFromDispatch & ComponentProps;
 
-const PostCard: React.FunctionComponent<AllProps> = (props: any) => {
+const PostCard: React.FC<AllProps> = (props: any) => {
   const {
     likeUserPost,
     unlikeUserPost,
