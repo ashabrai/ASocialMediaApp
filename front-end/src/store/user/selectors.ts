@@ -13,3 +13,4 @@ export const selectCreatedNewPostStatus = (state: ApplicationState) => state.use
 
 export const selectHasBeenCreated = (state: ApplicationState) => state.auth.hasBeenCreated;
 export const selectUserPosts = (state: ApplicationState) => state.user.userPosts;
+export const selectHasCommented = (state: ApplicationState) => state.user.hasCommented;

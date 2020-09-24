@@ -9,14 +9,11 @@ import { isValidEmailAddress } from 'utils/helper';
 import { ApplicationState } from 'store';
 import { selectIsLoggedIn } from 'store/user/selectors';
 
-interface SignInProps {
-  auth: { isLoggedIn: boolean };
-}
-
-const SignIn: React.FC<SignInProps> = (props: any) => {
+const SignIn: React.FC = (props: any) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [emailError, setEmailError] = useState<boolean>(false);
+
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
@@ -65,8 +62,8 @@ const SignIn: React.FC<SignInProps> = (props: any) => {
         button="Login"
         message={linkToSignUp}
         emailError={emailError}
-        handleEmailChange={(e: any) => handleEmailChange(e)}
-        handlePasswordChange={(e: any) => handlePasswordChange(e)}
+        handleEmailChange={(e: React.ChangeEvent<HTMLInputElement>) => handleEmailChange(e)}
+        handlePasswordChange={(e: React.ChangeEvent<HTMLInputElement>) => handlePasswordChange(e)}
         handleClick={() => handleLoginButtonClick()}
       />
     </div>

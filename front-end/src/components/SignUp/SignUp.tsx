@@ -7,11 +7,7 @@ import { isValidEmailAddress } from 'utils/helper';
 import './SignUp.scss';
 import { selectHasBeenCreated } from 'store/user/selectors';
 
-interface SignUpProps {
-  hasBeenCreated: boolean;
-}
-
-const SignUp: React.FC<SignUpProps> = () => {
+const SignUp: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const hasBeenCreated = useSelector(selectHasBeenCreated);
@@ -73,10 +69,10 @@ const SignUp: React.FC<SignUpProps> = () => {
         button="Sign Up"
         message={linkToLogin}
         emailError={emailError}
-        handleNameChange={(e: any) => handleNameChange(e)}
-        handleUsernameChange={(e: any) => handleUsernameChange(e)}
-        handleEmailChange={(e: any) => handleEmailChange(e)}
-        handlePasswordChange={(e: any) => handlePasswordChange(e)}
+        handleNameChange={(e: React.ChangeEvent<HTMLInputElement>) => handleNameChange(e)}
+        handleUsernameChange={(e: React.ChangeEvent<HTMLInputElement>) => handleUsernameChange(e)}
+        handleEmailChange={(e: React.ChangeEvent<HTMLInputElement>) => handleEmailChange(e)}
+        handlePasswordChange={(e: React.ChangeEvent<HTMLInputElement>) => handlePasswordChange(e)}
         handleClick={() => handleSubmitButtonClick()}
       />
     </div>

@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserPosts } from 'store/user/action';
 import { selectUserPosts } from 'store/user/selectors';
-
 import UserGrid from 'components/UserGrid/UserGrid';
 import './UserProfile.scss';
 

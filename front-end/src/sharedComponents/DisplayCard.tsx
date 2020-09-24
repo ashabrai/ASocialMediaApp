@@ -1,6 +1,10 @@
 import React from 'react';
 import { Card, Image, Form, Button } from 'semantic-ui-react';
 
+// interface DisplayCardProps {
+
+// }
+
 const DisplayCard = (props: any) => {
   const {
     image,
@@ -15,7 +19,7 @@ const DisplayCard = (props: any) => {
     buttonContent,
     headerContent,
   } = props;
-
+  console.log(props);
   return (
     <Card style={{ width: '40vw' }}>
       <Card.Content>

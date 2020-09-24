@@ -1,36 +1,66 @@
 import React from 'react';
 import { Button, Form, Grid, Header, Message, Segment, Input } from 'semantic-ui-react';
 
-export default (props: any) => {
+interface PropsForAuthForm {
+  name?: string;
+  username?: string;
+  email?: string;
+  password?: string;
+  message?: any;
+  header?: string;
+  button?: string;
+  emailError?: boolean;
+  handleNameChange?: (e) => void;
+  handleUsernameChange?: (e) => void;
+  handleEmailChange: (e) => void;
+  handlePasswordChange: (e) => void;
+  handleClick: () => void;
+}
+
+export default ({
+  name,
+  username,
+  email,
+  password,
+  message,
+  header,
+  button,
+  emailError,
+  handleNameChange,
+  handleUsernameChange,
+  handleEmailChange,
+  handlePasswordChange,
+  handleClick,
+}: PropsForAuthForm) => {
   return (
     <Grid centered columns={2}>
       <Grid.Column>
         <Header as="h2" textAlign="center">
-          {props.header}
+          {header}
         </Header>
         <Segment>
           <Form size="large">
             <Form.Field>
-              {props.name ? (
+              {name ? (
                 <Input
                   fluid
                   icon="user"
                   iconPosition="left"
                   name="name"
                   required={true}
-                  placeholder={props.name}
-                  onChange={(e) => props.handleNameChange(e)}
+                  placeholder={name}
+                  onChange={(e) => handleNameChange(e)}
                 />
               ) : null}
-              {props.username ? (
+              {username ? (
                 <Input
                   fluid
                   icon="user"
                   iconPosition="left"
                   required={true}
                   name="username"
-                  placeholder={props.username}
-                  onChange={(e) => props.handleUsernameChange(e)}
+                  placeholder={username}
+                  onChange={(e) => handleUsernameChange(e)}
                 />
               ) : null}
               <Input
@@ -39,25 +69,25 @@ export default (props: any) => {
                 icon="mail"
                 iconPosition="left"
                 required={true}
-                placeholder={props.email}
-                error={props.emailError}
-                onChange={(e) => props.handleEmailChange(e)}
+                placeholder={email}
+                error={emailError}
+                onChange={(e) => handleEmailChange(e)}
               />
               <Input
                 fluid
                 icon="lock"
                 iconPosition="left"
                 required={true}
-                placeholder={props.password}
-                onChange={(e) => props.handlePasswordChange(e)}
+                placeholder={password}
+                onChange={(e) => handlePasswordChange(e)}
               />
             </Form.Field>
-            <Button color="black" fluid size="large" onClick={() => props.handleClick()}>
-              {props.button}
+            <Button color="black" fluid size="large" onClick={() => handleClick()}>
+              {button}
             </Button>
           </Form>
         </Segment>
-        {props.message ? <Message>{props.message}</Message> : null}
+        {message ? <Message>{message}</Message> : null}
       </Grid.Column>
     </Grid>
   );

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { ApplicationState } from 'store';
+import { useDispatch, useSelector } from 'react-redux';
 import { likeUserPost, unlikeUserPost, commentPost, deleteUserPost } from 'store/user/action';
-import { selectedPostComments } from 'store/user/selectors';
+import { selectHasCommented } from 'store/user/selectors';
 import DisplayCard from 'sharedComponents/DisplayCard';
 import CommentSection from 'sharedComponents/Comments';
 import PopupContent from 'sharedComponents/PopupContent';
@@ -14,58 +13,43 @@ import { faThumbsUp, faThumbsDown, faEllipsisV } from '@fortawesome/free-solid-s
 
 library.add(fas);
 
-interface PropsFromState {
-  hasCommented: boolean;
-  currentPost: Object;
-  selectedComments: Array<Object>;
-}
-
-interface PropsFromDispatch {
-  likeUserPost: (id: string) => any;
-  unlikeUserPost: (id: string) => any;
-  commentPost: (id: string, comment: any) => any;
-  deleteUserPost: (id: string) => any;
-}
-
-interface ComponentProps {
-  image: any;
+interface PostCardProps {
+  image?: string;
   header: string;
   postedBy: string;
   postId: string;
   meta: string;
   description: string;
-  comments: Array<string>;
+  comments: Array<{
+    comment: string;
+    postedBy: { _id: string; username: string };
+    _id: string;
+  }>;
   likes: Array<string>;
 }
 
-type AllProps = PropsFromState & PropsFromDispatch & ComponentProps;
-
-const PostCard: React.FC<AllProps> = (props: any) => {
-  const {
-    likeUserPost,
-    unlikeUserPost,
-    postId,
-    commentPost,
-    comments,
-    hasCommented,
-    image,
-    header,
-    postedBy,
-    meta,
-    description,
-    likes,
-  } = props;
-
+const PostCard: React.FC<PostCardProps> = ({
+  image,
+  header,
+  postedBy,
+  postId,
+  meta,
+  description,
+  comments,
+  likes,
+}: PostCardProps) => {
+  const dispatch = useDispatch();
+  const hasCommented = useSelector(selectHasCommented);
   const [liked, setLike] = useState(false);
   const [comment, setCommentValue] = useState<string>('');
 
   const likeOrUnlikePost = () => {
     if (liked) {
       setLike(false);
-      unlikeUserPost(postId);
+      dispatch(unlikeUserPost(postId));
     } else {
       setLike(true);
-      likeUserPost(postId);
+      dispatch(likeUserPost(postId));
     }
   };
 
@@ -134,12 +118,11 @@ const PostCard: React.FC<AllProps> = (props: any) => {
   };
 
   const handleCommentButtonClick = () => {
-    const payload = { postId, comment };
-    commentPost(payload);
+    dispatch(commentPost(postId, comment));
   };
 
   const commentSection = () => {
-    return <CommentSection comments={comments} hasCommented={hasCommented} postedBy={postedBy} />;
+    return <CommentSection comments={comments} hasCommented={hasCommented} />;
   };
 
   return (
@@ -162,19 +145,5 @@ const PostCard: React.FC<AllProps> = (props: any) => {
     />
   );
 };
-const mapStateToProps = ({ user }: ApplicationState) => ({
-  hasCommented: user.hasCommented,
-  currentPost: user.currentPost,
-  selectedComments: selectedPostComments(user),
-});
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    likeUserPost: (id: string) => dispatch(likeUserPost(id)),
-    unlikeUserPost: (id: string) => dispatch(unlikeUserPost(id)),
-    commentPost: (id: string, comment: any) => dispatch(commentPost(id, comment)),
-    deleteUserPost: (id: string) => dispatch(deleteUserPost(id)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostCard);
+export default PostCard;

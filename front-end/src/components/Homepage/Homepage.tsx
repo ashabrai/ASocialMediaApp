@@ -21,7 +21,8 @@ interface HomePageProps {
   auth: { isLoggedIn: boolean };
 }
 
-const Homepage: React.FC<HomePageProps> = () => {
+const Homepage: React.FC<HomePageProps> = (props) => {
+  console.log(props);
   const dispatch = useDispatch();
   const allPosts = useSelector(selectAllPosts);
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -41,7 +42,7 @@ const Homepage: React.FC<HomePageProps> = () => {
               image={post.photo}
               header={post.postedBy.username}
               postedBy={post.postedBy._id}
-              postId={post._id}
+              postId={post.id}
               meta={dateConverted(post.datePosted)}
               description={post.body}
               comments={post.comments}

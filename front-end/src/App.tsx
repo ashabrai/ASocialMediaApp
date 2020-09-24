@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-imports */
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Switch, BrowserRouter, useHistory } from 'react-router-dom';
@@ -6,12 +5,12 @@ import { saveUserData } from 'store/auth/action';
 
 import Navbar from './components/Navbar/Navbar';
 import Homepage from './components/Homepage/Homepage';
-import SignUp from '../src/components/SignUp/SignUp';
-import Login from '../src/components/Login/Login';
-import UserProfile from '../src/components/UserProfile/UserProfile';
-import SignUpRedirect from '../src/components/SignUp/SignupRedirect';
-import CreatePost from '../src/components/CreatePost/CreatePost';
-import Logout from '../src/components/Logout/Logout';
+import SignUp from 'components/SignUp/SignUp';
+import Login from 'components/Login/Login';
+import UserProfile from 'components/UserProfile/UserProfile';
+import SignUpRedirect from 'components/SignUp/SignupRedirect';
+import CreatePost from 'components/CreatePost/CreatePost';
+import Logout from 'components/Logout/Logout';
 import './App.css';
 
 const Routing: React.FC = () => {
