@@ -1,6 +1,8 @@
 import React from 'react';
 import { Popup } from 'semantic-ui-react';
 
-const PopupContent = (props) => <Popup content={props.content} trigger={props.triggerButton} on="click" pinned />;
+const PopupContent = ({ content, triggerButton }) => (
+  <Popup content={content} trigger={triggerButton} on="click" pinned />
+);
 
 export default PopupContent;

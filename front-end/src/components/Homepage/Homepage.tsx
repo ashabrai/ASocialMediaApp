@@ -11,18 +11,20 @@ interface HomePageProps {
     allPosts: Array<{
       _id: string;
       photo: string;
-      postedBy: { username: string; _id: string };
       datePosted: string;
       body: string;
-      comments: string;
+      comments: Array<{
+        comment: string;
+        postedBy: { _id: string; username: string };
+        _id: string;
+      }>;
       likes: Array<string>;
     }>;
   };
   auth: { isLoggedIn: boolean };
 }
 
-const Homepage: React.FC<HomePageProps> = (props) => {
-  console.log(props);
+const Homepage: React.FC<HomePageProps> = () => {
   const dispatch = useDispatch();
   const allPosts = useSelector(selectAllPosts);
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -41,7 +43,6 @@ const Homepage: React.FC<HomePageProps> = (props) => {
             <PostCard
               image={post.photo}
               header={post.postedBy.username}
-              postedBy={post.postedBy._id}
               postId={post.id}
               meta={dateConverted(post.datePosted)}
               description={post.body}

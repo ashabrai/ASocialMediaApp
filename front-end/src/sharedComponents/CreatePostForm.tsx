@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Form, Card } from 'semantic-ui-react';
+
 interface PropsForCreatePostForm {
   handleTitleChange: (e) => void;
   handleImageChange: (e) => void;
@@ -8,13 +9,13 @@ interface PropsForCreatePostForm {
   title: string;
 }
 
-const CreatePostForm = ({
+const CreatePostForm: React.FC<PropsForCreatePostForm> = ({
   handleTitleChange,
   handleImageChange,
   handleBodyChange,
   handleClick,
   title,
-}: PropsForCreatePostForm) => {
+}) => {
   return (
     <Card style={{ width: '40vw', padding: '10px' }}>
       <Form>

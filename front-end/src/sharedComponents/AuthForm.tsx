@@ -17,7 +17,7 @@ interface PropsForAuthForm {
   handleClick: () => void;
 }
 
-export default ({
+const AuthForm: React.FC<PropsForAuthForm> = ({
   name,
   username,
   email,
@@ -31,7 +31,7 @@ export default ({
   handleEmailChange,
   handlePasswordChange,
   handleClick,
-}: PropsForAuthForm) => {
+}) => {
   return (
     <Grid centered columns={2}>
       <Grid.Column>
@@ -92,3 +92,4 @@ export default ({
     </Grid>
   );
 };
+export default AuthForm;

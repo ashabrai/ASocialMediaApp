@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { likeUserPost, unlikeUserPost, commentPost, deleteUserPost } from 'store/user/action';
-import { selectHasCommented } from 'store/user/selectors';
 import DisplayCard from 'sharedComponents/DisplayCard';
 import CommentSection from 'sharedComponents/Comments';
 import PopupContent from 'sharedComponents/PopupContent';
@@ -16,7 +15,6 @@ library.add(fas);
 interface PostCardProps {
   image?: string;
   header: string;
-  postedBy: string;
   postId: string;
   meta: string;
   description: string;
@@ -31,7 +29,6 @@ interface PostCardProps {
 const PostCard: React.FC<PostCardProps> = ({
   image,
   header,
-  postedBy,
   postId,
   meta,
   description,
@@ -39,7 +36,6 @@ const PostCard: React.FC<PostCardProps> = ({
   likes,
 }: PostCardProps) => {
   const dispatch = useDispatch();
-  const hasCommented = useSelector(selectHasCommented);
   const [liked, setLike] = useState(false);
   const [comment, setCommentValue] = useState<string>('');
 
@@ -122,15 +118,13 @@ const PostCard: React.FC<PostCardProps> = ({
   };
 
   const commentSection = () => {
-    return <CommentSection comments={comments} hasCommented={hasCommented} />;
+    return <CommentSection comments={comments} />;
   };
 
   return (
     <DisplayCard
       image={image}
       header={header}
-      postedBy={postedBy}
-      postId={postId}
       meta={meta}
       description={description}
       content={cardContent()}
@@ -138,9 +132,7 @@ const PostCard: React.FC<PostCardProps> = ({
       textAreaOnChange={(event) => handleCommentChange(event)}
       buttonContent="Comment"
       onButtonClick={() => handleCommentButtonClick()}
-      displayExtraContent={hasCommented}
       additionalCardSection={commentSection()}
-      hasCommented={hasCommented}
       headerContent={headerButtonContent()}
     />
   );
