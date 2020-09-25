@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Button, Form, Card } from 'semantic-ui-react';
 
-const CreatePostForm = (props: any) => {
+interface PropsForCreatePostForm {
+  handleTitleChange: (e) => void;
+  handleImageChange: (e) => void;
+  handleBodyChange: (e) => void;
+  handleClick: Function;
+  title: string;
+}
+
+const CreatePostForm: FC<PropsForCreatePostForm> = ({
+  handleTitleChange,
+  handleImageChange,
+  handleBodyChange,
+  handleClick,
+  title,
+}) => {
   return (
     <Card style={{ width: '40vw', padding: '10px' }}>
       <Form>
         <Form.Field>
-          <label>{props.title}</label>
+          <label>{title}</label>
           <input
             placeholder="title"
             onChange={(e) => {
-              props.handleTitleChange(e);
+              handleTitleChange(e);
             }}
           />
         </Form.Field>
@@ -18,7 +32,7 @@ const CreatePostForm = (props: any) => {
           <input
             type="file"
             onChange={(e) => {
-              props.handleImageChange(e);
+              handleImageChange(e);
             }}
           />
         </Form.Field>
@@ -27,7 +41,7 @@ const CreatePostForm = (props: any) => {
           <input
             placeholder="caption"
             onChange={(e) => {
-              props.handleBodyChange(e);
+              handleBodyChange(e);
             }}
           />
         </Form.Field>
@@ -36,7 +50,7 @@ const CreatePostForm = (props: any) => {
           fluid
           size="small"
           onClick={() => {
-            props.handleClick();
+            handleClick();
           }}
         >
           Upload Photo

@@ -1,22 +1,33 @@
-/* eslint-disable no-restricted-imports */
-import React from 'react';
+import React, { FC } from 'react';
 import { Card, Image, Form, Button } from 'semantic-ui-react';
 
-const DisplayCard = (props: any) => {
-  const {
-    image,
-    content,
-    header,
-    meta,
-    description,
-    extraContent,
-    textAreaOnChange,
-    additionalCardSection,
-    onButtonClick,
-    buttonContent,
-    headerContent,
-  } = props;
+interface DisplayCardProps {
+  image?: string;
+  content?: any;
+  header?: string;
+  meta?: string;
+  description?: any;
+  extraContent?: boolean;
+  textAreaOnChange?: (e) => void;
+  additionalCardSection?: any;
+  onButtonClick?: () => void;
+  buttonContent?: string;
+  headerContent?: any;
+}
 
+const DisplayCard: FC<DisplayCardProps> = ({
+  image,
+  content,
+  header,
+  meta,
+  description,
+  extraContent,
+  textAreaOnChange,
+  additionalCardSection,
+  onButtonClick,
+  buttonContent,
+  headerContent,
+}) => {
   return (
     <Card style={{ width: '40vw' }}>
       <Card.Content>
@@ -25,7 +36,7 @@ const DisplayCard = (props: any) => {
       </Card.Content>
       {image ? <Image src={image} wrapped ui={false} /> : null}
       <Card.Content>
-        {content ? props.content : null}
+        {content ? content : null}
         {meta ? (
           <Card.Meta>
             <span>{meta}</span>

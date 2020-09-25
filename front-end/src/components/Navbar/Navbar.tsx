@@ -1,29 +1,18 @@
-/* eslint-disable no-restricted-imports */
-import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { ApplicationState } from '../../store/index';
+import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
 import { userLogout } from 'store/auth/action';
-import { connect } from 'react-redux';
-import SocialMediaApp from '../../assets/socialMediaApp.png';
-import Button from '../../sharedComponents/ButtonComponent';
+import { useDispatch, useSelector } from 'react-redux';
+import SocialMediaApp from 'assets/socialMediaApp.png';
+import Button from 'sharedComponents/ButtonComponent';
 import './Navbar.scss';
+import { selectIsLoggedIn } from 'store/user/selectors';
 
-interface PropsFromState {
-  errors: String;
-  isLoggedIn: boolean;
-  isLoggedOut: boolean;
-}
-
-interface PropsFromDispatch {
-  userLogout: () => any;
-}
-type AllProps = PropsFromDispatch & PropsFromState;
-
-const Navbar: React.FunctionComponent<AllProps> = (props) => {
-  const { userLogout, isLoggedIn } = props;
+const Navbar: FC = () => {
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const logUserOut = () => {
-    userLogout();
+    dispatch(userLogout());
   };
 
   const renderProperLinks = () => {
@@ -64,14 +53,4 @@ const Navbar: React.FunctionComponent<AllProps> = (props) => {
   );
 };
 
-const mapStateToProps = ({ auth }: ApplicationState) => ({
-  isLoggedIn: auth.isLoggedIn,
-  isLoggedOut: auth.isLoggedOut,
-});
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    userLogout: () => dispatch(userLogout()),
-  };
-};
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar));
+export default Navbar;

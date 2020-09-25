@@ -30,14 +30,14 @@ export enum User_Action_Constants {
 }
 
 export interface UserState {
-  readonly errors?: String;
+  readonly errors?: string;
   readonly isCreatingNewPost?: boolean;
   readonly createdNewPost?: boolean;
   readonly allPosts: Array<any>;
   readonly isFetchingAllPosts?: boolean;
-  readonly userPosts: Array<String>;
-  readonly likes: Array<String>;
-  readonly comments: Array<String>;
+  readonly userPosts: Array<string>;
+  readonly likes: Array<string>;
+  readonly comments: Array<string>;
   readonly hasCommented?: boolean;
   readonly isCommenting?: boolean;
   readonly currentPost: Object;
