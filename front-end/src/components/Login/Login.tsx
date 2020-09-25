@@ -1,27 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { userLogin } from 'store/auth/action';
-import { connect } from 'react-redux';
 import './Login.scss';
 import LoginForm from 'sharedComponents/AuthForm';
 import { isValidEmailAddress } from 'utils/helper';
-import { ApplicationState } from 'store';
+import { selectIsLoggedIn } from 'store/user/selectors';
 
-interface PropsFromState {
-  isLoggedIn: boolean;
+interface SignInProps {
+  location: {
+    pathname: string;
+    hash: string;
+    key: string;
+    search: string;
+    state: string;
+  };
 }
 
-interface PropsFromDispatch {
-  userLogin: (email: String, password: String) => String;
-}
-
-type AllProps = PropsFromState & PropsFromDispatch;
-
-const SignIn: React.FunctionComponent<AllProps> = (props: any) => {
-  const { userLogin, isLoggedIn } = props;
-  const [email, setEmail] = useState<String>('');
-  const [password, setPassword] = useState<String>('');
+const SignIn: FC<SignInProps> = ({ location }) => {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [emailError, setEmailError] = useState<boolean>(false);
+
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const password = event.target.value;
@@ -44,7 +46,7 @@ const SignIn: React.FunctionComponent<AllProps> = (props: any) => {
   };
 
   const handleLoginButtonClick = () => {
-    userLogin({ email, password });
+    dispatch(userLogin({ email, password }));
   };
 
   if (isLoggedIn) {
@@ -52,7 +54,7 @@ const SignIn: React.FunctionComponent<AllProps> = (props: any) => {
       <Redirect
         to={{
           pathname: '/',
-          state: { from: props.location },
+          state: { from: location },
         }}
       />
     );
@@ -68,23 +70,12 @@ const SignIn: React.FunctionComponent<AllProps> = (props: any) => {
         button="Login"
         message={linkToSignUp}
         emailError={emailError}
-        handleEmailChange={(e: any) => handleEmailChange(e)}
-        handlePasswordChange={(e: any) => handlePasswordChange(e)}
+        handleEmailChange={(e: React.ChangeEvent<HTMLInputElement>) => handleEmailChange(e)}
+        handlePasswordChange={(e: React.ChangeEvent<HTMLInputElement>) => handlePasswordChange(e)}
         handleClick={() => handleLoginButtonClick()}
       />
     </div>
   );
 };
 
-const mapStateToProps = ({ auth }: ApplicationState) => ({
-  isLoggedIn: auth.isLoggedIn,
-});
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    userLogin: (data: { email: String; password: String }) => {
-      dispatch(userLogin(data));
-    },
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default SignIn;

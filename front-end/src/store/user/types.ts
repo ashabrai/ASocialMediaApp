@@ -8,6 +8,17 @@ export default interface AllPosts {
   likes: Array<string>;
 }
 
-type AllPostsState = {
-  allPosts: AllPosts[];
-};
+export interface UserState {
+  readonly errors?: string;
+  readonly isCreatingNewPost?: boolean;
+  readonly createdNewPost?: boolean;
+  readonly allPosts: Array<any>;
+  readonly isFetchingAllPosts?: boolean;
+  readonly userPosts: Array<string>;
+  readonly likes: Array<string>;
+  readonly comments: Array<string>;
+  readonly hasCommented?: boolean;
+  readonly isCommenting?: boolean;
+  readonly currentPost: Object;
+  readonly postId: any;
+}

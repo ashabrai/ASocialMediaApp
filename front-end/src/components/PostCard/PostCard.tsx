@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import { dispatch } from 'react-redux';
-import { ApplicationState } from 'store';
+import React, { useState, FC } from 'react';
+import { useDispatch } from 'react-redux';
 import { likeUserPost, unlikeUserPost, commentPost, deleteUserPost } from 'store/user/action';
-import { selectedPostComments } from 'store/user/selectors';
 import DisplayCard from 'sharedComponents/DisplayCard';
 import CommentSection from 'sharedComponents/Comments';
 import PopupContent from 'sharedComponents/PopupContent';
@@ -14,58 +12,32 @@ import { faThumbsUp, faThumbsDown, faEllipsisV } from '@fortawesome/free-solid-s
 
 library.add(fas);
 
-interface PropsFromState {
-  hasCommented: boolean;
-  currentPost: Object;
-  selectedComments: Array<Object>;
+interface PostCardProps {
+  image?: string;
+  header: string;
+  postId: string;
+  meta: string;
+  description: string;
+  comments: Array<{
+    comment: string;
+    postedBy: { _id: string; username: string };
+    _id: string;
+  }>;
+  likes: Array<string>;
 }
 
-interface PropsFromDispatch {
-  likeUserPost: (id: String) => any;
-  unlikeUserPost: (id: String) => any;
-  commentPost: (id: String, comment: any) => any;
-  deleteUserPost: (id: String) => any;
-}
-
-interface ComponentProps {
-  image: any;
-  header: String;
-  postedBy: String;
-  postId: String;
-  meta: String;
-  description: String;
-  comments: Array<String>;
-  likes: Array<String>;
-}
-
-type AllProps = PropsFromState & PropsFromDispatch & ComponentProps;
-
-const PostCard: React.FunctionComponent<AllProps> = (props: any) => {
-  const {
-    likeUserPost,
-    unlikeUserPost,
-    postId,
-    commentPost,
-    comments,
-    hasCommented,
-    image,
-    header,
-    postedBy,
-    meta,
-    description,
-    likes,
-  } = props;
-
+const PostCard: FC<PostCardProps> = ({ image, header, postId, meta, description, comments, likes }) => {
+  const dispatch = useDispatch();
   const [liked, setLike] = useState(false);
-  const [comment, setCommentValue] = useState<String>('');
-
+  const [comment, setCommentValue] = useState<string>('');
+  console.log(postId);
   const likeOrUnlikePost = () => {
     if (liked) {
       setLike(false);
-      unlikeUserPost(postId);
+      dispatch(unlikeUserPost(postId));
     } else {
       setLike(true);
-      likeUserPost(postId);
+      dispatch(likeUserPost(postId));
     }
   };
 
@@ -138,20 +110,17 @@ const PostCard: React.FunctionComponent<AllProps> = (props: any) => {
   };
 
   const handleCommentButtonClick = () => {
-    const payload = { postId, comment };
-    commentPost(payload);
+    dispatch(commentPost(postId, comment));
   };
 
   const commentSection = () => {
-    return <CommentSection comments={comments} hasCommented={hasCommented} postedBy={postedBy} />;
+    return <CommentSection comments={comments} />;
   };
 
   return (
     <DisplayCard
       image={image}
       header={header}
-      postedBy={postedBy}
-      postId={postId}
       meta={meta}
       description={description}
       content={cardContent()}
@@ -159,26 +128,10 @@ const PostCard: React.FunctionComponent<AllProps> = (props: any) => {
       textAreaOnChange={(event) => handleCommentChange(event)}
       buttonContent="Comment"
       onButtonClick={() => handleCommentButtonClick()}
-      displayExtraContent={hasCommented}
       additionalCardSection={commentSection()}
-      hasCommented={hasCommented}
       headerContent={headerButtonContent()}
     />
   );
 };
-const mapStateToProps = ({ user }: ApplicationState) => ({
-  hasCommented: user.hasCommented,
-  currentPost: user.currentPost,
-  selectedComments: selectedPostComments(user),
-});
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    likeUserPost: (id: String) => dispatch(likeUserPost(id)),
-    unlikeUserPost: (id: String) => dispatch(unlikeUserPost(id)),
-    commentPost: (id: String, comment: any) => dispatch(commentPost(id, comment)),
-    deleteUserPost: (id: String) => dispatch(deleteUserPost(id)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostCard);
+export default PostCard;

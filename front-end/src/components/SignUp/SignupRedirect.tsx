@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import DisplayCard from 'sharedComponents/DisplayCard';
 import Button from 'sharedComponents/ButtonComponent';
 import Login from 'components/Login/Login';
 import { Link, Route } from 'react-router-dom';
 import './SignUpRedirect.scss';
 
-const SignUpRedirect: React.FunctionComponent = () => {
+const SignUpRedirect: FC = () => {
   const routeToLogin = () => {
     return (
       <div className="signUpRedirect__button">

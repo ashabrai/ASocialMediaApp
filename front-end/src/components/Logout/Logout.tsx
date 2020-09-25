@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import { Redirect } from 'react-router-dom';
 
-const Logout: React.FunctionComponent = () => {
+const Logout: FC = () => {
   return <Redirect to="/Login" />;
 };
 

@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Popup } from 'semantic-ui-react';
 
-const PopupContent = (props) => <Popup content={props.content} trigger={props.triggerButton} on="click" pinned />;
+interface PopupContentProps {
+  content: any;
+  triggerButton: any;
+}
+
+const PopupContent: FC<PopupContentProps> = ({ content, triggerButton }) => (
+  <Popup content={content} trigger={triggerButton} on="click" pinned />
+);
 
 export default PopupContent;

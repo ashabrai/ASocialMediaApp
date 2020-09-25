@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { Comment, Header, Checkbox } from 'semantic-ui-react';
 
-interface CommentProps {
-  username?: String;
-  datePublished?: String;
-  comments: Array<object>;
-  hasCommented: boolean;
-  postedBy: String;
+interface CommentsProps {
+  comments: Array<{
+    comment: string;
+    postedBy: { _id: string; username: string };
+    _id: string;
+  }>;
 }
 
-type AllProps = CommentProps;
-
-const CommentSection: React.FC<AllProps> = (props: any) => {
-  const { comments } = props;
+const CommentSection: FC<CommentsProps> = ({ comments }) => {
   const [isChecked, setChecked] = useState<boolean>(true);
+
   const onChange = () => {
     setChecked(!isChecked);
   };

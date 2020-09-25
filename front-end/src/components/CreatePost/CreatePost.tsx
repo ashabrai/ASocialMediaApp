@@ -1,26 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import { useHistory } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createPost } from 'store/user/action';
 import CreatePostForm from 'sharedComponents/CreatePostForm';
-import { ApplicationState } from 'store/index';
 import './CreatePost.scss';
 
-interface PropsFromState {
-  errors: String;
+interface CreatePostProps {
   createdNewPost: boolean;
 }
 
-interface PropsFromDispatch {
-  createPost: (title: String, body: String, image: object) => any;
-}
-type AllProps = PropsFromState & PropsFromDispatch;
-
-const CreatePost: React.FC<AllProps> = (props: any) => {
-  const { createdNewPost, createPost } = props;
+const CreatePost: FC<CreatePostProps> = ({ createdNewPost }) => {
   const history = useHistory();
-  const [title, setTitle] = useState<String>('');
-  const [body, setBody] = useState<String>('');
+  const dispatch = useDispatch();
+
+  const [title, setTitle] = useState<string>('');
+  const [body, setBody] = useState<string>('');
   const [image, setImage] = useState<object>({});
 
   useEffect(() => {
@@ -45,7 +39,7 @@ const CreatePost: React.FC<AllProps> = (props: any) => {
   };
 
   const handleClick = () => {
-    createPost({ title, body, image });
+    dispatch(createPost({ title, body, image }));
   };
 
   return (
@@ -61,16 +55,4 @@ const CreatePost: React.FC<AllProps> = (props: any) => {
   );
 };
 
-const mapStateToProps = ({ user }: ApplicationState) => ({
-  createdNewPost: user.createdNewPost,
-});
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    createPost: (data: { title: String; body: String; image: any }) => {
-      dispatch(createPost(data));
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreatePost);
+export default CreatePost;
