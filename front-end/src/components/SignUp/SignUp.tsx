@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUser } from 'store/auth/action';
@@ -7,7 +7,7 @@ import { isValidEmailAddress } from 'utils/helper';
 import './SignUp.scss';
 import { selectHasBeenCreated } from 'store/user/selectors';
 
-const SignUp: React.FC = () => {
+const SignUp: FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const hasBeenCreated = useSelector(selectHasBeenCreated);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Card, Image, Form, Button } from 'semantic-ui-react';
 
 interface DisplayCardProps {
@@ -15,7 +15,7 @@ interface DisplayCardProps {
   headerContent?: any;
 }
 
-const DisplayCard: React.FC<DisplayCardProps> = ({
+const DisplayCard: FC<DisplayCardProps> = ({
   image,
   content,
   header,

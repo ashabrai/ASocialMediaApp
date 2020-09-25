@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Button, Form, Card } from 'semantic-ui-react';
 
 interface PropsForCreatePostForm {
@@ -9,7 +9,7 @@ interface PropsForCreatePostForm {
   title: string;
 }
 
-const CreatePostForm: React.FC<PropsForCreatePostForm> = ({
+const CreatePostForm: FC<PropsForCreatePostForm> = ({
   handleTitleChange,
   handleImageChange,
   handleBodyChange,

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Switch, BrowserRouter, useHistory } from 'react-router-dom';
 import { saveUserData } from 'store/auth/action';
@@ -13,7 +13,7 @@ import CreatePost from 'components/CreatePost/CreatePost';
 import Logout from 'components/Logout/Logout';
 import './App.css';
 
-const Routing: React.FC = () => {
+const Routing: FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   // Added this useEffect here in the case that a user closes browser but does not log out
@@ -41,7 +41,7 @@ const Routing: React.FC = () => {
   );
 };
 
-const App: React.FC = () => {
+const App: FC = () => {
   return (
     <BrowserRouter>
       <Navbar />

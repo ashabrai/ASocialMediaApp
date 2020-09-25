@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import './UserGrid.scss';
 
 interface GridProps {
@@ -8,7 +8,7 @@ interface GridProps {
   }>;
 }
 
-const Grid: React.FC<GridProps> = ({ userPosts }: GridProps) => {
+const Grid: FC<GridProps> = ({ userPosts }) => {
   return (
     <div className="user__gallery">
       {userPosts.map((post, index) => (

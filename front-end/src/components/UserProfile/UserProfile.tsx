@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserPosts } from 'store/user/action';
 import { selectUserPosts } from 'store/user/selectors';
 import UserGrid from 'components/UserGrid/UserGrid';
 import './UserProfile.scss';
 
-const UserProfile: React.FC = () => {
+const UserProfile: FC = () => {
   const dispatch = useDispatch();
   const userPosts = useSelector(selectUserPosts);
 

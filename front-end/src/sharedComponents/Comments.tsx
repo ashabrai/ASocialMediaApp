@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { Comment, Header, Checkbox } from 'semantic-ui-react';
 
 interface CommentsProps {
@@ -9,7 +9,7 @@ interface CommentsProps {
   }>;
 }
 
-const CommentSection: React.FC<CommentsProps> = ({ comments }) => {
+const CommentSection: FC<CommentsProps> = ({ comments }) => {
   const [isChecked, setChecked] = useState<boolean>(true);
 
   const onChange = () => {

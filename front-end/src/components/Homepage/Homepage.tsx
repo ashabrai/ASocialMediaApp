@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllPosts } from 'store/user/action';
 import { selectAllPosts, selectIsLoggedIn } from 'store/user/selectors';
@@ -24,7 +24,7 @@ interface HomePageProps {
   auth: { isLoggedIn: boolean };
 }
 
-const Homepage: React.FC<HomePageProps> = () => {
+const Homepage: FC<HomePageProps> = () => {
   const dispatch = useDispatch();
   const allPosts = useSelector(selectAllPosts);
   const isLoggedIn = useSelector(selectIsLoggedIn);

@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { userLogin } from 'store/auth/action';
-import { connect } from 'react-redux';
 import './Login.scss';
 import LoginForm from 'sharedComponents/AuthForm';
 import { isValidEmailAddress } from 'utils/helper';
-import { ApplicationState } from 'store';
 import { selectIsLoggedIn } from 'store/user/selectors';
 
-const SignIn: React.FC = (props: any) => {
+interface SignInProps {
+  location: {
+    pathname: string;
+    hash: string;
+    key: string;
+    search: string;
+    state: string;
+  };
+}
+
+const SignIn: FC<SignInProps> = ({ location }) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [emailError, setEmailError] = useState<boolean>(false);
@@ -46,7 +54,7 @@ const SignIn: React.FC = (props: any) => {
       <Redirect
         to={{
           pathname: '/',
-          state: { from: props.location },
+          state: { from: location },
         }}
       />
     );
@@ -70,15 +78,4 @@ const SignIn: React.FC = (props: any) => {
   );
 };
 
-const mapStateToProps = ({ auth }: ApplicationState) => ({
-  isLoggedIn: auth.isLoggedIn,
-});
-
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    userLogin: (data: { email: string; password: string }) => {
-      dispatch(userLogin(data));
-    },
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default SignIn;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Button } from 'semantic-ui-react';
 
 interface ButtonComponentProps {
@@ -7,7 +7,7 @@ interface ButtonComponentProps {
   title: string;
 }
 
-const ButtonComponent = ({ color, title, onClick }: ButtonComponentProps) => (
+const ButtonComponent: FC<ButtonComponentProps> = ({ color, title, onClick }) => (
   <Button color={color} onClick={onClick}>
     {title}
   </Button>

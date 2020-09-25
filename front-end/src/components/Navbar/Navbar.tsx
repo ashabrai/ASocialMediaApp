@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { userLogout } from 'store/auth/action';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +7,7 @@ import Button from 'sharedComponents/ButtonComponent';
 import './Navbar.scss';
 import { selectIsLoggedIn } from 'store/user/selectors';
 
-const Navbar: React.FC = () => {
+const Navbar: FC = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
 

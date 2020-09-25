@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Button, Form, Grid, Header, Message, Segment, Input } from 'semantic-ui-react';
 
 interface PropsForAuthForm {
@@ -17,7 +17,7 @@ interface PropsForAuthForm {
   handleClick: () => void;
 }
 
-const AuthForm: React.FC<PropsForAuthForm> = ({
+const AuthForm: FC<PropsForAuthForm> = ({
   name,
   username,
   email,

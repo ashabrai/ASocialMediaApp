@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { likeUserPost, unlikeUserPost, commentPost, deleteUserPost } from 'store/user/action';
 import DisplayCard from 'sharedComponents/DisplayCard';
@@ -26,19 +26,11 @@ interface PostCardProps {
   likes: Array<string>;
 }
 
-const PostCard: React.FC<PostCardProps> = ({
-  image,
-  header,
-  postId,
-  meta,
-  description,
-  comments,
-  likes,
-}: PostCardProps) => {
+const PostCard: FC<PostCardProps> = ({ image, header, postId, meta, description, comments, likes }) => {
   const dispatch = useDispatch();
   const [liked, setLike] = useState(false);
   const [comment, setCommentValue] = useState<string>('');
-
+  console.log(postId);
   const likeOrUnlikePost = () => {
     if (liked) {
       setLike(false);
