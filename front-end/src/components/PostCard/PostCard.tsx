@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { dispatch } from 'react-redux';
 import { ApplicationState } from 'store';
 import { likeUserPost, unlikeUserPost, commentPost, deleteUserPost } from 'store/user/action';
 import { selectedPostComments } from 'store/user/selectors';
@@ -69,11 +69,14 @@ const PostCard: React.FunctionComponent<AllProps> = (props: any) => {
     }
   };
 
-  // TODO: COMPLETE DELETE ROUTE
-  // const deletePost = () => {};
+  const deletePost = (postId) => {
+    // console.log(postId);
+    dispatch(deleteUserPost(postId));
+  };
 
   const deletePostButtonContent = () => {
-    return <Button content="Delete Post" onClick={() => {}} />;
+    console.log(postId);
+    return <Button content="Delete Post" onClick={() => deletePost(postId)} />;
   };
 
   const headerButtonContent = () => {

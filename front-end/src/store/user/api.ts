@@ -139,4 +139,22 @@ export default {
 
     return response;
   },
+
+  deletePost: async (postId) => {
+    const url = `http://localhost:4000/deletePost/${postId}`;
+    const options = Object.assign(
+      {},
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+        },
+      }
+    );
+    const response = await fetch(url, options)
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+    return response;
+  },
 };

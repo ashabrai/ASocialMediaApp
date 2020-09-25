@@ -43,7 +43,6 @@ const Homepage: React.FC<HomePageProps> = (...props) => {
             <PostCard
               image={post.photo}
               header={post.postedBy.username}
-              postedBy={post.postedBy._id}
               postId={post._id}
               meta={dateConverted(post.datePosted)}
               description={post.body}

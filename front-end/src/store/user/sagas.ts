@@ -13,6 +13,8 @@ import {
   unlikeUserPostFailed,
   commentPostSucceeded,
   commentPostFailed,
+  deleteUserPostSucceeded,
+  deleteUserPostFailed,
 } from './action';
 
 import Api from './api';
@@ -35,6 +37,16 @@ function* createPost(data) {
     yield put(createPostSucceeded(response));
   } catch (e) {
     yield put(createPostFailed(e));
+  }
+}
+
+function* deletePost(action) {
+  try {
+    const postId = action.payload.postId;
+    const response = yield call(Api.deletePost, postId);
+    yield put(deleteUserPostSucceeded(response));
+  } catch (e) {
+    yield put(deleteUserPostFailed(e));
   }
 }
 
