@@ -1,9 +1,8 @@
-/* eslint-disable no-restricted-imports */
 import { combineReducers } from 'redux';
-import { authReducer } from '../store/auth/reducer';
-import { AuthState } from '../store/auth/types';
-import { UserState } from './user/types';
-import { userReducer } from '../store/user/reducer';
+import { authReducer } from 'store/auth/reducer';
+import { AuthState } from 'store/auth/types';
+import { UserState } from './user/ActionConstants';
+import { userReducer } from 'store/user/reducer';
 
 export interface ApplicationState {
   auth: AuthState;

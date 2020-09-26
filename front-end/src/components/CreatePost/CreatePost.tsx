@@ -1,21 +1,21 @@
 import React, { useState, useEffect, FC } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createPost } from 'store/user/action';
+import { selectCreatedNewPostStatus } from 'store/user/selectors';
+
 import CreatePostForm from 'sharedComponents/CreatePostForm';
 import './CreatePost.scss';
 
-interface CreatePostProps {
-  createdNewPost: boolean;
-}
-
-const CreatePost: FC<CreatePostProps> = ({ createdNewPost }) => {
+const CreatePost: FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const createdNewPost = useSelector(selectCreatedNewPostStatus);
 
   const [title, setTitle] = useState<string>('');
   const [body, setBody] = useState<string>('');
   const [image, setImage] = useState<object>({});
+  console.log(createdNewPost, 'create new post value');
 
   useEffect(() => {
     if (createdNewPost) {
