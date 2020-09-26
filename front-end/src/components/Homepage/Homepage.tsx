@@ -28,7 +28,6 @@ const Homepage: FC<HomePageProps> = () => {
   const dispatch = useDispatch();
   const allPosts = useSelector(selectAllPosts);
   const isLoggedIn = useSelector(selectIsLoggedIn);
-
   useEffect(() => {
     if (isLoggedIn) {
       dispatch(fetchAllPosts());
@@ -43,10 +42,11 @@ const Homepage: FC<HomePageProps> = () => {
             <PostCard
               image={post.photo}
               header={post.postedBy.username}
-              postId={post.id}
+              postId={post._id}
               meta={dateConverted(post.datePosted)}
               description={post.body}
               comments={post.comments}
+              postedBy={post.postedBy}
               likes={post.likes}
             />
           </div>

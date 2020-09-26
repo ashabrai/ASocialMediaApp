@@ -1,5 +1,5 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
-import { User_Action_Constants } from './ActionConstants';
+import { UserActionConstants } from './ActionConstants';
 import {
   createPostSucceeded,
   createPostFailed,
@@ -42,7 +42,7 @@ function* createPost(data) {
 
 function* deletePost(action) {
   try {
-    const postId = action.payload.postId;
+    const postId = action.payload;
     const response = yield call(Api.deletePost, postId);
     yield put(deleteUserPostSucceeded(response));
   } catch (e) {
@@ -98,13 +98,15 @@ function* commentUserPost(action) {
     yield put(commentPostFailed(e));
   }
 }
+
 function* watchAllUserRequest() {
-  yield takeLatest(User_Action_Constants.CREATE_POST, getImageURL);
-  yield takeLatest(User_Action_Constants.FETCH_ALL_POSTS, fetchAllPosts);
-  yield takeLatest(User_Action_Constants.FETCH_USER_POSTS, fetchUserPosts);
-  yield takeLatest(User_Action_Constants.LIKE_USER_POST, likeUserPost);
-  yield takeLatest(User_Action_Constants.UNLIKE_USER_POST, unlikeUserPost);
-  yield takeLatest(User_Action_Constants.COMMENT_POST, commentUserPost);
+  yield takeLatest(UserActionConstants.CREATE_POST, getImageURL);
+  yield takeLatest(UserActionConstants.FETCH_ALL_POSTS, fetchAllPosts);
+  yield takeLatest(UserActionConstants.FETCH_USER_POSTS, fetchUserPosts);
+  yield takeLatest(UserActionConstants.LIKE_USER_POST, likeUserPost);
+  yield takeLatest(UserActionConstants.UNLIKE_USER_POST, unlikeUserPost);
+  yield takeLatest(UserActionConstants.COMMENT_POST, commentUserPost);
+  yield takeLatest(UserActionConstants.DELETE_USER_POST, deletePost);
 }
 
 export default watchAllUserRequest;

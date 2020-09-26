@@ -42,7 +42,7 @@ export default {
     return response;
   },
 
-  fetchAllPosts(): Promise<Array<AllPosts>> {
+  fetchAllPosts: async () => {
     const url = 'http://localhost:4000/allPosts';
     const options = Object.assign(
       {},

@@ -7,6 +7,7 @@ export const initialState: AuthState = {
     username: '',
     email: '',
     token: '',
+    _id: '',
   },
   errors: undefined,
   isBeingCreated: false,
@@ -87,6 +88,7 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
           username: '',
           email: '',
           token: '',
+          _id: '',
         },
       };
     }
@@ -124,6 +126,7 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
           username: '',
           email: '',
           token: '',
+          _id: '',
         },
         errors: action.payload,
         isLoggedIn: false,

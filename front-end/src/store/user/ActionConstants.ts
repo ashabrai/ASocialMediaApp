@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-export enum User_Action_Constants {
+export enum UserActionConstants {
   CREATE_POST = '@@user/CREATE_POST',
   CREATE_POST_SUCCEEDED = '@@user/CREATE_POST_SUCCEEDED',
   CREATE_POST_FAILED = '@@user/CREATE_POST_FAILED',

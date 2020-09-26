@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { User_Action_Constants, UserState } from './ActionConstants';
+import { UserActionConstants, UserState } from './ActionConstants';
 
 export const initialState: UserState = {
   errors: undefined,
@@ -12,20 +12,21 @@ export const initialState: UserState = {
   allPosts: [],
   userPosts: [],
   likes: [],
+
   comments: [],
   postId: null,
 };
 
 const reducer: Reducer<UserState> = (state = initialState, action) => {
   switch (action.type) {
-    case User_Action_Constants.CREATE_POST: {
+    case UserActionConstants.CREATE_POST: {
       return {
         ...state,
         isCreatingNewPost: true,
       };
     }
 
-    case User_Action_Constants.CREATE_POST_SUCCEEDED: {
+    case UserActionConstants.CREATE_POST_SUCCEEDED: {
       return {
         ...state,
         isCreatingNewPost: false,
@@ -33,7 +34,7 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
       };
     }
 
-    case User_Action_Constants.CREATE_POST_FAILED: {
+    case UserActionConstants.CREATE_POST_FAILED: {
       return {
         ...state,
         isCreatingNewPost: false,
@@ -42,14 +43,14 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
       };
     }
 
-    case User_Action_Constants.FETCH_ALL_POSTS: {
+    case UserActionConstants.FETCH_ALL_POSTS: {
       return {
         ...state,
         isFetchingAllPosts: true,
       };
     }
 
-    case User_Action_Constants.FETCH_ALL_POSTS_SUCCEEDED: {
+    case UserActionConstants.FETCH_ALL_POSTS_SUCCEEDED: {
       return {
         ...state,
         isFetchingAllPosts: false,
@@ -57,7 +58,7 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
       };
     }
 
-    case User_Action_Constants.FETCH_ALL_POSTS_FAILED: {
+    case UserActionConstants.FETCH_ALL_POSTS_FAILED: {
       return {
         ...state,
         isFetchingAllPosts: false,
@@ -66,14 +67,14 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
       };
     }
 
-    case User_Action_Constants.FETCH_USER_POSTS: {
+    case UserActionConstants.FETCH_USER_POSTS: {
       return {
         ...state,
         isFetchingUserPosts: true,
       };
     }
 
-    case User_Action_Constants.FETCH_USER_POSTS_SUCCEEDED: {
+    case UserActionConstants.FETCH_USER_POSTS_SUCCEEDED: {
       return {
         ...state,
         isFetchingUserPosts: false,
@@ -81,7 +82,7 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
       };
     }
 
-    case User_Action_Constants.FETCH_USER_POSTS_FAILED: {
+    case UserActionConstants.FETCH_USER_POSTS_FAILED: {
       return {
         ...state,
         isFetchingUserPosts: false,
@@ -89,17 +90,16 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
       };
     }
 
-    case User_Action_Constants.LIKE_USER_POST: {
+    case UserActionConstants.LIKE_USER_POST: {
       return {
         ...state,
         postId: action.payload.postId,
       };
     }
 
-    case User_Action_Constants.LIKE_USER_POST_SUCCEEDED: {
+    case UserActionConstants.LIKE_USER_POST_SUCCEEDED: {
       return {
         ...state,
-        likedPost: true,
         allPosts: state.allPosts.map((item) => {
           if (item._id === state.postId) {
             return {
@@ -112,21 +112,28 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
       };
     }
 
-    case User_Action_Constants.LIKE_USER_POST_FAILED: {
+    case UserActionConstants.LIKE_USER_POST_FAILED: {
       return {
         ...state,
         likes: [],
         errors: action.payload,
       };
     }
-    case User_Action_Constants.UNLIKE_USER_POST_SUCCEEDED: {
+
+    case UserActionConstants.UNLIKE_USER_POST: {
+      return {
+        ...state,
+        postId: action.payload.postId,
+      };
+    }
+    case UserActionConstants.UNLIKE_USER_POST_SUCCEEDED: {
       return {
         ...state,
         likes: action.payload,
       };
     }
 
-    case User_Action_Constants.UNLIKE_USER_POST_FAILED: {
+    case UserActionConstants.UNLIKE_USER_POST_FAILED: {
       return {
         ...state,
         likes: [],
@@ -134,7 +141,7 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
       };
     }
 
-    case User_Action_Constants.COMMENT_POST: {
+    case UserActionConstants.COMMENT_POST: {
       return {
         ...state,
         isCommenting: true,
@@ -143,7 +150,7 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
       };
     }
 
-    case User_Action_Constants.COMMENT_POST_SUCCEEDED: {
+    case UserActionConstants.COMMENT_POST_SUCCEEDED: {
       // Article on how to accomplish updating allPosts
       // https://daveceddia.com/react-redux-immutability-guide/#:~:text=Redux%3A%20Update%20an%20object%20in%20an%20array&text=The%20only%20difference%20is%20we,as%20the%20new%20item's%20value.
       return {
@@ -163,7 +170,7 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
       };
     }
 
-    case User_Action_Constants.COMMENT_POST_FAILED: {
+    case UserActionConstants.COMMENT_POST_FAILED: {
       return {
         ...state,
         hasCommented: false,
@@ -173,14 +180,22 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
       };
     }
 
-    case User_Action_Constants.DELETE_USER_POST_SUCCEEDED: {
+    case UserActionConstants.DELETE_USER_POST: {
       return {
         ...state,
-        allPosts: action.payload,
+        postId: action.payload,
+      };
+    }
+    case UserActionConstants.DELETE_USER_POST_SUCCEEDED: {
+      return {
+        ...state,
+        allPosts: state.allPosts.filter((item) => {
+          return item._id !== state.postId;
+        }),
       };
     }
 
-    case User_Action_Constants.DELETE_USER_POST_FAILED: {
+    case UserActionConstants.DELETE_USER_POST_FAILED: {
       return {
         ...state,
         errors: action.payload,

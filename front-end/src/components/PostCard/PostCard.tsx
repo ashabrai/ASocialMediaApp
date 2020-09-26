@@ -1,6 +1,7 @@
 import React, { useState, FC } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { likeUserPost, unlikeUserPost, commentPost, deleteUserPost } from 'store/user/action';
+import { selectedUserId } from 'store/auth/selectors';
 import DisplayCard from 'sharedComponents/DisplayCard';
 import CommentSection from 'sharedComponents/Comments';
 import PopupContent from 'sharedComponents/PopupContent';
@@ -18,6 +19,7 @@ interface PostCardProps {
   postId: string;
   meta: string;
   description: string;
+  postedBy: { _id: string; username: string };
   comments: Array<{
     comment: string;
     postedBy: { _id: string; username: string };
@@ -26,11 +28,12 @@ interface PostCardProps {
   likes: Array<string>;
 }
 
-const PostCard: FC<PostCardProps> = ({ image, header, postId, meta, description, comments, likes }) => {
+const PostCard: FC<PostCardProps> = ({ image, header, postId, meta, description, comments, likes, postedBy }) => {
   const dispatch = useDispatch();
+  const userId = useSelector(selectedUserId);
   const [liked, setLike] = useState(false);
   const [comment, setCommentValue] = useState<string>('');
-  console.log(postId);
+
   const likeOrUnlikePost = () => {
     if (liked) {
       setLike(false);
@@ -42,12 +45,10 @@ const PostCard: FC<PostCardProps> = ({ image, header, postId, meta, description,
   };
 
   const deletePost = (postId) => {
-    // console.log(postId);
     dispatch(deleteUserPost(postId));
   };
 
   const deletePostButtonContent = () => {
-    console.log(postId);
     return <Button content="Delete Post" onClick={() => deletePost(postId)} />;
   };
 
@@ -129,7 +130,7 @@ const PostCard: FC<PostCardProps> = ({ image, header, postId, meta, description,
       buttonContent="Comment"
       onButtonClick={() => handleCommentButtonClick()}
       additionalCardSection={commentSection()}
-      headerContent={headerButtonContent()}
+      headerContent={userId === postedBy._id ? headerButtonContent() : null}
     />
   );
 };

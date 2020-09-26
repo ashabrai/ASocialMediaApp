@@ -5,6 +5,7 @@ export interface Auth {
   email: string;
   token: string;
   password?: string;
+  _id: string;
 }
 
 export enum Auth_Action_Types {
