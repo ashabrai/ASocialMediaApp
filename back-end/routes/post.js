@@ -109,20 +109,25 @@ router.put("/commentPost", requireLogin, (req, res) => {
 });
 
 router.delete("/deletePost/:postId", requireLogin, (req, res) => {
+  console.log(req.params.postId);
   Post.findOne({ _id: req.params.postId })
     .populate("postedBy", "_id")
     .exec((err, post) => {
       if (err || !post) {
         return res.status(422).json(err);
       }
-      if (String(post.postedBy._id) === String(req.user._id)) {
+      if (post.postedBy._id.toString() === req.user._id.toString()) {
         post
           .remove()
-          .then((result) =>
+          .then((result) => {
             res
-              .json({ message: "Successfully deleted post" })
-              .catch((err) => console.log(err))
-          );
+              .status(200)
+              .json({
+                message: "Successfully deleted post",
+                postDeleted: result,
+              });
+          })
+          .catch((err) => console.log(err));
       }
     });
 });
