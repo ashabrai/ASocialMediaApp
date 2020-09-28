@@ -21,7 +21,9 @@ interface HomePageProps {
       }>;
       hasLikedPost: boolean;
       likes: Array<{
-        postedBy: { _id: string };
+        _id: string;
+        postedBy: string;
+        username: string;
       }>;
     }>;
   };

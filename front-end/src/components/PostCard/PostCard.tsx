@@ -28,6 +28,8 @@ interface PostCardProps {
   }>;
   likes: Array<{
     _id: string;
+    postedBy: string;
+    username: string;
   }>;
 }
 
