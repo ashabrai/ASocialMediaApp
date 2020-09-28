@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { userLogout } from 'store/auth/action';
 import { useDispatch, useSelector } from 'react-redux';
+import { userLogout } from 'store/auth/action';
+import { selectIsLoggedIn } from 'store/auth/selectors';
 import SocialMediaApp from 'assets/socialMediaApp.png';
 import Button from 'sharedComponents/ButtonComponent';
 import './Navbar.scss';
-import { selectIsLoggedIn } from 'store/user/selectors';
 
 const Navbar: FC = () => {
   const dispatch = useDispatch();

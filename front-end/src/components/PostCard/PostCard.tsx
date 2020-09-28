@@ -19,29 +19,41 @@ interface PostCardProps {
   postId: string;
   meta: string;
   description: string;
+  userHasLikedPost: any;
   postedBy: { _id: string; username: string };
   comments: Array<{
     comment: string;
     postedBy: { _id: string; username: string };
     _id: string;
   }>;
-  likes: Array<string>;
+  likes: Array<{
+    _id: string;
+  }>;
 }
 
-const PostCard: FC<PostCardProps> = ({ image, header, postId, meta, description, comments, likes, postedBy }) => {
+const PostCard: FC<PostCardProps> = ({
+  image,
+  header,
+  postId,
+  meta,
+  description,
+  comments,
+  likes,
+  postedBy,
+  userHasLikedPost,
+}) => {
   const dispatch = useDispatch();
   const userId = useSelector(selectedUserId);
-  const [liked, setLike] = useState(false);
   const [comment, setCommentValue] = useState<string>('');
 
-  const likeOrUnlikePost = () => {
-    if (liked) {
-      setLike(false);
-      dispatch(unlikeUserPost(postId));
-    } else {
-      setLike(true);
-      dispatch(likeUserPost(postId));
-    }
+  const likePost = () => {
+    const payload = { postId };
+    dispatch(likeUserPost(payload));
+  };
+
+  const unlikePost = () => {
+    const payload = { postId };
+    dispatch(unlikeUserPost(payload));
   };
 
   const deletePost = (postId) => {
@@ -66,43 +78,43 @@ const PostCard: FC<PostCardProps> = ({ image, header, postId, meta, description,
   };
 
   const cardContent = () => {
-    return (
-      <div>
-        {likes.length === 0 ? (
-          <Button as="div" labelPosition="right">
-            <Button icon>
-              <FontAwesomeIcon
-                href=""
-                icon={faThumbsUp}
-                size="lg"
-                onClick={() => {
-                  likeOrUnlikePost();
-                }}
-              />
-            </Button>
-            <Label as="a" basic pointing="left">
-              {likes.length}
-            </Label>
+    if (userHasLikedPost) {
+      return (
+        <Button as="div" labelPosition="right">
+          <Button icon>
+            <FontAwesomeIcon
+              icon={faThumbsDown}
+              href=""
+              size="lg"
+              onClick={() => {
+                unlikePost();
+              }}
+            />
           </Button>
-        ) : (
-          <Button as="div" labelPosition="right">
-            <Button icon>
-              <FontAwesomeIcon
-                icon={faThumbsDown}
-                href=""
-                size="lg"
-                onClick={() => {
-                  likeOrUnlikePost();
-                }}
-              />
-            </Button>
-            <Label as="a" basic pointing="left">
-              {likes.length}
-            </Label>
+          <Label as="a" basic pointing="left">
+            {likes.length}
+          </Label>
+        </Button>
+      );
+    } else if (!userHasLikedPost) {
+      return (
+        <Button as="div" labelPosition="right">
+          <Button icon>
+            <FontAwesomeIcon
+              href=""
+              icon={faThumbsUp}
+              size="lg"
+              onClick={() => {
+                likePost();
+              }}
+            />
           </Button>
-        )}
-      </div>
-    );
+          <Label as="a" basic pointing="left">
+            {likes.length}
+          </Label>
+        </Button>
+      );
+    }
   };
 
   const handleCommentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,7 +123,8 @@ const PostCard: FC<PostCardProps> = ({ image, header, postId, meta, description,
   };
 
   const handleCommentButtonClick = () => {
-    dispatch(commentPost(postId, comment));
+    const payload = { postId, comment };
+    dispatch(commentPost(payload));
   };
 
   const commentSection = () => {

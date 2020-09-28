@@ -12,7 +12,7 @@ export const initialState: UserState = {
   allPosts: [],
   userPosts: [],
   likes: [],
-
+  hasLikedPost: false,
   comments: [],
   postId: null,
 };
@@ -100,6 +100,7 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
     case UserActionConstants.LIKE_USER_POST_SUCCEEDED: {
       return {
         ...state,
+        hasLikedPost: true,
         allPosts: state.allPosts.map((item) => {
           if (item._id === state.postId) {
             return {
@@ -129,7 +130,16 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
     case UserActionConstants.UNLIKE_USER_POST_SUCCEEDED: {
       return {
         ...state,
-        likes: action.payload,
+        hasLikedPost: false,
+        allPosts: state.allPosts.map((item) => {
+          if (item._id === state.postId) {
+            return {
+              ...item,
+              likes: action.payload.likes,
+            };
+          }
+          return item;
+        }),
       };
     }
 
