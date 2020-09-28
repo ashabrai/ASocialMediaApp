@@ -22,7 +22,9 @@ const postSchema = new mongoose.Schema({
     type: Number,
     default: Date.now(),
   },
-  likes: [{ type: ObjectId, ref: "User" }],
+  likes: [
+    { username: { type: String }, postedBy: { type: ObjectId, ref: "User" } },
+  ],
   comments: [{ comment: String, postedBy: { type: ObjectId, ref: "User" } }],
 });
 

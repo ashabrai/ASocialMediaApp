@@ -48,10 +48,11 @@ router.post("/createPost", requireLogin, (req, res) => {
 });
 
 router.put("/likeUserPost", requireLogin, (req, res) => {
+  const user = { postedBy: req.user._id, username: req.user.username };
   Post.findByIdAndUpdate(
-    req.body.postId,
+    req.body.postId.postId,
     {
-      $push: { likes: req.user._id },
+      $push: { likes: user },
     },
     {
       new: true,
@@ -66,10 +67,11 @@ router.put("/likeUserPost", requireLogin, (req, res) => {
 });
 
 router.put("/unlikeUserPost", requireLogin, (req, res) => {
+  const user = { postedBy: req.user._id, username: req.user.username };
   Post.findByIdAndUpdate(
-    req.body.postId,
+    req.body.postId.postId,
     {
-      $pull: { likes: req.user._id },
+      $pull: { likes: user },
     },
     {
       new: true,
