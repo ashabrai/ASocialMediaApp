@@ -15,7 +15,6 @@ const CreatePost: FC = () => {
   const [title, setTitle] = useState<string>('');
   const [body, setBody] = useState<string>('');
   const [image, setImage] = useState<object>({});
-  console.log(createdNewPost, 'create new post value');
 
   useEffect(() => {
     if (createdNewPost) {

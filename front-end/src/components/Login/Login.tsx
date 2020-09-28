@@ -1,11 +1,11 @@
 import React, { useState, FC } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { selectIsLoggedIn } from 'store/auth/selectors';
 import { userLogin } from 'store/auth/action';
 import './Login.scss';
 import LoginForm from 'sharedComponents/AuthForm';
 import { isValidEmailAddress } from 'utils/helper';
-import { selectIsLoggedIn } from 'store/user/selectors';
 
 interface SignInProps {
   location: {

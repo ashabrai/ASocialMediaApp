@@ -21,4 +21,5 @@ export interface UserState {
   readonly isCommenting?: boolean;
   readonly currentPost: Object;
   readonly postId: any;
+  readonly hasLikedPost: false;
 }

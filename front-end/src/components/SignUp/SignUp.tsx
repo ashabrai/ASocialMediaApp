@@ -5,7 +5,7 @@ import { createUser } from 'store/auth/action';
 import SignUpForm from 'sharedComponents/AuthForm';
 import { isValidEmailAddress } from 'utils/helper';
 import './SignUp.scss';
-import { selectHasBeenCreated } from 'store/user/selectors';
+import { selectHasBeenCreated } from 'store/auth/selectors';
 
 const SignUp: FC = () => {
   const history = useHistory();

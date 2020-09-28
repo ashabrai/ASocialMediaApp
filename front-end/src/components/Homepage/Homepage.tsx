@@ -1,7 +1,8 @@
 import React, { useEffect, FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllPosts } from 'store/user/action';
-import { selectAllPosts, selectIsLoggedIn } from 'store/user/selectors';
+import { selectAllPosts } from 'store/user/selectors';
+import { selectedUserId, selectIsLoggedIn } from 'store/auth/selectors';
 import PostCard from 'components/PostCard/PostCard';
 import { dateConverted } from 'utils/helper';
 import './Homepage.scss';
@@ -18,7 +19,12 @@ interface HomePageProps {
         postedBy: { _id: string; username: string };
         _id: string;
       }>;
-      likes: Array<string>;
+      hasLikedPost: boolean;
+      likes: Array<{
+        _id: string;
+        postedBy: string;
+        username: string;
+      }>;
     }>;
   };
   auth: { isLoggedIn: boolean };
@@ -26,8 +32,10 @@ interface HomePageProps {
 
 const Homepage: FC<HomePageProps> = () => {
   const dispatch = useDispatch();
+  const userId = useSelector(selectedUserId);
   const allPosts = useSelector(selectAllPosts);
   const isLoggedIn = useSelector(selectIsLoggedIn);
+
   useEffect(() => {
     if (isLoggedIn) {
       dispatch(fetchAllPosts());
@@ -48,6 +56,7 @@ const Homepage: FC<HomePageProps> = () => {
               comments={post.comments}
               postedBy={post.postedBy}
               likes={post.likes}
+              userHasLikedPost={post.likes.find((user) => user.postedBy === userId)}
             />
           </div>
         ))}
