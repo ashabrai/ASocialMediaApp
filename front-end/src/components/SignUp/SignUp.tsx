@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUser } from 'store/auth/action';
@@ -18,11 +18,14 @@ const SignUp: FC = () => {
   const [password, setPassword] = useState<string>();
   const [emailError, setEmailError] = useState<boolean>(false);
 
-  const handleSubmitButtonClick = () => {
-    dispatch(createUser({ name, username, email, password }));
+  useEffect(() => {
     if (hasBeenCreated) {
       history.push('/AccountCreated');
     }
+  }, [hasBeenCreated, history]);
+
+  const handleSubmitButtonClick = () => {
+    dispatch(createUser({ name, username, email, password }));
   };
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {

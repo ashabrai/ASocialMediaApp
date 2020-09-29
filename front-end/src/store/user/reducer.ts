@@ -47,6 +47,7 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
       return {
         ...state,
         isFetchingAllPosts: true,
+        createdNewPost: false,
       };
     }
 
