@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { Auth_Action_Types, AuthState } from './types';
+import { AuthAction, AuthState } from './types';
 
 export const initialState: AuthState = {
   authData: {
@@ -21,14 +21,14 @@ export const initialState: AuthState = {
 
 const reducer: Reducer<AuthState> = (state = initialState, action) => {
   switch (action.type) {
-    case Auth_Action_Types.CREATE_USER: {
+    case AuthAction.CREATE_USER: {
       return {
         ...state,
         isBeingCreated: true,
       };
     }
 
-    case Auth_Action_Types.CREATE_USER_SUCCEEDED: {
+    case AuthAction.CREATE_USER_SUCCEEDED: {
       return {
         ...state,
         isBeingCreated: false,
@@ -37,7 +37,7 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
       };
     }
 
-    case Auth_Action_Types.CREATE_USER_FAILED: {
+    case AuthAction.CREATE_USER_FAILED: {
       return {
         ...state,
         isBeingCreated: false,
@@ -46,15 +46,16 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
       };
     }
 
-    case Auth_Action_Types.USER_LOGIN: {
+    case AuthAction.USER_LOGIN: {
       return {
         ...state,
         isBeingLoggedIn: true,
         isLoggedIn: false,
+        hasBeenCreated: false,
       };
     }
 
-    case Auth_Action_Types.USER_LOGIN_SUCCEEDED: {
+    case AuthAction.USER_LOGIN_SUCCEEDED: {
       return {
         ...state,
         isBeingLoggedIn: false,
@@ -63,7 +64,7 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
       };
     }
 
-    case Auth_Action_Types.USER_LOGIN_FAILED: {
+    case AuthAction.USER_LOGIN_FAILED: {
       return {
         ...state,
         isBeingLoggedIn: false,
@@ -72,13 +73,13 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
       };
     }
 
-    case Auth_Action_Types.USER_LOGGOUT: {
+    case AuthAction.USER_LOGGOUT: {
       return {
         ...state,
         isBeingLoggedOut: true,
       };
     }
-    case Auth_Action_Types.USER_LOGGOUT_SUCCEEDED: {
+    case AuthAction.USER_LOGGOUT_SUCCEEDED: {
       return {
         ...state,
         isBeingLoggedOut: false,
@@ -93,7 +94,7 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
       };
     }
 
-    case Auth_Action_Types.USER_LOGGOUT_FAILED: {
+    case AuthAction.USER_LOGGOUT_FAILED: {
       return {
         ...state,
         isBeingLoggedOut: false,
@@ -102,14 +103,14 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
       };
     }
 
-    case Auth_Action_Types.SAVE_USER_DATA: {
+    case AuthAction.SAVE_USER_DATA: {
       return {
         ...state,
         userDataSaved: false,
       };
     }
 
-    case Auth_Action_Types.SAVE_USER_DATA_SUCCEEDED: {
+    case AuthAction.SAVE_USER_DATA_SUCCEEDED: {
       return {
         ...state,
         authData: action.payload,
@@ -118,7 +119,7 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
       };
     }
 
-    case Auth_Action_Types.SAVE_USER_DATA_FAILED: {
+    case AuthAction.SAVE_USER_DATA_FAILED: {
       return {
         ...state,
         authData: {

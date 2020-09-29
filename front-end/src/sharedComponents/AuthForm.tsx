@@ -79,6 +79,7 @@ const AuthForm: FC<PropsForAuthForm> = ({
                 iconPosition="left"
                 required={true}
                 placeholder={password}
+                type="password"
                 onChange={(e) => handlePasswordChange(e)}
               />
             </Form.Field>

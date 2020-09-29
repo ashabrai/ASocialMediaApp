@@ -1,5 +1,5 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
-import { Auth_Action_Types } from './types';
+import { AuthAction } from './types';
 import {
   createUserSucceeded,
   createUserFailed,
@@ -51,10 +51,10 @@ function* storeUserData(action) {
   }
 }
 function* watchAllRequest() {
-  yield takeLatest(Auth_Action_Types.CREATE_USER, createUserGenerator);
-  yield takeLatest(Auth_Action_Types.USER_LOGIN, userLoginGenerator);
-  yield takeLatest(Auth_Action_Types.USER_LOGGOUT, userLogoutGenerator);
-  yield takeLatest(Auth_Action_Types.SAVE_USER_DATA, storeUserData);
+  yield takeLatest(AuthAction.CREATE_USER, createUserGenerator);
+  yield takeLatest(AuthAction.USER_LOGIN, userLoginGenerator);
+  yield takeLatest(AuthAction.USER_LOGGOUT, userLogoutGenerator);
+  yield takeLatest(AuthAction.SAVE_USER_DATA, storeUserData);
 }
 
 export default watchAllRequest;

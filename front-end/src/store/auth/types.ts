@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 export interface Auth {
   name: string;
   username: string;
@@ -8,7 +7,7 @@ export interface Auth {
   _id: string;
 }
 
-export enum Auth_Action_Types {
+export enum AuthAction {
   CREATE_USER = '@@auth/CREATE_USER',
   CREATE_USER_SUCCEEDED = '@@auth/CREATE_USER_SUCCEEDED',
   CREATE_USER_FAILED = '@@auth/CREATE_USER_FAILED',

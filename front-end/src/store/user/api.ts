@@ -1,5 +1,3 @@
-import AllPosts from 'store/user/types';
-
 export default {
   createPost: async (payload) => {
     const url = 'http://localhost:4000/createPost';
