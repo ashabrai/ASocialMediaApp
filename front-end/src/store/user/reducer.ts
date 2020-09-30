@@ -8,7 +8,6 @@ export const initialState: UserState = {
   isFetchingAllPosts: false,
   isCommenting: false,
   hasCommented: false,
-  currentPost: {},
   allPosts: [],
   userPosts: [],
   likes: [],
@@ -177,7 +176,6 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
           }
           return item;
         }),
-        currentPost: action.payload,
       };
     }
 

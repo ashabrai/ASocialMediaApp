@@ -4,14 +4,13 @@ import { Comment, Header, Checkbox } from 'semantic-ui-react';
 interface CommentsProps {
   comments: Array<{
     comment: string;
-    postedBy: { _id: string; username: string };
+    postedBy: string;
     _id: string;
   }>;
 }
 
 const CommentSection: FC<CommentsProps> = ({ comments }) => {
   const [isChecked, setChecked] = useState<boolean>(true);
-
   const onChange = () => {
     setChecked(!isChecked);
   };
@@ -29,7 +28,7 @@ const CommentSection: FC<CommentsProps> = ({ comments }) => {
             <Comment>
               <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
               <Comment.Content>
-                <Comment.Author as="a">{comment.postedBy.username}</Comment.Author>
+                <Comment.Author as="a">{comment.postedBy}</Comment.Author>
                 {/* <Comment.Metadata>
                   <div>{comment.datePublished}</div>
                 </Comment.Metadata> */}

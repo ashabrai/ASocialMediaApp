@@ -1,25 +1,63 @@
-export default interface AllPosts {
+export interface Post {
   _id: string;
   photo: string;
-  postedBy: { username: string; _id: string };
-  datePosted: number;
+  datePosted: string;
   body: string;
-  comments: string;
-  likes: Array<string>;
+  comments: Array<{
+    comment: string;
+    postedBy: { _id: string; username: string };
+    _id: string;
+  }>;
+  hasLikedPost: boolean;
+  likes: Array<{
+    _id: string;
+    postedBy: string;
+    username: string;
+  }>;
+}
+
+export interface UserPost {
+  body: string;
+  comments: Array<{
+    comment: string;
+    postedBy: { _id: string; username: string };
+    _id: string;
+  }>;
+  datePosted: string;
+  likes: Array<{
+    postedBy: string;
+    username: string;
+    _id: string;
+  }>;
+  photo: string;
+  postedBy: string;
+  title: string;
+  _id: string;
+}
+
+export interface UserPostLikes {
+  postedBy: string;
+  username: string;
+  _id: string;
+}
+
+export interface PostComments {
+  comment: string;
+  postedBy: string;
+  _id: string;
 }
 
 export interface UserState {
   readonly errors?: string;
   readonly isCreatingNewPost?: boolean;
   readonly createdNewPost?: boolean;
-  readonly allPosts: Array<any>;
+  readonly allPosts: Array<Post>;
   readonly isFetchingAllPosts?: boolean;
-  readonly userPosts: Array<string>;
-  readonly likes: Array<string>;
-  readonly comments: Array<string>;
+  readonly userPosts: Array<UserPost>;
+  readonly likes: Array<UserPostLikes>;
+  readonly comments: Array<PostComments>;
   readonly hasCommented?: boolean;
   readonly isCommenting?: boolean;
-  readonly currentPost: Object;
-  readonly postId: any;
-  readonly hasLikedPost: false;
+  readonly postId: string;
+  readonly hasLikedPost: boolean;
 }

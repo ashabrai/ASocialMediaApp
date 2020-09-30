@@ -23,7 +23,7 @@ interface PostCardProps {
   postedBy: { _id: string; username: string };
   comments: Array<{
     comment: string;
-    postedBy: { _id: string; username: string };
+    postedBy: string;
     _id: string;
   }>;
   likes: Array<{

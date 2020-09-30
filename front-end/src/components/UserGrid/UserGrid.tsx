@@ -3,8 +3,22 @@ import './UserGrid.scss';
 
 interface GridProps {
   userPosts: Array<{
+    body: string;
+    comments: Array<{
+      comment: string;
+      postedBy: { _id: string; username: string };
+      _id: string;
+    }>;
+    datePosted: string;
+    likes: Array<{
+      postedBy: string;
+      username: string;
+      _id: string;
+    }>;
     photo: string;
+    postedBy: string;
     title: string;
+    _id: string;
   }>;
 }
 

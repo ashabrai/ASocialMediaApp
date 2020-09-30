@@ -8,26 +8,24 @@ import { dateConverted } from 'utils/helper';
 import './Homepage.scss';
 
 interface HomePageProps {
-  user: {
-    allPosts: Array<{
+  allPosts: Array<{
+    _id: string;
+    photo: string;
+    datePosted: string;
+    body: string;
+    comments: Array<{
+      comment: string;
+      postedBy: string;
       _id: string;
-      photo: string;
-      datePosted: string;
-      body: string;
-      comments: Array<{
-        comment: string;
-        postedBy: { _id: string; username: string };
-        _id: string;
-      }>;
-      hasLikedPost: boolean;
-      likes: Array<{
-        _id: string;
-        postedBy: string;
-        username: string;
-      }>;
     }>;
-  };
-  auth: { isLoggedIn: boolean };
+    hasLikedPost: boolean;
+    likes: Array<{
+      _id: string;
+      postedBy: string;
+      username: string;
+    }>;
+  }>;
+  isLoggedIn: boolean;
 }
 
 const Homepage: FC<HomePageProps> = () => {

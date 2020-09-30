@@ -39,7 +39,6 @@ export interface UserState {
   readonly comments: Array<string>;
   readonly hasCommented?: boolean;
   readonly isCommenting?: boolean;
-  readonly currentPost: Object;
   readonly postId: any;
   readonly hasLikedPost: boolean;
 }
