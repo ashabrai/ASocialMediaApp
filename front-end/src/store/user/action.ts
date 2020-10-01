@@ -1,33 +1,162 @@
-import { action } from 'typesafe-actions';
 import { UserActionConstants } from './ActionConstants';
+import {
+  Post,
+  UserPost,
+  UserPostLikes,
+  CreatePostPayload,
+  CreatePostAction,
+  CreatePostSucceededAction,
+  CreatePostFailedAction,
+  FetchAllPostAction,
+  FetchAllPostSucceededAction,
+  FetchAllPostFailedAction,
+  FetchUserPostAction,
+  FetchUserPostSucceededAction,
+  FetchUserPostFailedAction,
+  LikeUserPostAction,
+  LikeUserPostSucceededAction,
+  LikeUserPostFailedAction,
+  UnlikeUserPostAction,
+  UnlikeUserPostSucceededAction,
+  UnlikeUserPostFailedAction,
+  CommentPostAction,
+  CommentPostSucceededAction,
+  CommentPostFailedAction,
+  DeleteUserPostAction,
+  DeleteUserPostSucceededAction,
+  DeleteUserPostFailedAction,
+} from './types';
 
-export const createPost = (data: any) => action(UserActionConstants.CREATE_POST, data);
-export const createPostSucceeded = (data: any) => action(UserActionConstants.CREATE_POST_SUCCEEDED, data);
-export const createPostFailed = (message: string) => action(UserActionConstants.CREATE_POST_FAILED, message);
+export function createPost(payload: CreatePostPayload): CreatePostAction {
+  return {
+    type: UserActionConstants.CREATE_POST,
+    payload,
+  };
+}
+export function createPostSucceeded(payload: Post): CreatePostSucceededAction {
+  return {
+    type: UserActionConstants.CREATE_POST_SUCCEEDED,
+    payload: payload,
+  };
+}
+export function createPostFailed(errors: string): CreatePostFailedAction {
+  return {
+    type: UserActionConstants.CREATE_POST_FAILED,
+    errors,
+  };
+}
 
-export const fetchAllPosts = () => action(UserActionConstants.FETCH_ALL_POSTS);
-export const fetchAllPostsSucceeded = (data: any) => action(UserActionConstants.FETCH_ALL_POSTS_SUCCEEDED, data);
-export const fetchAllPostsFailed = (message: string) => action(UserActionConstants.FETCH_ALL_POSTS_FAILED, message);
+export function fetchAllPosts(): FetchAllPostAction {
+  return {
+    type: UserActionConstants.FETCH_ALL_POSTS,
+  };
+}
+export function fetchAllPostsSucceeded(payload: Array<Post>): FetchAllPostSucceededAction {
+  return {
+    type: UserActionConstants.FETCH_ALL_POSTS_SUCCEEDED,
+    payload,
+  };
+}
+export function fetchAllPostsFailed(errors: string): FetchAllPostFailedAction {
+  return {
+    type: UserActionConstants.FETCH_ALL_POSTS_FAILED,
+    errors,
+  };
+}
 
-export const fetchUserPosts = () => action(UserActionConstants.FETCH_USER_POSTS);
-export const fetchUserPostsSucceeded = (data: any) => action(UserActionConstants.FETCH_USER_POSTS_SUCCEEDED, data);
-export const fetchUserPostsFailed = (message: string) => action(UserActionConstants.FETCH_USER_POSTS_FAILED, message);
+export function fetchUserPosts(payload: { id: string }): FetchUserPostAction {
+  return {
+    type: UserActionConstants.FETCH_USER_POSTS,
+    payload,
+  };
+}
+export function fetchUserPostsSucceeded(payload: Array<UserPost>): FetchUserPostSucceededAction {
+  return {
+    type: UserActionConstants.FETCH_USER_POSTS_SUCCEEDED,
+    payload,
+  };
+}
+export function fetchUserPostsFailed(errors: string): FetchUserPostFailedAction {
+  return {
+    type: UserActionConstants.FETCH_USER_POSTS_FAILED,
+    errors,
+  };
+}
 
-export const likeUserPost = (payload: { postId: string }) => action(UserActionConstants.LIKE_USER_POST, payload);
-export const likeUserPostSucceeded = (likes: Array<{ _id: string }>) =>
-  action(UserActionConstants.LIKE_USER_POST_SUCCEEDED, likes);
-export const likeUserPostFailed = (message: string) => action(UserActionConstants.LIKE_USER_POST_FAILED, message);
+export function likeUserPost(payload: { postId: string }): LikeUserPostAction {
+  return {
+    type: UserActionConstants.LIKE_USER_POST,
+    payload,
+  };
+}
+export function likeUserPostSucceeded(payload: Array<UserPostLikes>): LikeUserPostSucceededAction {
+  return {
+    type: UserActionConstants.LIKE_USER_POST_SUCCEEDED,
+    payload,
+  };
+}
+export function likeUserPostFailed(errors: string): LikeUserPostFailedAction {
+  return {
+    type: UserActionConstants.LIKE_USER_POST_FAILED,
+    errors,
+  };
+}
 
-export const unlikeUserPost = (payload: { postId: string }) => action(UserActionConstants.UNLIKE_USER_POST, payload);
-export const unlikeUserPostSucceeded = (likes: Array<{ _id: string }>) =>
-  action(UserActionConstants.UNLIKE_USER_POST_SUCCEEDED, likes);
-export const unlikeUserPostFailed = (message: string) => action(UserActionConstants.UNLIKE_USER_POST_FAILED, message);
+export function unlikeUserPost(payload: { postId: string }): UnlikeUserPostAction {
+  return {
+    type: UserActionConstants.UNLIKE_USER_POST,
+    payload,
+  };
+}
+export function unlikeUserPostSucceeded(payload: Array<Post>): UnlikeUserPostSucceededAction {
+  return {
+    type: UserActionConstants.UNLIKE_USER_POST_SUCCEEDED,
+    payload,
+  };
+}
+export function unlikeUserPostFailed(errors: string): UnlikeUserPostFailedAction {
+  return {
+    type: UserActionConstants.UNLIKE_USER_POST_FAILED,
+    errors,
+  };
+}
 
-export const commentPost = (payload: { postId: string; comment: string }) =>
-  action(UserActionConstants.COMMENT_POST, payload);
-export const commentPostSucceeded = (data: any) => action(UserActionConstants.COMMENT_POST_SUCCEEDED, data);
-export const commentPostFailed = (message: string) => action(UserActionConstants.COMMENT_POST_FAILED, message);
+export function commentPost(payload: { postId: string }): CommentPostAction {
+  return {
+    type: UserActionConstants.COMMENT_POST,
+    payload,
+  };
+}
+export function commentPostSucceeded(payload: Array<Post>): CommentPostSucceededAction {
+  return {
+    type: UserActionConstants.COMMENT_POST_SUCCEEDED,
+    payload,
+  };
+}
+export function commentPostFailed(errors: string): CommentPostFailedAction {
+  return {
+    type: UserActionConstants.COMMENT_POST_FAILED,
+    errors,
+  };
+}
 
-export const deleteUserPost = (id: string) => action(UserActionConstants.DELETE_USER_POST, id);
-export const deleteUserPostSucceeded = (data: any) => action(UserActionConstants.DELETE_USER_POST_SUCCEEDED, data);
-export const deleteUserPostFailed = (message: string) => action(UserActionConstants.DELETE_USER_POST_FAILED, message);
+export function deleteUserPost(payload: { postId: string }): DeleteUserPostAction {
+  return {
+    type: UserActionConstants.DELETE_USER_POST,
+    payload,
+  };
+}
+
+export function deleteUserPostSucceeded(payload: Array<Post>): DeleteUserPostSucceededAction {
+  return {
+    type: UserActionConstants.DELETE_USER_POST_SUCCEEDED,
+    payload,
+  };
+}
+
+export function deleteUserPostFailed(errors: string): DeleteUserPostFailedAction {
+  return {
+    type: UserActionConstants.DELETE_USER_POST_FAILED,
+    errors,
+  };
+}

@@ -1,3 +1,5 @@
+import { Post } from './types';
+
 export default {
   createPost: async (payload) => {
     const url = 'http://localhost:4000/createPost';
@@ -12,7 +14,7 @@ export default {
         body: JSON.stringify(payload),
       }
     );
-    const response = await fetch(url, options)
+    const response = await fetch<Post>(url, options)
       .then((response) => response.json())
       .catch((error) => console.log(error));
 

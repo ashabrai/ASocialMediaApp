@@ -27,18 +27,3 @@ export enum UserActionConstants {
   DELETE_USER_POST_SUCCEEDED = '@@user/DELETE_USER_POST_SUCCEEDED',
   DELETE_USER_POST_FAILED = '@@user/DELETE_USER_POST_FAILED',
 }
-
-export interface UserState {
-  readonly errors?: string;
-  readonly isCreatingNewPost?: boolean;
-  readonly createdNewPost?: boolean;
-  readonly allPosts: Array<any>;
-  readonly isFetchingAllPosts?: boolean;
-  readonly userPosts: Array<string>;
-  readonly likes: Array<string>;
-  readonly comments: Array<string>;
-  readonly hasCommented?: boolean;
-  readonly isCommenting?: boolean;
-  readonly postId: any;
-  readonly hasLikedPost: boolean;
-}

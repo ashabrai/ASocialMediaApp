@@ -1,5 +1,6 @@
-import { Reducer } from 'redux';
-import { UserActionConstants, UserState } from './ActionConstants';
+import Reducer from 'redux';
+import { UserActionConstants } from './ActionConstants';
+import UserState from './types';
 
 export const initialState: UserState = {
   errors: undefined,
@@ -16,7 +17,7 @@ export const initialState: UserState = {
   postId: null,
 };
 
-const reducer: Reducer<UserState> = (state = initialState, action) => {
+const reducer: Reducer = (state = initialState, action) => {
   switch (action.type) {
     case UserActionConstants.CREATE_POST: {
       return {
@@ -216,5 +217,3 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
     }
   }
 };
-
-export { reducer as userReducer };
