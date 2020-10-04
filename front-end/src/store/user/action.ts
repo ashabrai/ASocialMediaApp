@@ -64,10 +64,9 @@ export function fetchAllPostsFailed(errors: string): FetchAllPostFailedAction {
   };
 }
 
-export function fetchUserPosts(payload: { id: string }): FetchUserPostAction {
+export function fetchUserPosts(): FetchUserPostAction {
   return {
     type: UserActionConstants.FETCH_USER_POSTS,
-    payload,
   };
 }
 export function fetchUserPostsSucceeded(payload: Array<UserPost>): FetchUserPostSucceededAction {
@@ -146,14 +145,12 @@ export function deleteUserPost(payload: { postId: string }): DeleteUserPostActio
     payload,
   };
 }
-
 export function deleteUserPostSucceeded(payload: Array<Post>): DeleteUserPostSucceededAction {
   return {
     type: UserActionConstants.DELETE_USER_POST_SUCCEEDED,
     payload,
   };
 }
-
 export function deleteUserPostFailed(errors: string): DeleteUserPostFailedAction {
   return {
     type: UserActionConstants.DELETE_USER_POST_FAILED,

@@ -1,4 +1,4 @@
-import Reducer from 'redux';
+import { Reducer } from 'redux';
 import { UserActionConstants } from './ActionConstants';
 import UserState from './types';
 
@@ -17,7 +17,7 @@ export const initialState: UserState = {
   postId: null,
 };
 
-const reducer: Reducer = (state = initialState, action) => {
+const userReducer: Reducer = (state = initialState, action) => {
   switch (action.type) {
     case UserActionConstants.CREATE_POST: {
       return {
@@ -217,3 +217,5 @@ const reducer: Reducer = (state = initialState, action) => {
     }
   }
 };
+
+export default userReducer as Reducer;

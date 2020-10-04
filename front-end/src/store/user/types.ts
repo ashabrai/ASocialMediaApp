@@ -98,7 +98,6 @@ export interface FetchAllPostFailedAction {
 
 export interface FetchUserPostAction {
   type: typeof UserActionConstants.FETCH_USER_POSTS;
-  payload: { id: string };
 }
 export interface FetchUserPostSucceededAction {
   type: typeof UserActionConstants.FETCH_USER_POSTS_SUCCEEDED;
