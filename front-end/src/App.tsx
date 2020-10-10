@@ -11,6 +11,7 @@ import UserProfile from 'components/UserProfile/UserProfile';
 import SignUpRedirect from 'components/SignUp/SignupRedirect';
 import CreatePost from 'components/CreatePost/CreatePost';
 import Logout from 'components/Logout/Logout';
+import UserProfileById from 'components/UserProfileById/UserProfileById';
 import './App.css';
 
 const Routing: FC = () => {
@@ -37,6 +38,7 @@ const Routing: FC = () => {
       <Route exact path="/AccountCreated" component={SignUpRedirect} />
       <Route exact path="/CreatePost" component={CreatePost} />
       <Route exact path="/Logout" component={Logout} />
+      <Route exact path="/Profile/:userId" component={UserProfileById} />
     </Switch>
   );
 };

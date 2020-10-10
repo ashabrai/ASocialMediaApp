@@ -26,6 +26,12 @@ export enum UserActionConstants {
   DELETE_USER_POST = '@@user/DELETE_USER_POST',
   DELETE_USER_POST_SUCCEEDED = '@@user/DELETE_USER_POST_SUCCEEDED',
   DELETE_USER_POST_FAILED = '@@user/DELETE_USER_POST_FAILED',
+
+  FETCH_USER_BY_ID = '@@user/FETCH_USER_BY_ID',
+  FETCH_USER_BY_ID_SUCCEEDED = '@@user/FETCH_USER_BY_ID_SUCCEEDED',
+  FETCH_USER_BY_ID_FAILED = '@@user/FETCH_USER_BY_ID_FAILED',
+
+  SET_USER_ID = '@@user/SET_USER_ID',
 }
 
 export interface UserState {
@@ -42,4 +48,6 @@ export interface UserState {
   readonly currentPost: Object;
   readonly postId: any;
   readonly hasLikedPost: boolean;
+  readonly userDataById: Array<any>;
+  readonly userId: string;
 }

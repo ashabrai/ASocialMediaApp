@@ -1,12 +1,13 @@
 import React, { useEffect, FC } from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllPosts } from 'store/user/action';
+import { fetchAllPosts, fetchUserById } from 'store/user/action';
 import { selectAllPosts } from 'store/user/selectors';
 import { selectedUserId, selectIsLoggedIn } from 'store/auth/selectors';
 import PostCard from 'components/PostCard/PostCard';
 import { dateConverted } from 'utils/helper';
 import './Homepage.scss';
-
+import { Header } from 'semantic-ui-react';
 interface HomePageProps {
   user: {
     allPosts: Array<{
@@ -36,6 +37,24 @@ const Homepage: FC<HomePageProps> = () => {
   const allPosts = useSelector(selectAllPosts);
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
+  const viewProfile = (post) => {
+    const userId = post.postedBy._id;
+    dispatch(fetchUserById(userId));
+  };
+
+  const headerValue = (post) => {
+    const userId = post.postedBy._id;
+    const linkTo = `/Profile/${userId}`;
+
+    return (
+      <Link to={linkTo} key="userByIdProfile">
+        <Header as="h3" onClick={() => viewProfile(post)}>
+          {post.postedBy.username}
+        </Header>
+      </Link>
+    );
+  };
+
   useEffect(() => {
     if (isLoggedIn) {
       dispatch(fetchAllPosts());
@@ -49,7 +68,7 @@ const Homepage: FC<HomePageProps> = () => {
           <div key={index}>
             <PostCard
               image={post.photo}
-              header={post.postedBy.username}
+              header={headerValue(post)}
               postId={post._id}
               meta={dateConverted(post.datePosted)}
               description={post.body}

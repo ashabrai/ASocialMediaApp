@@ -155,4 +155,23 @@ export default {
       .catch((error) => console.log(error));
     return response;
   },
+
+  fetchUserById: async (id) => {
+    const url = `http://localhost:4000/user/${id}`;
+    const options = Object.assign(
+      {},
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+        },
+      }
+    );
+    const response = await fetch(url, options)
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+
+    return response;
+  },
 };
