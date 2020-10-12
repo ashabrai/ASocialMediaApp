@@ -8,6 +8,7 @@ import PostCard from 'components/PostCard/PostCard';
 import { dateConverted } from 'utils/helper';
 import './Homepage.scss';
 import { Header } from 'semantic-ui-react';
+
 interface HomePageProps {
   user: {
     allPosts: Array<{
@@ -37,18 +38,16 @@ const Homepage: FC<HomePageProps> = () => {
   const allPosts = useSelector(selectAllPosts);
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  const viewProfile = (post) => {
-    const userId = post.postedBy._id;
+  const viewProfile = () => {
     dispatch(fetchUserById(userId));
   };
 
   const headerValue = (post) => {
-    const userId = post.postedBy._id;
     const linkTo = `/Profile/${userId}`;
 
     return (
       <Link to={linkTo} key="userByIdProfile">
-        <Header as="h3" onClick={() => viewProfile(post)}>
+        <Header as="h3" onClick={() => viewProfile()}>
           {post.postedBy.username}
         </Header>
       </Link>

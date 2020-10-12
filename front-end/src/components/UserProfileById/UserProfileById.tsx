@@ -5,14 +5,39 @@ import UserGrid from 'components/UserGrid/UserGrid';
 import './UserProfileById.scss';
 
 interface UserProfileByIdProps {
-  userId: string;
+  user: {
+    _id: string;
+    email: string;
+    name: string;
+    username: string;
+  };
+  posts: Array<{
+    body: string;
+    comments: Array<{
+      comment: string;
+      postedBy: string;
+      _id: string;
+    }>;
+    datePosted: number;
+    likes: Array<{
+      _id: string;
+      postedBy: string;
+      username: string;
+    }>;
+    photo: string;
+    postedBy: {
+      _id: string;
+      name: string;
+    };
+    title: string;
+    _id: string;
+  }>;
 }
 
 const UserProfileById: FC<UserProfileByIdProps> = () => {
   const userByIdInfo = useSelector(selectUserByIdInfo);
   const userData = userByIdInfo.user;
   const userPosts = userByIdInfo.posts;
-
   return (
     <div className="user">
       <div className="user__container">
