@@ -31,3 +31,9 @@ export const commentPostFailed = (message: string) => action(UserActionConstants
 export const deleteUserPost = (id: string) => action(UserActionConstants.DELETE_USER_POST, id);
 export const deleteUserPostSucceeded = (data: any) => action(UserActionConstants.DELETE_USER_POST_SUCCEEDED, data);
 export const deleteUserPostFailed = (message: string) => action(UserActionConstants.DELETE_USER_POST_FAILED, message);
+
+export const fetchUserById = (id: string) => action(UserActionConstants.FETCH_USER_BY_ID, id);
+export const fetchUserByIdSucceeded = (data: any) => action(UserActionConstants.FETCH_USER_BY_ID_SUCCEEDED, data);
+export const fetchUserByIdFailed = (message: string) => action(UserActionConstants.FETCH_USER_BY_ID_FAILED, message);
+
+export const setUserId = (id: string) => action(UserActionConstants.SET_USER_ID, id);

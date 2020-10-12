@@ -15,6 +15,8 @@ import {
   commentPostFailed,
   deleteUserPostSucceeded,
   deleteUserPostFailed,
+  fetchUserByIdSucceeded,
+  fetchUserByIdFailed,
 } from './action';
 
 import Api from './api';
@@ -99,6 +101,16 @@ function* commentUserPost(action) {
   }
 }
 
+function* fetchUserById(action) {
+  try {
+    const id = action.payload;
+    const response = yield call(Api.fetchUserById, id);
+    yield put(fetchUserByIdSucceeded(response));
+  } catch (e) {
+    yield put(fetchUserByIdFailed(e));
+  }
+}
+
 function* watchAllUserRequest() {
   yield takeLatest(UserActionConstants.CREATE_POST, getImageURL);
   yield takeLatest(UserActionConstants.FETCH_ALL_POSTS, fetchAllPosts);
@@ -107,6 +119,7 @@ function* watchAllUserRequest() {
   yield takeLatest(UserActionConstants.UNLIKE_USER_POST, unlikeUserPost);
   yield takeLatest(UserActionConstants.COMMENT_POST, commentUserPost);
   yield takeLatest(UserActionConstants.DELETE_USER_POST, deletePost);
+  yield takeLatest(UserActionConstants.FETCH_USER_BY_ID, fetchUserById);
 }
 
 export default watchAllUserRequest;

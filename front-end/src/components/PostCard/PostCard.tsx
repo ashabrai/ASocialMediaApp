@@ -15,7 +15,7 @@ library.add(fas);
 
 interface PostCardProps {
   image?: string;
-  header: string;
+  header: any;
   postId: string;
   meta: string;
   description: string;
