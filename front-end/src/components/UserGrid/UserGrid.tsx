@@ -8,7 +8,6 @@ interface GridProps {
     comments: Array<{
       comment: string;
       postedBy: string;
-      username: string;
       _id: string;
     }>;
     likes: Array<{
