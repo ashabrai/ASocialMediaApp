@@ -10,3 +10,7 @@ export const selectUserPosts = (state: ApplicationState) => state.user.userPosts
 export const selectHasCommented = (state: ApplicationState) => state.user.hasCommented;
 
 export const selectHasLikedPost = (state: ApplicationState) => state.user.hasLikedPost;
+
+export const selectUserByIdInfo = (state: ApplicationState) => state.user.userDataById;
+
+export const selectUserId = (state: ApplicationState) => state.user.userId;

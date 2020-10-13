@@ -11,9 +11,10 @@ interface GridProps {
     }>;
     datePosted: string;
     likes: Array<{
-      postedBy: string;
       username: string;
       _id: string;
+      comment: string;
+      postedBy: string;
     }>;
     photo: string;
     postedBy: string;

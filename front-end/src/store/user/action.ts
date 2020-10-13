@@ -4,6 +4,7 @@ import {
   UserPost,
   UserPostLikes,
   CreatePostPayload,
+  UserDataById,
   CreatePostAction,
   CreatePostSucceededAction,
   CreatePostFailedAction,
@@ -25,6 +26,10 @@ import {
   DeleteUserPostAction,
   DeleteUserPostSucceededAction,
   DeleteUserPostFailedAction,
+  FetchUserByIdAction,
+  FetchUserByIdSucceededAction,
+  FetchUserByIdFailedAction,
+  SetUserIdAction,
 } from './types';
 
 export function createPost(payload: CreatePostPayload): CreatePostAction {
@@ -155,5 +160,31 @@ export function deleteUserPostFailed(errors: string): DeleteUserPostFailedAction
   return {
     type: UserActionConstants.DELETE_USER_POST_FAILED,
     errors,
+  };
+}
+
+export function fetchUserById(payload: { id: string }): FetchUserByIdAction {
+  return {
+    type: UserActionConstants.FETCH_USER_BY_ID,
+    payload,
+  };
+}
+export function fetchUserByIdSucceeded(payload: Array<UserDataById>): FetchUserByIdSucceededAction {
+  return {
+    type: UserActionConstants.FETCH_USER_BY_ID_SUCCEEDED,
+    payload,
+  };
+}
+export function fetchUserByIdFailed(errors: string): FetchUserByIdFailedAction {
+  return {
+    type: UserActionConstants.FETCH_USER_BY_ID_FAILED,
+    errors,
+  };
+}
+
+export function setUserId(payload: { id: string }): SetUserIdAction {
+  return {
+    type: UserActionConstants.SET_USER_ID,
+    payload,
   };
 }

@@ -10,7 +10,7 @@ const UserProfile: FC = () => {
   const userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
   const userPosts = useSelector(selectUserPosts);
-  console.log(userPosts);
+
   useEffect(() => {
     dispatch(fetchUserPosts());
   }, []);

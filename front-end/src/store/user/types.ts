@@ -48,6 +48,36 @@ export interface PostComments {
   _id: string;
 }
 
+export interface UserDataById {
+  user: {
+    _id: string;
+    email: string;
+    name: string;
+    username: string;
+  };
+  posts: Array<{
+    body: string;
+    comments: Array<{
+      comment: string;
+      postedBy: string;
+      _id: string;
+    }>;
+    datePosted: number;
+    likes: Array<{
+      _id: string;
+      postedBy: string;
+      username: string;
+    }>;
+    photo: string;
+    postedBy: {
+      _id: string;
+      name: string;
+    };
+    title: string;
+    _id: string;
+  }>;
+}
+
 export default interface UserState {
   readonly errors?: string;
   readonly isCreatingNewPost?: boolean;
@@ -61,6 +91,8 @@ export default interface UserState {
   readonly isCommenting?: boolean;
   readonly postId: string;
   readonly hasLikedPost: boolean;
+  readonly userDataById: Array<UserDataById>;
+  readonly userId: string;
 }
 
 // User Action Constants and Shape
@@ -158,4 +190,22 @@ export interface DeleteUserPostSucceededAction {
 export interface DeleteUserPostFailedAction {
   type: typeof UserActionConstants.DELETE_USER_POST_FAILED;
   errors: string;
+}
+
+export interface FetchUserByIdAction {
+  type: typeof UserActionConstants.FETCH_USER_BY_ID;
+  payload: { id: string };
+}
+export interface FetchUserByIdSucceededAction {
+  type: typeof UserActionConstants.FETCH_USER_BY_ID_SUCCEEDED;
+  payload: Array<UserDataById>;
+}
+export interface FetchUserByIdFailedAction {
+  type: typeof UserActionConstants.FETCH_USER_BY_ID_FAILED;
+  errors: string;
+}
+
+export interface SetUserIdAction {
+  type: typeof UserActionConstants.SET_USER_ID;
+  payload: { id: string };
 }

@@ -25,6 +25,7 @@ require("./models/post");
 app.use(express.json()); // we need to parse
 app.use(require("./routes/auth")); // then handle routes
 app.use(require("./routes/post")); // then handle routes
+app.use(require("./routes/user")); // then handle routes
 
 // Start Server
 app.listen(4000, () => console.log("Server started on port 4000"));

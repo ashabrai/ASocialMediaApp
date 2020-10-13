@@ -14,7 +14,9 @@ export const initialState: UserState = {
   likes: [],
   hasLikedPost: false,
   comments: [],
+  userDataById: [],
   postId: null,
+  userId: '',
 };
 
 const userReducer: Reducer = (state = initialState, action) => {
@@ -212,6 +214,27 @@ const userReducer: Reducer = (state = initialState, action) => {
       };
     }
 
+    case UserActionConstants.FETCH_USER_BY_ID_SUCCEEDED: {
+      return {
+        ...state,
+        userDataById: action.payload,
+      };
+    }
+
+    case UserActionConstants.FETCH_USER_BY_ID_FAILED: {
+      return {
+        ...state,
+        userDataById: [],
+        errors: action.payload,
+      };
+    }
+
+    case UserActionConstants.SET_USER_ID: {
+      return {
+        ...state,
+        userId: action.payload,
+      };
+    }
     default: {
       return state;
     }
