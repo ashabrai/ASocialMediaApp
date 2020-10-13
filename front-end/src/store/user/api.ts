@@ -12,7 +12,7 @@ export default {
         body: JSON.stringify(payload),
       }
     );
-    const response = fetch(url, options)
+    const response = await fetch(url, options)
       .then((response) => response.json())
       .catch((error) => console.log(error));
 
