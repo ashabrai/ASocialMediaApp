@@ -31,6 +31,7 @@ interface PostCardProps {
     postedBy: string;
     username: string;
   }>;
+  userId?: string;
 }
 
 const PostCard: FC<PostCardProps> = ({
@@ -43,9 +44,10 @@ const PostCard: FC<PostCardProps> = ({
   likes,
   postedBy,
   userHasLikedPost,
+  userId,
 }) => {
   const dispatch = useDispatch();
-  const userId = useSelector(selectedUserId);
+  const userIdValue: typeof userId = useSelector(selectedUserId);
   const [comment, setCommentValue] = useState<string>('');
 
   const likePost = () => {
@@ -145,7 +147,7 @@ const PostCard: FC<PostCardProps> = ({
       buttonContent="Comment"
       onButtonClick={() => handleCommentButtonClick()}
       additionalCardSection={commentSection()}
-      headerContent={userId === postedBy._id ? headerButtonContent() : null}
+      headerContent={userIdValue === postedBy._id ? headerButtonContent() : null}
     />
   );
 };

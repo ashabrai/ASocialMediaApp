@@ -26,15 +26,19 @@ interface HomePageProps {
       postedBy: string;
       username: string;
     }>;
+    postedBy: {
+      _id: string;
+      username: string;
+    };
   }>;
   isLoggedIn: boolean;
 }
 
-const Homepage: FC<HomePageProps> = () => {
+const Homepage: FC<HomePageProps> = ({ allPosts, isLoggedIn }) => {
   const dispatch = useDispatch();
   const userId = useSelector(selectedUserId);
-  const allPosts = useSelector(selectAllPosts);
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const allPostsValue: typeof allPosts = useSelector(selectAllPosts);
+  const isLoggedInValue: typeof isLoggedIn = useSelector(selectIsLoggedIn);
 
   const viewProfile = () => {
     dispatch(fetchUserById(userId));
@@ -53,15 +57,15 @@ const Homepage: FC<HomePageProps> = () => {
   };
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedInValue) {
       dispatch(fetchAllPosts());
     }
-  }, [dispatch, isLoggedIn]);
+  }, [dispatch, isLoggedInValue]);
 
   return (
     <div className="home">
       <div className="home__allCards">
-        {allPosts?.map((post, index) => (
+        {allPostsValue?.map((post, index) => (
           <div key={index}>
             <PostCard
               image={post.photo}

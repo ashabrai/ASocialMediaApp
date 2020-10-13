@@ -7,16 +7,20 @@ import SocialMediaApp from 'assets/socialMediaApp.png';
 import Button from 'sharedComponents/ButtonComponent';
 import './Navbar.scss';
 
-const Navbar: FC = () => {
+interface NavbarProps {
+  isLoggedIn?: boolean;
+}
+
+const Navbar: FC<NavbarProps> = ({ isLoggedIn }) => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isLoggedInValue: typeof isLoggedIn = useSelector(selectIsLoggedIn);
 
   const logUserOut = () => {
     dispatch(userLogout());
   };
 
   const renderProperLinks = () => {
-    if (isLoggedIn) {
+    if (isLoggedInValue) {
       return [
         <Link to="/" key="home">
           <Button title="Home" color="grey" />

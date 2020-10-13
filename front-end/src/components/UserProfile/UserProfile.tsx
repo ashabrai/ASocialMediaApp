@@ -6,10 +6,41 @@ import { selectUserInfo } from 'store/auth/selectors';
 import UserGrid from 'components/UserGrid/UserGrid';
 import './UserProfile.scss';
 
-const UserProfile: FC = () => {
-  const userInfo = useSelector(selectUserInfo);
+interface UserProfileProps {
+  userInfo: {
+    email: string;
+    name: string;
+    _id: string;
+    username: string;
+  };
+  userPosts: Array<{
+    body: string;
+    datePosted: number;
+    comments: Array<{
+      username: string;
+      _id: string;
+      comment: string;
+      postedBy: string;
+    }>;
+    likes: Array<{
+      username: string;
+      _id: string;
+      postedBy: string;
+    }>;
+    photo: string;
+    postedBy: {
+      name: string;
+      _id: string;
+    };
+    title: string;
+    _id: string;
+  }>;
+}
+
+const UserProfile: FC<UserProfileProps> = ({ userInfo, userPosts }) => {
+  const userInfoData: typeof userInfo = useSelector(selectUserInfo);
   const dispatch = useDispatch();
-  const userPosts = useSelector(selectUserPosts);
+  const userPostsData: typeof userPosts = useSelector(selectUserPosts);
 
   useEffect(() => {
     dispatch(fetchUserPosts());
@@ -25,7 +56,7 @@ const UserProfile: FC = () => {
         /> */}
         <div className="user__info">
           <h3 className="user__name">
-            {userInfo.name} || @{userInfo.username}
+            {userInfoData.name} || @{userInfoData.username}
           </h3>
           {/* <h3>@{userInfo.username}</h3> */}
           <div className="user__dataCount">
@@ -35,7 +66,7 @@ const UserProfile: FC = () => {
           </div>
         </div>
       </div>
-      <UserGrid userPosts={userPosts} />
+      <UserGrid userPosts={userPostsData} />
     </div>
   );
 };
