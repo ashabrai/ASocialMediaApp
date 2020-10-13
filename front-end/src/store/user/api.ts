@@ -1,25 +1,3 @@
-import { Post } from './types';
-
-// export default function createPost(payload): Promise<Array<Post>> {
-//   const url = 'http://localhost:4000/createPost';
-//   const options = Object.assign(
-//     {},
-//     {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: 'Bearer ' + localStorage.getItem('jwt'),
-//       },
-//       body: JSON.stringify(payload),
-//     }
-//   );
-//   const response = fetch(url, options)
-//     .then((response) => response.json())
-//     .catch((error) => console.log(error));
-
-//   return response;
-// }
-
 export default {
   createPost: async (payload) => {
     const url = 'http://localhost:4000/createPost';
