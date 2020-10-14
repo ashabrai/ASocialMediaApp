@@ -17,7 +17,7 @@ interface HomePageProps {
     body: string;
     comments: Array<{
       comment: string;
-      postedBy: string;
+      postedBy: { _id: string; username: string };
       _id: string;
     }>;
     hasLikedPost: boolean;

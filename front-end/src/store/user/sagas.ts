@@ -1,5 +1,5 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
-import { UserActionConstants } from './ActionConstants';
+import { UserActionConstants } from './userActionConstants';
 import {
   createPostSucceeded,
   createPostFailed,

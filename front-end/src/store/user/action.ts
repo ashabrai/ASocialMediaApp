@@ -1,4 +1,4 @@
-import { UserActionConstants } from './ActionConstants';
+import { UserActionConstants } from './userActionConstants';
 import {
   Post,
   UserPost,

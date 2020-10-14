@@ -1,4 +1,5 @@
-import { UserActionConstants } from './ActionConstants';
+import { UserActionConstants } from './userActionConstants';
+
 export interface Post {
   _id: string;
   photo: string;

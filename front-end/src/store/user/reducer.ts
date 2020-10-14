@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { UserActionConstants } from './ActionConstants';
+import { UserActionConstants } from './userActionConstants';
 import UserState from './types';
 
 export const initialState: UserState = {
@@ -188,7 +188,7 @@ const userReducer: Reducer = (state = initialState, action) => {
         hasCommented: false,
         isCommenting: false,
         errors: action.payload,
-        currentPostId: '',
+        postId: null,
       };
     }
 

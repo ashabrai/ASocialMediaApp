@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import { authReducer } from 'store/auth/reducer';
+import authReducer from 'store/auth/reducer';
 import { AuthState } from 'store/auth/types';
-import UserState from './user/types';
+import UserState from 'store/user/types';
 import userReducer from 'store/user/reducer';
 
 export interface ApplicationState {
