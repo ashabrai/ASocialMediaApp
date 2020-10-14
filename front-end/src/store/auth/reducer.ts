@@ -43,7 +43,7 @@ const authReducer: Reducer = (state = initialState, action) => {
         ...state,
         isBeingCreated: false,
         hasBeenCreated: false,
-        errors: action.payload.Error,
+        errors: action.payload.error,
       };
     }
 
