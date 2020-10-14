@@ -21,14 +21,14 @@ export interface Auth {
   _id: string;
 }
 
-interface CreateUserPayload {
+export interface CreateUserPayload {
   name: string;
   username: string;
   email: string;
   password: string;
 }
 
-interface CreateUserSuccessPayload {
+export interface CreateUserSuccessPayload {
   message: string;
   user: {
     _id: string;
@@ -37,7 +37,7 @@ interface CreateUserSuccessPayload {
   };
 }
 
-interface LoginSucceedPayload {
+export interface LoginSucceedPayload {
   token: string;
   user: {
     _id: string;

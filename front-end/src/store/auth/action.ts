@@ -1,5 +1,9 @@
 import { AuthActionConstants } from './authActionConstants';
 import {
+  CreateUserPayload,
+  CreateUserSuccessPayload,
+  LoginSucceedPayload,
+  Auth,
   CreateUserAction,
   CreateUserSucceededAction,
   CreateUserFailedAction,
@@ -14,13 +18,13 @@ import {
   SaveUserDataFailedAction,
 } from './types';
 
-export function createUser(payload: any): CreateUserAction {
+export function createUser(payload: CreateUserPayload): CreateUserAction {
   return {
     type: AuthActionConstants.CREATE_USER,
     payload,
   };
 }
-export function createUserSucceeded(payload: any): CreateUserSucceededAction {
+export function createUserSucceeded(payload: CreateUserSuccessPayload): CreateUserSucceededAction {
   return {
     type: AuthActionConstants.CREATE_USER_SUCCEEDED,
     payload,
@@ -33,13 +37,13 @@ export function createUserFailed(payload: string): CreateUserFailedAction {
   };
 }
 
-export function userLogin(payload: any): UserLoginAction {
+export function userLogin(payload: { email: string; password: string }): UserLoginAction {
   return {
     type: AuthActionConstants.USER_LOGIN,
     payload,
   };
 }
-export function userLoginSucceeded(payload: any): UserLoginSucceededAction {
+export function userLoginSucceeded(payload: LoginSucceedPayload): UserLoginSucceededAction {
   return {
     type: AuthActionConstants.USER_LOGIN_SUCCEEDED,
     payload,
@@ -69,13 +73,13 @@ export function userLogoutFailed(payload: string): UserLogoutFailedAction {
   };
 }
 
-export function saveUserData(payload: any): SaveUserDataAction {
+export function saveUserData(payload: Auth): SaveUserDataAction {
   return {
     type: AuthActionConstants.SAVE_USER_DATA,
     payload,
   };
 }
-export function saveUserDataSucceeded(payload: any): SaveUserDataSucceededAction {
+export function saveUserDataSucceeded(payload: Auth): SaveUserDataSucceededAction {
   return {
     type: AuthActionConstants.SAVE_USER_DATA_SUCCEEDED,
     payload,
