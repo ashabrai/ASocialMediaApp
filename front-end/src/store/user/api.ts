@@ -18,7 +18,6 @@ export default {
 
     return response;
   },
-
   storeImageToCloud: async (payload) => {
     const data = new FormData();
     data.append('file', payload);

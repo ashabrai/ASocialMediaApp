@@ -1,3 +1,17 @@
+import { AuthActionConstants } from './authActionConstants';
+
+export interface AuthState {
+  readonly authData: Auth;
+  readonly errors: string;
+  readonly isBeingCreated: boolean;
+  readonly isBeingLoggedIn: boolean;
+  readonly isBeingLoggedOut: boolean;
+  readonly isLoggedIn: boolean;
+  readonly hasBeenCreated: boolean;
+  readonly userDataSaved: boolean;
+  readonly isLoggedOut: boolean;
+}
+
 export interface Auth {
   name: string;
   username: string;
@@ -7,32 +21,80 @@ export interface Auth {
   _id: string;
 }
 
-export enum AuthAction {
-  CREATE_USER = '@@auth/CREATE_USER',
-  CREATE_USER_SUCCEEDED = '@@auth/CREATE_USER_SUCCEEDED',
-  CREATE_USER_FAILED = '@@auth/CREATE_USER_FAILED',
-
-  USER_LOGIN = '@@auth/USER_LOGIN',
-  USER_LOGIN_SUCCEEDED = '@@auth/USER_LOGIN_SUCCEEDED',
-  USER_LOGIN_FAILED = '@@auth/USER_LOGIN_FAILED',
-
-  USER_LOGGOUT = '@@auth/USER_LOGGOUT',
-  USER_LOGGOUT_SUCCEEDED = '@@auth/USER_LOGGOUT_SUCCEEDED',
-  USER_LOGGOUT_FAILED = '@@auth/USER_LOGGOUT_FAILED',
-
-  SAVE_USER_DATA = '@@auth/SAVE_USER_DATA',
-  SAVE_USER_DATA_SUCCEEDED = '@@auth/SAVE_USER_DATA_SUCCEEDED',
-  SAVE_USER_DATA_FAILED = '@@auth/SAVE_USER_DATA_FAILED',
+export interface CreateUserPayload {
+  name: string;
+  username: string;
+  email: string;
+  password: string;
 }
 
-export interface AuthState {
-  readonly authData: Auth;
-  readonly errors?: string;
-  readonly isBeingCreated?: boolean;
-  readonly isBeingLoggedIn?: boolean;
-  readonly isBeingLoggedOut?: boolean;
-  readonly isLoggedIn?: boolean;
-  readonly hasBeenCreated?: boolean;
-  readonly userDataSaved?: boolean;
-  readonly isLoggedOut?: boolean;
+export interface CreateUserSuccessPayload {
+  message: string;
+  user: {
+    _id: string;
+    name: string;
+    username: string;
+  };
+}
+
+export interface LoginSucceedPayload {
+  token: string;
+  user: {
+    _id: string;
+    name: string;
+    email: string;
+    username: string;
+  };
+}
+
+// Auth Action Constants and Shape
+
+export interface CreateUserAction {
+  type: typeof AuthActionConstants.CREATE_USER;
+  payload: CreateUserPayload;
+}
+export interface CreateUserSucceededAction {
+  type: typeof AuthActionConstants.CREATE_USER_SUCCEEDED;
+  payload: CreateUserSuccessPayload;
+}
+export interface CreateUserFailedAction {
+  type: typeof AuthActionConstants.CREATE_USER_FAILED;
+  payload: string;
+}
+
+export interface UserLoginAction {
+  type: typeof AuthActionConstants.USER_LOGIN;
+  payload: { email: string; password: string };
+}
+export interface UserLoginSucceededAction {
+  type: typeof AuthActionConstants.USER_LOGIN_SUCCEEDED;
+  payload: LoginSucceedPayload;
+}
+export interface UserLoginFailedAction {
+  type: typeof AuthActionConstants.USER_LOGIN_FAILED;
+  payload: string;
+}
+
+export interface UserLogoutAction {
+  type: typeof AuthActionConstants.USER_LOGOUT;
+}
+export interface UserLogoutSucceededAction {
+  type: typeof AuthActionConstants.USER_LOGOUT_SUCCEEDED;
+}
+export interface UserLogoutFailedAction {
+  type: typeof AuthActionConstants.USER_LOGOUT_FAILED;
+  payload: string;
+}
+
+export interface SaveUserDataAction {
+  type: typeof AuthActionConstants.SAVE_USER_DATA;
+  payload: Auth;
+}
+export interface SaveUserDataSucceededAction {
+  type: typeof AuthActionConstants.SAVE_USER_DATA_SUCCEEDED;
+  payload: Auth;
+}
+export interface SaveUserDataFailedAction {
+  type: typeof AuthActionConstants.SAVE_USER_DATA_FAILED;
+  payload: string;
 }

@@ -7,10 +7,14 @@ import { selectCreatedNewPostStatus } from 'store/user/selectors';
 import CreatePostForm from 'sharedComponents/CreatePostForm';
 import './CreatePost.scss';
 
-const CreatePost: FC = () => {
+interface CreatePostProps {
+  createNewPostValue: boolean;
+}
+
+const CreatePost: FC<CreatePostProps> = ({ createNewPostValue }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const createdNewPost = useSelector(selectCreatedNewPostStatus);
+  const createdNewPost: typeof createNewPostValue = useSelector(selectCreatedNewPostStatus);
 
   const [title, setTitle] = useState<string>('');
   const [body, setBody] = useState<string>('');

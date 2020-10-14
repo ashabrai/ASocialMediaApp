@@ -34,10 +34,11 @@ interface UserProfileByIdProps {
   }>;
 }
 
-const UserProfileById: FC<UserProfileByIdProps> = () => {
+const UserProfileById: FC<UserProfileByIdProps> = ({ user, posts }) => {
   const userByIdInfo = useSelector(selectUserByIdInfo);
-  const userData = userByIdInfo.user;
-  const userPosts = userByIdInfo.posts;
+  const userData: typeof user = userByIdInfo.user;
+  const userPosts: typeof posts = userByIdInfo.posts;
+
   return (
     <div className="user">
       <div className="user__container">

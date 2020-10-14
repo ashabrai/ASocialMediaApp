@@ -7,10 +7,14 @@ import { isValidEmailAddress } from 'utils/helper';
 import './SignUp.scss';
 import { selectHasBeenCreated } from 'store/auth/selectors';
 
-const SignUp: FC = () => {
+interface SignUpProps {
+  hasBeenCreated: boolean;
+}
+
+const SignUp: FC<SignUpProps> = ({ hasBeenCreated }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const hasBeenCreated = useSelector(selectHasBeenCreated);
+  const hasBeenCreatedValue: typeof hasBeenCreated = useSelector(selectHasBeenCreated);
 
   const [name, setName] = useState<string>();
   const [username, setUsername] = useState<string>();
@@ -19,10 +23,10 @@ const SignUp: FC = () => {
   const [emailError, setEmailError] = useState<boolean>(false);
 
   useEffect(() => {
-    if (hasBeenCreated) {
+    if (hasBeenCreatedValue) {
       history.push('/AccountCreated');
     }
-  }, [hasBeenCreated, history]);
+  }, [hasBeenCreatedValue, history]);
 
   const handleSubmitButtonClick = () => {
     dispatch(createUser({ name, username, email, password }));

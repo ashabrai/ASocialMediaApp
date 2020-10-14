@@ -33,21 +33,3 @@ export enum UserActionConstants {
 
   SET_USER_ID = '@@user/SET_USER_ID',
 }
-
-export interface UserState {
-  readonly errors?: string;
-  readonly isCreatingNewPost?: boolean;
-  readonly createdNewPost?: boolean;
-  readonly allPosts: Array<any>;
-  readonly isFetchingAllPosts?: boolean;
-  readonly userPosts: Array<string>;
-  readonly likes: Array<string>;
-  readonly comments: Array<string>;
-  readonly hasCommented?: boolean;
-  readonly isCommenting?: boolean;
-  readonly currentPost: Object;
-  readonly postId: any;
-  readonly hasLikedPost: boolean;
-  readonly userDataById: Array<any>;
-  readonly userId: string;
-}

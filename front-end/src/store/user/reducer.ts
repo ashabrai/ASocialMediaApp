@@ -1,5 +1,6 @@
 import { Reducer } from 'redux';
-import { UserActionConstants, UserState } from './ActionConstants';
+import { UserActionConstants } from './userActionConstants';
+import UserState from './types';
 
 export const initialState: UserState = {
   errors: undefined,
@@ -8,7 +9,6 @@ export const initialState: UserState = {
   isFetchingAllPosts: false,
   isCommenting: false,
   hasCommented: false,
-  currentPost: {},
   allPosts: [],
   userPosts: [],
   likes: [],
@@ -19,7 +19,7 @@ export const initialState: UserState = {
   userId: '',
 };
 
-const reducer: Reducer<UserState> = (state = initialState, action) => {
+const userReducer: Reducer = (state = initialState, action) => {
   switch (action.type) {
     case UserActionConstants.CREATE_POST: {
       return {
@@ -179,7 +179,6 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
           }
           return item;
         }),
-        currentPost: action.payload,
       };
     }
 
@@ -189,7 +188,7 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
         hasCommented: false,
         isCommenting: false,
         errors: action.payload,
-        currentPostId: '',
+        postId: null,
       };
     }
 
@@ -242,4 +241,4 @@ const reducer: Reducer<UserState> = (state = initialState, action) => {
   }
 };
 
-export { reducer as userReducer };
+export default userReducer as Reducer;
