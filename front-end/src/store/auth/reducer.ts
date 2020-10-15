@@ -23,6 +23,7 @@ export const initialState: AuthState = {
 const authReducer: Reducer = (state = initialState, action) => {
   switch (action.type) {
     case AuthActionConstants.CREATE_USER: {
+      console.log(action);
       return {
         ...state,
         isBeingCreated: true,
@@ -43,6 +44,13 @@ const authReducer: Reducer = (state = initialState, action) => {
         ...state,
         isBeingCreated: false,
         hasBeenCreated: false,
+        authData: {
+          name: '',
+          username: '',
+          email: '',
+          token: '',
+          _id: '',
+        },
         errors: action.payload.error,
       };
     }
@@ -69,7 +77,7 @@ const authReducer: Reducer = (state = initialState, action) => {
       return {
         ...state,
         isBeingLoggedIn: false,
-        errors: action.payload,
+        errors: action.payload.error,
         isLoggedIn: false,
       };
     }
