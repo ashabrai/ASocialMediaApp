@@ -40,7 +40,6 @@ describe('AuthReducer', () => {
     };
     expect(AuthReducer(initialStateMock, actionMock)).toEqual(updatedStateMock);
   });
-
   it('The CREATE_USER_SUCCEEDED action should correctly set the authData object with the correct values from the payload', () => {
     const actionMock = {
       type: AuthActionConstants.CREATE_USER_SUCCEEDED,
@@ -55,7 +54,6 @@ describe('AuthReducer', () => {
     };
     expect(AuthReducer(initialStateMock, actionMock)).toEqual(updatedStateMock);
   });
-
   it('The CREATE_USER_FAILED action should set isBeingCreated and hasBeenCreated to false and authData objects values set to empty strings and then set the error message to the errors property', () => {
     const actionMock = {
       type: AuthActionConstants.CREATE_USER_FAILED,
@@ -92,7 +90,6 @@ describe('AuthReducer', () => {
     };
     expect(AuthReducer(initialStateMock, actionMock)).toEqual(updatedStateMock);
   });
-
   it('The USER_LOGIN_SUCCEEDED action should set isBeingLoggedIn to false, isLoggedIn to true and set authData object to with the values received from payload', () => {
     const actionMock = {
       type: AuthActionConstants.USER_LOGIN_SUCCEEDED,
@@ -112,7 +109,6 @@ describe('AuthReducer', () => {
     };
     expect(AuthReducer(initialStateMock, actionMock)).toEqual(updatedStateMock);
   });
-
   it('The USER_LOGIN_FAILED action should set isBeingLoggedIn to false, isLoggedIn to false and setting errors with the proper message from payload', () => {
     const actionMock = {
       type: AuthActionConstants.USER_LOGIN_FAILED,
@@ -125,6 +121,104 @@ describe('AuthReducer', () => {
       isLoggedIn: false,
       errors: actionMock.payload.error,
     };
+    expect(AuthReducer(initialStateMock, actionMock)).toEqual(updatedStateMock);
+  });
+
+  it('The USER_LOGOUT action should set isBeingLoggedOut to true', () => {
+    const actionMock = {
+      type: AuthActionConstants.USER_LOGOUT,
+    };
+
+    const updatedStateMock = {
+      ...initialStateMock,
+      isBeingLoggedOut: true,
+    };
+
+    expect(AuthReducer(initialStateMock, actionMock)).toEqual(updatedStateMock);
+  });
+  it('The USER_LOGOUT_SUCCEEDED action should set isBeingLoggedOut and isLoggedIn to false and setting all properties of authData to empty strings', () => {
+    const actionMock = {
+      type: AuthActionConstants.USER_LOGOUT_SUCCEEDED,
+    };
+
+    const updatedStateMock = {
+      ...initialStateMock,
+      isBeingLoggedOut: false,
+      isLoggedIn: false,
+      authData: {
+        name: '',
+        username: '',
+        email: '',
+        token: '',
+        _id: '',
+      },
+    };
+
+    expect(AuthReducer(initialStateMock, actionMock)).toEqual(updatedStateMock);
+  });
+  it('The USER_LOGOUT_FAILED action should set isBeingLoggedOut to false and isLoggedIn to true and setting the payload to the errors object', () => {
+    const actionMock = {
+      type: AuthActionConstants.USER_LOGOUT_FAILED,
+      payload: { error: 'Something went wrong while trying to logout' },
+    };
+
+    const updatedStateMock = {
+      ...initialStateMock,
+      isBeingLoggedOut: false,
+      isLoggedIn: true,
+      errors: actionMock.payload.error,
+    };
+
+    expect(AuthReducer(initialStateMock, actionMock)).toEqual(updatedStateMock);
+  });
+
+  it('The SAVE_USER_DATA action should set userDataSaved to false', () => {
+    const actionMock = {
+      type: AuthActionConstants.SAVE_USER_DATA,
+      payload: { name: 'test', username: 'test', email: 'test@mail.com', password: '1111', _id: '12121' },
+    };
+
+    const updatedStateMock = {
+      ...initialStateMock,
+      userDataSaved: false,
+    };
+
+    expect(AuthReducer(initialStateMock, actionMock)).toEqual(updatedStateMock);
+  });
+  it('The SAVE_USER_DATA_SUCCEEDED action should set the authData object with the payload values, and it should set userDataSaved and isLoggedIn to true', () => {
+    const actionMock = {
+      type: AuthActionConstants.SAVE_USER_DATA_SUCCEEDED,
+      payload: { name: 'test', username: 'test', email: 'test@mail.com', password: '1111', _id: '12121' },
+    };
+
+    const updatedStateMock = {
+      ...initialStateMock,
+      isLoggedIn: true,
+      userDataSaved: true,
+      authData: actionMock.payload,
+    };
+
+    expect(AuthReducer(initialStateMock, actionMock)).toEqual(updatedStateMock);
+  });
+  it('The SAVE_USER_DATA_FAILED action should set all values in the authData object to empty strings, and isLoggedIn to false and finally append the payload error to the errors object', () => {
+    const actionMock = {
+      type: AuthActionConstants.SAVE_USER_DATA_FAILED,
+      payload: { error: 'Something went wrong when trying to save' },
+    };
+
+    const updatedStateMock = {
+      ...initialStateMock,
+      isLoggedIn: false,
+      authData: {
+        name: '',
+        username: '',
+        email: '',
+        token: '',
+        _id: '',
+      },
+      errors: actionMock.payload.error,
+    };
+
     expect(AuthReducer(initialStateMock, actionMock)).toEqual(updatedStateMock);
   });
 });

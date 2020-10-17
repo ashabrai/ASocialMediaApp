@@ -23,7 +23,6 @@ export const initialState: AuthState = {
 const authReducer: Reducer = (state = initialState, action) => {
   switch (action.type) {
     case AuthActionConstants.CREATE_USER: {
-      console.log(action);
       return {
         ...state,
         isBeingCreated: true,
@@ -107,8 +106,8 @@ const authReducer: Reducer = (state = initialState, action) => {
       return {
         ...state,
         isBeingLoggedOut: false,
-        isLoggedIn: false,
-        errors: action.payload,
+        isLoggedIn: true,
+        errors: action.payload.error,
       };
     }
 
@@ -138,7 +137,7 @@ const authReducer: Reducer = (state = initialState, action) => {
           token: '',
           _id: '',
         },
-        errors: action.payload,
+        errors: action.payload.error,
         isLoggedIn: false,
       };
     }
