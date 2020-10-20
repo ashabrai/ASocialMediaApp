@@ -41,7 +41,7 @@ const userReducer: Reducer = (state = initialState, action) => {
         ...state,
         isCreatingNewPost: false,
         createdNewPost: false,
-        errors: action.payload,
+        errors: action.payload.error,
       };
     }
 
@@ -66,7 +66,8 @@ const userReducer: Reducer = (state = initialState, action) => {
         ...state,
         isFetchingAllPosts: false,
         allPosts: [],
-        errors: action.payload,
+        errors: action.payload.error,
+        createdNewPost: false,
       };
     }
 
@@ -119,8 +120,7 @@ const userReducer: Reducer = (state = initialState, action) => {
     case UserActionConstants.LIKE_USER_POST_FAILED: {
       return {
         ...state,
-        likes: [],
-        errors: action.payload,
+        errors: action.payload.error,
       };
     }
 
@@ -149,8 +149,7 @@ const userReducer: Reducer = (state = initialState, action) => {
     case UserActionConstants.UNLIKE_USER_POST_FAILED: {
       return {
         ...state,
-        likes: [],
-        errors: action.payload,
+        errors: action.payload.error,
       };
     }
 
@@ -187,7 +186,7 @@ const userReducer: Reducer = (state = initialState, action) => {
         ...state,
         hasCommented: false,
         isCommenting: false,
-        errors: action.payload,
+        errors: action.payload.error,
         postId: null,
       };
     }
@@ -210,7 +209,7 @@ const userReducer: Reducer = (state = initialState, action) => {
     case UserActionConstants.DELETE_USER_POST_FAILED: {
       return {
         ...state,
-        errors: action.payload,
+        errors: action.payload.errors,
       };
     }
 
@@ -225,7 +224,7 @@ const userReducer: Reducer = (state = initialState, action) => {
       return {
         ...state,
         userDataById: [],
-        errors: action.payload,
+        errors: action.payload.errors,
       };
     }
 

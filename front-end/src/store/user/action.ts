@@ -93,7 +93,7 @@ export function likeUserPost(payload: { postId: string }): LikeUserPostAction {
     payload,
   };
 }
-export function likeUserPostSucceeded(payload: Array<UserPostLikes>): LikeUserPostSucceededAction {
+export function likeUserPostSucceeded(payload: Post): LikeUserPostSucceededAction {
   return {
     type: UserActionConstants.LIKE_USER_POST_SUCCEEDED,
     payload,

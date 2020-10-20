@@ -43,6 +43,13 @@ const authReducer: Reducer = (state = initialState, action) => {
         ...state,
         isBeingCreated: false,
         hasBeenCreated: false,
+        authData: {
+          name: '',
+          username: '',
+          email: '',
+          token: '',
+          _id: '',
+        },
         errors: action.payload.error,
       };
     }
@@ -69,7 +76,7 @@ const authReducer: Reducer = (state = initialState, action) => {
       return {
         ...state,
         isBeingLoggedIn: false,
-        errors: action.payload,
+        errors: action.payload.error,
         isLoggedIn: false,
       };
     }
@@ -99,8 +106,8 @@ const authReducer: Reducer = (state = initialState, action) => {
       return {
         ...state,
         isBeingLoggedOut: false,
-        isLoggedIn: false,
-        errors: action.payload,
+        isLoggedIn: true,
+        errors: action.payload.error,
       };
     }
 
@@ -130,7 +137,7 @@ const authReducer: Reducer = (state = initialState, action) => {
           token: '',
           _id: '',
         },
-        errors: action.payload,
+        errors: action.payload.error,
         isLoggedIn: false,
       };
     }
