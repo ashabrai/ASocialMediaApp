@@ -3,14 +3,13 @@ import { UserActionConstants } from './userActionConstants';
 export interface Post {
   _id: string;
   photo: string;
-  datePosted: string;
+  datePosted: number;
   body: string;
   comments: Array<{
     comment: string;
     postedBy: { _id: string; username: string };
     _id: string;
   }>;
-  hasLikedPost: boolean;
   likes: Array<{
     _id: string;
     postedBy: string;
@@ -147,7 +146,7 @@ export interface LikeUserPostAction {
 }
 export interface LikeUserPostSucceededAction {
   type: typeof UserActionConstants.LIKE_USER_POST_SUCCEEDED;
-  payload: Array<UserPostLikes>;
+  payload: Post;
 }
 export interface LikeUserPostFailedAction {
   type: typeof UserActionConstants.LIKE_USER_POST_FAILED;
