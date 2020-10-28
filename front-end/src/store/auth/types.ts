@@ -10,6 +10,9 @@ export interface AuthState {
   readonly hasBeenCreated: boolean;
   readonly userDataSaved: boolean;
   readonly isLoggedOut: boolean;
+  readonly isFollowingUser: boolean;
+  readonly followers: any;
+  readonly following: any;
 }
 
 export interface Auth {
@@ -96,5 +99,18 @@ export interface SaveUserDataSucceededAction {
 }
 export interface SaveUserDataFailedAction {
   type: typeof AuthActionConstants.SAVE_USER_DATA_FAILED;
+  payload: string;
+}
+
+export interface FollowUserAction {
+  type: typeof AuthActionConstants.FOLLOW_USER;
+  payload: string;
+}
+export interface FollowUserSucceededAction {
+  type: typeof AuthActionConstants.FOLLOW_USER_SUCCEEDED;
+  payload: { following: Array<any> };
+}
+export interface FollowUserFailedAction {
+  type: typeof AuthActionConstants.FOLLOW_USER_FAILED;
   payload: string;
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllPosts, fetchUserById } from 'store/user/action';
+import { fetchAllPosts, setUserIdSelected } from 'store/user/action';
 import { selectAllPosts } from 'store/user/selectors';
 import { selectedUserId, selectIsLoggedIn } from 'store/auth/selectors';
 import PostCard from 'components/PostCard/PostCard';
@@ -36,22 +36,20 @@ interface HomePageProps {
 
 const Homepage: FC<HomePageProps> = ({ allPosts, isLoggedIn }) => {
   const dispatch = useDispatch();
-  const userId = useSelector(selectedUserId);
+  const userIdSelected = useSelector(selectedUserId);
   const allPostsValue: typeof allPosts = useSelector(selectAllPosts);
   const isLoggedInValue: typeof isLoggedIn = useSelector(selectIsLoggedIn);
 
-  const viewProfile = () => {
-    dispatch(fetchUserById(userId));
+  const setUserId = (post) => {
+    const userId = post.postedBy._id;
+    dispatch(setUserIdSelected(userId));
   };
 
   const headerValue = (post) => {
-    const linkTo = `/Profile/${userId}`;
-
+    const linkTo = `/Profile/${post.postedBy._id}`;
     return (
-      <Link to={linkTo} key="userByIdProfile">
-        <Header as="h3" onClick={() => viewProfile()}>
-          {post.postedBy.username}
-        </Header>
+      <Link to={linkTo} key="userByIdProfile" onClick={() => setUserId(post)}>
+        <Header as="h3">{post.postedBy.username}</Header>
       </Link>
     );
   };
@@ -76,7 +74,7 @@ const Homepage: FC<HomePageProps> = ({ allPosts, isLoggedIn }) => {
               comments={post.comments}
               postedBy={post.postedBy}
               likes={post.likes}
-              userHasLikedPost={post.likes.find((user) => user.postedBy === userId)}
+              userHasLikedPost={post.likes.find((user) => user.postedBy === userIdSelected)}
             />
           </div>
         ))}

@@ -10,13 +10,13 @@ export const initialState: UserState = {
   isCommenting: false,
   hasCommented: false,
   allPosts: [],
-  userPosts: [],
+  userData: null,
   likes: [],
   hasLikedPost: false,
   comments: [],
-  userDataById: [],
+  userDataById: null,
   postId: null,
-  userId: '',
+  userIdSelected: '',
 };
 
 const userReducer: Reducer = (state = initialState, action) => {
@@ -82,7 +82,7 @@ const userReducer: Reducer = (state = initialState, action) => {
       return {
         ...state,
         isFetchingUserPosts: false,
-        userPosts: action.payload,
+        userData: action.payload,
       };
     }
 
@@ -90,7 +90,7 @@ const userReducer: Reducer = (state = initialState, action) => {
       return {
         ...state,
         isFetchingUserPosts: false,
-        userPosts: [],
+        userData: {},
       };
     }
 
@@ -213,6 +213,13 @@ const userReducer: Reducer = (state = initialState, action) => {
       };
     }
 
+    case UserActionConstants.FETCH_USER_BY_ID: {
+      return {
+        ...state,
+        userIdSelected: action.payload,
+      };
+    }
+
     case UserActionConstants.FETCH_USER_BY_ID_SUCCEEDED: {
       return {
         ...state,
@@ -231,9 +238,10 @@ const userReducer: Reducer = (state = initialState, action) => {
     case UserActionConstants.SET_USER_ID: {
       return {
         ...state,
-        userId: action.payload,
+        userIdSelected: action.payload,
       };
     }
+
     default: {
       return state;
     }

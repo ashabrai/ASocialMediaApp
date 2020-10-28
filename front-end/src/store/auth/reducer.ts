@@ -10,6 +10,8 @@ export const initialState: AuthState = {
     token: '',
     _id: '',
   },
+  followers: [],
+  following: [],
   errors: undefined,
   isBeingCreated: false,
   isBeingLoggedIn: false,
@@ -18,6 +20,7 @@ export const initialState: AuthState = {
   isLoggedIn: false,
   isLoggedOut: false,
   userDataSaved: false,
+  isFollowingUser: false,
 };
 
 const authReducer: Reducer = (state = initialState, action) => {
@@ -139,6 +142,29 @@ const authReducer: Reducer = (state = initialState, action) => {
         },
         errors: action.payload.error,
         isLoggedIn: false,
+      };
+    }
+
+    case AuthActionConstants.FOLLOW_USER: {
+      return {
+        ...state,
+        isFollowingUser: true,
+      };
+    }
+
+    case AuthActionConstants.FOLLOW_USER_SUCCEEDED: {
+      return {
+        ...state,
+        isFollowingUser: false,
+        following: action.payload.following,
+      };
+    }
+
+    case AuthActionConstants.FOLLOW_USER_FAILED: {
+      return {
+        ...state,
+        isFollowingUser: false,
+        errors: action.payload.error,
       };
     }
 

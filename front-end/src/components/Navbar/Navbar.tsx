@@ -2,6 +2,8 @@ import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogout } from 'store/auth/action';
+import { fetchUserPosts } from 'store/user/action';
+
 import { selectIsLoggedIn } from 'store/auth/selectors';
 import SocialMediaApp from 'assets/socialMediaApp.png';
 import Button from 'sharedComponents/ButtonComponent';
@@ -19,6 +21,10 @@ const Navbar: FC<NavbarProps> = ({ isLoggedIn }) => {
     dispatch(userLogout());
   };
 
+  const fetchUserSignedInPosts = () => {
+    dispatch(fetchUserPosts());
+  };
+
   const renderProperLinks = () => {
     if (isLoggedInValue) {
       return [
@@ -26,7 +32,7 @@ const Navbar: FC<NavbarProps> = ({ isLoggedIn }) => {
           <Button title="Home" color="grey" />
         </Link>,
         <Link to="/UserProfile" key="profile">
-          <Button title="Profile" color="grey" />
+          <Button title="Profile" color="grey" onClick={() => fetchUserSignedInPosts()} />
         </Link>,
         <Link to="/CreatePost" key="createPost">
           <Button title="Create Post" color="grey" />

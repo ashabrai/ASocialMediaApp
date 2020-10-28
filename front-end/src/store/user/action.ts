@@ -1,8 +1,7 @@
 import { UserActionConstants } from './userActionConstants';
 import {
   Post,
-  UserPost,
-  UserPostLikes,
+  UserData,
   CreatePostPayload,
   UserDataById,
   CreatePostAction,
@@ -30,6 +29,7 @@ import {
   FetchUserByIdSucceededAction,
   FetchUserByIdFailedAction,
   SetUserIdAction,
+  UserPostLikes,
 } from './types';
 
 export function createPost(payload: CreatePostPayload): CreatePostAction {
@@ -74,7 +74,7 @@ export function fetchUserPosts(): FetchUserPostAction {
     type: UserActionConstants.FETCH_USER_POSTS,
   };
 }
-export function fetchUserPostsSucceeded(payload: Array<UserPost>): FetchUserPostSucceededAction {
+export function fetchUserPostsSucceeded(payload: UserData): FetchUserPostSucceededAction {
   return {
     type: UserActionConstants.FETCH_USER_POSTS_SUCCEEDED,
     payload,
@@ -93,7 +93,7 @@ export function likeUserPost(payload: { postId: string }): LikeUserPostAction {
     payload,
   };
 }
-export function likeUserPostSucceeded(payload: Post): LikeUserPostSucceededAction {
+export function likeUserPostSucceeded(payload: Array<UserPostLikes>): LikeUserPostSucceededAction {
   return {
     type: UserActionConstants.LIKE_USER_POST_SUCCEEDED,
     payload,
@@ -169,7 +169,7 @@ export function fetchUserById(payload: { id: string }): FetchUserByIdAction {
     payload,
   };
 }
-export function fetchUserByIdSucceeded(payload: Array<UserDataById>): FetchUserByIdSucceededAction {
+export function fetchUserByIdSucceeded(payload: UserDataById): FetchUserByIdSucceededAction {
   return {
     type: UserActionConstants.FETCH_USER_BY_ID_SUCCEEDED,
     payload,
@@ -182,7 +182,7 @@ export function fetchUserByIdFailed(errors: string): FetchUserByIdFailedAction {
   };
 }
 
-export function setUserId(payload: { id: string }): SetUserIdAction {
+export function setUserIdSelected(payload: { id: string }): SetUserIdAction {
   return {
     type: UserActionConstants.SET_USER_ID,
     payload,

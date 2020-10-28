@@ -16,6 +16,9 @@ import {
   SaveUserDataAction,
   SaveUserDataSucceededAction,
   SaveUserDataFailedAction,
+  FollowUserAction,
+  FollowUserSucceededAction,
+  FollowUserFailedAction,
 } from './types';
 
 export function createUser(payload: CreateUserPayload): CreateUserAction {
@@ -88,6 +91,25 @@ export function saveUserDataSucceeded(payload: Auth): SaveUserDataSucceededActio
 export function saveUserDataFailed(payload: string): SaveUserDataFailedAction {
   return {
     type: AuthActionConstants.SAVE_USER_DATA_FAILED,
+    payload,
+  };
+}
+
+export function followUser(payload: string): FollowUserAction {
+  return {
+    type: AuthActionConstants.FOLLOW_USER,
+    payload,
+  };
+}
+export function followUserSucceeded(payload: any): FollowUserSucceededAction {
+  return {
+    type: AuthActionConstants.FOLLOW_USER_SUCCEEDED,
+    payload,
+  };
+}
+export function followUserFailed(payload: string): FollowUserFailedAction {
+  return {
+    type: AuthActionConstants.FOLLOW_USER_FAILED,
     payload,
   };
 }

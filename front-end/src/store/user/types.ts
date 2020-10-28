@@ -1,23 +1,23 @@
 import { UserActionConstants } from './userActionConstants';
 
-export interface Post {
-  _id: string;
-  photo: string;
-  datePosted: number;
-  body: string;
-  comments: Array<{
-    comment: string;
-    postedBy: { _id: string; username: string };
-    _id: string;
-  }>;
-  likes: Array<{
-    _id: string;
-    postedBy: string;
-    username: string;
-  }>;
+export default interface UserState {
+  readonly errors?: string;
+  readonly isCreatingNewPost?: boolean;
+  readonly createdNewPost?: boolean;
+  readonly allPosts: Array<Post>;
+  readonly isFetchingAllPosts: boolean;
+  readonly userData: UserData;
+  readonly likes: Array<UserPostLikes>;
+  readonly comments: Array<PostComments>;
+  readonly hasCommented?: boolean;
+  readonly isCommenting?: boolean;
+  readonly postId: string;
+  readonly hasLikedPost: boolean;
+  readonly userDataById: UserDataById;
+  readonly userIdSelected: string;
 }
 
-export interface UserPost {
+export interface Post {
   body: string;
   comments: Array<{
     comment: string;
@@ -36,6 +36,45 @@ export interface UserPost {
   _id: string;
 }
 
+export interface UserData {
+  data: {
+    user: {
+      email: string;
+      followers: Array<{
+        _id: string;
+        username: string;
+      }>;
+      following: Array<{
+        _id: string;
+      }>;
+      name: string;
+      username: string;
+      _id: string;
+    };
+    posts: Array<{
+      body: string;
+      comments: Array<{
+        username: string;
+        comment: string;
+        postedBy: string;
+        _id: string;
+      }>;
+      datePosted: number;
+      likes: Array<{
+        _id: string;
+        postedBy: string;
+        username: string;
+      }>;
+      photo: string;
+      postedBy: {
+        _id: string;
+        name: string;
+      };
+      title: string;
+      _id: string;
+    }>;
+  };
+}
 export interface UserPostLikes {
   postedBy: string;
   username: string;
@@ -49,50 +88,43 @@ export interface PostComments {
 }
 
 export interface UserDataById {
-  user: {
-    _id: string;
-    email: string;
-    name: string;
-    username: string;
-  };
-  posts: Array<{
-    body: string;
-    comments: Array<{
-      comment: string;
-      postedBy: string;
-      _id: string;
-    }>;
-    datePosted: number;
-    likes: Array<{
-      _id: string;
-      postedBy: string;
-      username: string;
-    }>;
-    photo: string;
-    postedBy: {
-      _id: string;
+  userDataById: {
+    user: {
+      email: string;
+      followers: Array<{
+        _id: string;
+        username: string;
+      }>;
+      following: Array<{
+        _id: string;
+      }>;
       name: string;
+      username: string;
+      _id: string;
     };
-    title: string;
-    _id: string;
-  }>;
-}
-
-export default interface UserState {
-  readonly errors?: string;
-  readonly isCreatingNewPost?: boolean;
-  readonly createdNewPost?: boolean;
-  readonly allPosts: Array<Post>;
-  readonly isFetchingAllPosts: boolean;
-  readonly userPosts: Array<UserPost>;
-  readonly likes: Array<UserPostLikes>;
-  readonly comments: Array<PostComments>;
-  readonly hasCommented?: boolean;
-  readonly isCommenting?: boolean;
-  readonly postId: string;
-  readonly hasLikedPost: boolean;
-  readonly userDataById: Array<UserDataById>;
-  readonly userId: string;
+    posts: Array<{
+      body: string;
+      comments: Array<{
+        username: string;
+        comment: string;
+        postedBy: string;
+        _id: string;
+      }>;
+      datePosted: number;
+      likes: Array<{
+        _id: string;
+        postedBy: string;
+        username: string;
+      }>;
+      photo: string;
+      postedBy: {
+        _id: string;
+        name: string;
+      };
+      title: string;
+      _id: string;
+    }>;
+  };
 }
 
 // User Action Constants and Shape
@@ -133,7 +165,7 @@ export interface FetchUserPostAction {
 }
 export interface FetchUserPostSucceededAction {
   type: typeof UserActionConstants.FETCH_USER_POSTS_SUCCEEDED;
-  payload: Array<UserPost>;
+  payload: UserData;
 }
 export interface FetchUserPostFailedAction {
   type: typeof UserActionConstants.FETCH_USER_POSTS_FAILED;
@@ -146,7 +178,7 @@ export interface LikeUserPostAction {
 }
 export interface LikeUserPostSucceededAction {
   type: typeof UserActionConstants.LIKE_USER_POST_SUCCEEDED;
-  payload: Post;
+  payload: Array<UserPostLikes>;
 }
 export interface LikeUserPostFailedAction {
   type: typeof UserActionConstants.LIKE_USER_POST_FAILED;
@@ -198,7 +230,7 @@ export interface FetchUserByIdAction {
 }
 export interface FetchUserByIdSucceededAction {
   type: typeof UserActionConstants.FETCH_USER_BY_ID_SUCCEEDED;
-  payload: Array<UserDataById>;
+  payload: UserDataById;
 }
 export interface FetchUserByIdFailedAction {
   type: typeof UserActionConstants.FETCH_USER_BY_ID_FAILED;
