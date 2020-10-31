@@ -109,7 +109,9 @@ const UserProfileById: FC<UserProfileByIdProps> = ({ userProfileData }) => {
             <p>{userByIdInfo ? userByIdInfo.user.followers.length : 0} Followers</p>
             <p>{userByIdInfo ? userByIdInfo.user.following.length : 0} Following</p>
           </div>
-          <div className="user__followButton">{userByIdInfo ? isFollowingUser() : null}</div>
+          <div className="user__followButton">
+            {userByIdInfo && userId !== userSelectedId ? isFollowingUser() : null}
+          </div>
         </div>
       </div>
       {userByIdInfo ? <UserGrid userProfileData={userByIdInfo} /> : null}
