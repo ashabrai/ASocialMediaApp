@@ -3,9 +3,9 @@ import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUser } from 'store/auth/action';
 import SignUpForm from 'sharedComponents/AuthForm';
+import { selectHasBeenCreated } from 'store/auth/selectors';
 import { isValidEmailAddress } from 'utils/helper';
 import './SignUp.scss';
-import { selectHasBeenCreated } from 'store/auth/selectors';
 
 interface SignUpProps {
   hasBeenCreated: boolean;

@@ -15,15 +15,16 @@ interface SignInProps {
     search: string;
     state: string;
   };
+  isLoggedInValue: boolean;
 }
 
-const SignIn: FC<SignInProps> = ({ location }) => {
+const SignIn: FC<SignInProps> = ({ location, isLoggedInValue }) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [emailError, setEmailError] = useState<boolean>(false);
 
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isLoggedIn: typeof isLoggedInValue = useSelector(selectIsLoggedIn);
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const password = event.target.value;

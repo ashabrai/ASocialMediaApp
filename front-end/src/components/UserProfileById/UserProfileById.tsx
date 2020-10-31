@@ -21,7 +21,6 @@ interface UserProfileByIdProps {
       name: string;
       username: string;
       _id: string;
-      isFollowingUser: boolean;
     };
     posts: Array<{
       body: string;
@@ -46,13 +45,15 @@ interface UserProfileByIdProps {
       _id: string;
     }>;
   };
+  userSelectedValue: string;
+  userIdValue: string;
 }
 
-const UserProfileById: FC<UserProfileByIdProps> = ({ userProfileData }) => {
+const UserProfileById: FC<UserProfileByIdProps> = ({ userProfileData, userSelectedValue, userIdValue }) => {
   const dispatch = useDispatch();
   const userByIdInfo: typeof userProfileData = useSelector(selectUserByIdInfo);
-  const userSelectedId = useSelector(selectUserIdByProfile);
-  const userId = useSelector(selectedUserId);
+  const userSelectedId: typeof userSelectedValue = useSelector(selectUserIdByProfile);
+  const userId: typeof userIdValue = useSelector(selectedUserId);
   const followersArray = userByIdInfo?.user.followers;
 
   useEffect(() => {
@@ -68,7 +69,7 @@ const UserProfileById: FC<UserProfileByIdProps> = ({ userProfileData }) => {
   };
 
   const isFollowingUser = () => {
-    const userIsFollowing = checkIfUserIsFollowing();
+    const userIsFollowing: boolean = checkIfUserIsFollowing();
 
     if (userIsFollowing) {
       return (
@@ -94,7 +95,7 @@ const UserProfileById: FC<UserProfileByIdProps> = ({ userProfileData }) => {
   };
 
   const checkIfUserIsFollowing = () => {
-    const isFollowing = isUserFound(followersArray, userId);
+    const isFollowing: boolean = isUserFound(followersArray, userId);
     return isFollowing;
   };
 

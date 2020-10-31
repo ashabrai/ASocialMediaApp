@@ -150,7 +150,7 @@ export function commentPostFailed(errors: string): CommentPostFailedAction {
   };
 }
 
-export function deleteUserPost(payload: { postId: string }): DeleteUserPostAction {
+export function deleteUserPost(payload: string): DeleteUserPostAction {
   return {
     type: UserActionConstants.DELETE_USER_POST,
     payload,
@@ -169,7 +169,7 @@ export function deleteUserPostFailed(errors: string): DeleteUserPostFailedAction
   };
 }
 
-export function fetchUserById(payload: { id: string }): FetchUserByIdAction {
+export function fetchUserById(payload: string): FetchUserByIdAction {
   return {
     type: UserActionConstants.FETCH_USER_BY_ID,
     payload,
@@ -188,7 +188,7 @@ export function fetchUserByIdFailed(errors: string): FetchUserByIdFailedAction {
   };
 }
 
-export function setUserIdSelected(payload: { id: string }): SetUserIdAction {
+export function setUserIdSelected(payload: string): SetUserIdAction {
   return {
     type: UserActionConstants.SET_USER_ID,
     payload,

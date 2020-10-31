@@ -43,7 +43,7 @@ interface UserProfileProps {
       photo: string;
       postedBy: {
         _id: string;
-        name: string;
+        name?: string;
       };
       title: string;
       _id: string;

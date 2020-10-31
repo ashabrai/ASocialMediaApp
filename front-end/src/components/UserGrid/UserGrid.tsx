@@ -32,7 +32,7 @@ interface GridProps {
       photo: string;
       postedBy: {
         _id: string;
-        name: string;
+        name?: string;
       };
       title: string;
       _id: string;

@@ -20,7 +20,11 @@ interface HomePageProps {
       postedBy: { _id: string; username: string };
       _id: string;
     }>;
-    hasLikedPost: boolean;
+    hasLikedPost: {
+      _id: string;
+      postedBy: string;
+      username: string;
+    };
     likes: Array<{
       _id: string;
       postedBy: string;
@@ -32,9 +36,30 @@ interface HomePageProps {
     };
   }>;
   isLoggedIn: boolean;
+  Post: {
+    _id: string;
+    photo: string;
+    datePosted: string;
+    body: string;
+    comments: Array<{
+      comment: string;
+      postedBy: { _id: string; username: string };
+      _id: string;
+    }>;
+    hasLikedPost: { _id: string; postedBy: string; username: string };
+    likes: Array<{
+      _id: string;
+      postedBy: string;
+      username: string;
+    }>;
+    postedBy: {
+      _id: string;
+      username: string;
+    };
+  };
 }
 
-const Homepage: FC<HomePageProps> = ({ allPosts, isLoggedIn }) => {
+const Homepage: FC<HomePageProps> = ({ allPosts, isLoggedIn, Post }) => {
   const dispatch = useDispatch();
   const userIdSelected = useSelector(selectedUserId); // this is the current user whose signed in ID
   const allPostsValue: typeof allPosts = useSelector(selectAllPosts);
@@ -46,12 +71,12 @@ const Homepage: FC<HomePageProps> = ({ allPosts, isLoggedIn }) => {
     }
   }, [dispatch, isLoggedInValue]);
 
-  const setUserId = (post) => {
+  const setUserId = (post: typeof Post) => {
     const userId = post.postedBy._id;
     dispatch(setUserIdSelected(userId));
   };
 
-  const headerValue = (post) => {
+  const headerValue = (post: typeof Post) => {
     const linkTo = `/Profile/${post.postedBy._id}`;
     return (
       <Link to={linkTo} key="userByIdProfile" onClick={() => setUserId(post)}>

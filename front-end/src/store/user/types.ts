@@ -218,7 +218,7 @@ export interface CommentPostFailedAction {
 
 export interface DeleteUserPostAction {
   type: typeof UserActionConstants.DELETE_USER_POST;
-  payload: { postId: string };
+  payload: string;
 }
 export interface DeleteUserPostSucceededAction {
   type: typeof UserActionConstants.DELETE_USER_POST_SUCCEEDED;
@@ -231,7 +231,7 @@ export interface DeleteUserPostFailedAction {
 
 export interface FetchUserByIdAction {
   type: typeof UserActionConstants.FETCH_USER_BY_ID;
-  payload: { id: string };
+  payload: string;
 }
 export interface FetchUserByIdSucceededAction {
   type: typeof UserActionConstants.FETCH_USER_BY_ID_SUCCEEDED;
@@ -244,7 +244,7 @@ export interface FetchUserByIdFailedAction {
 
 export interface SetUserIdAction {
   type: typeof UserActionConstants.SET_USER_ID;
-  payload: { id: string };
+  payload: string;
 }
 
 export interface FollowUserAction {
