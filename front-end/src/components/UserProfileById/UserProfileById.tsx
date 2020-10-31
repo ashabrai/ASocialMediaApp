@@ -68,8 +68,9 @@ const UserProfileById: FC<UserProfileByIdProps> = ({ userProfileData }) => {
   };
 
   const isFollowingUser = () => {
-    const isFollowing = isUserFound(followersArray, userId);
-    if (isFollowing) {
+    const userIsFollowing = checkIfUserIsFollowing();
+
+    if (userIsFollowing) {
       return (
         <Button
           title="Unfollow"
@@ -90,6 +91,11 @@ const UserProfileById: FC<UserProfileByIdProps> = ({ userProfileData }) => {
         />
       );
     }
+  };
+
+  const checkIfUserIsFollowing = () => {
+    const isFollowing = isUserFound(followersArray, userId);
+    return isFollowing;
   };
 
   return (
@@ -114,7 +120,14 @@ const UserProfileById: FC<UserProfileByIdProps> = ({ userProfileData }) => {
           </div>
         </div>
       </div>
-      {userByIdInfo ? <UserGrid userProfileData={userByIdInfo} /> : null}
+      {(userByIdInfo && checkIfUserIsFollowing()) || (userByIdInfo && userId === userSelectedId) ? (
+        <UserGrid userProfileData={userByIdInfo} />
+      ) : (
+        <p>
+          Currently this users profile and posts are private, if you would like to view their profile please give them a
+          follow
+        </p>
+      )}
     </div>
   );
 };
