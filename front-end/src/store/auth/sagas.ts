@@ -9,8 +9,6 @@ import {
   saveUserDataFailed,
   userLogoutSucceeded,
   userLogoutFailed,
-  followUserSucceeded,
-  followUserFailed,
 } from './action';
 
 import Api from './api';
@@ -53,21 +51,11 @@ function* storeUserDataGenerator(action) {
   }
 }
 
-function* followUserGenerator(action) {
-  try {
-    const followId = action.payload;
-    const response = yield call(Api.followUser, followId);
-    yield put(followUserSucceeded(response));
-  } catch (e) {
-    yield put(followUserFailed(e));
-  }
-}
 function* watchAllRequest() {
   yield takeLatest(AuthActionConstants.CREATE_USER, createUserGenerator);
   yield takeLatest(AuthActionConstants.USER_LOGIN, userLoginGenerator);
   yield takeLatest(AuthActionConstants.USER_LOGOUT, userLogoutGenerator);
   yield takeLatest(AuthActionConstants.SAVE_USER_DATA, storeUserDataGenerator);
-  yield takeLatest(AuthActionConstants.FOLLOW_USER, followUserGenerator);
 }
 
 export default watchAllRequest;

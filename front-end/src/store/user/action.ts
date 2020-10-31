@@ -30,6 +30,12 @@ import {
   FetchUserByIdFailedAction,
   SetUserIdAction,
   UserPostLikes,
+  FollowUserAction,
+  FollowUserSucceededAction,
+  FollowUserFailedAction,
+  UnfollowUserAction,
+  UnfollowUserSucceededAction,
+  UnfollowUserFailedAction,
 } from './types';
 
 export function createPost(payload: CreatePostPayload): CreatePostAction {
@@ -185,6 +191,44 @@ export function fetchUserByIdFailed(errors: string): FetchUserByIdFailedAction {
 export function setUserIdSelected(payload: { id: string }): SetUserIdAction {
   return {
     type: UserActionConstants.SET_USER_ID,
+    payload,
+  };
+}
+
+export function followUser(payload: string): FollowUserAction {
+  return {
+    type: UserActionConstants.FOLLOW_USER,
+    payload,
+  };
+}
+export function followUserSucceeded(payload: any): FollowUserSucceededAction {
+  return {
+    type: UserActionConstants.FOLLOW_USER_SUCCEEDED,
+    payload,
+  };
+}
+export function followUserFailed(payload: string): FollowUserFailedAction {
+  return {
+    type: UserActionConstants.FOLLOW_USER_FAILED,
+    payload,
+  };
+}
+
+export function unfollowUser(payload: string): UnfollowUserAction {
+  return {
+    type: UserActionConstants.UNFOLLOW_USER,
+    payload,
+  };
+}
+export function unfollowUserSucceeded(payload: any): UnfollowUserSucceededAction {
+  return {
+    type: UserActionConstants.UNFOLLOW_USER_SUCCEEDED,
+    payload,
+  };
+}
+export function unfollowUserFailed(payload: string): UnfollowUserFailedAction {
+  return {
+    type: UserActionConstants.UNFOLLOW_USER_FAILED,
     payload,
   };
 }

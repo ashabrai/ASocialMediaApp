@@ -15,6 +15,11 @@ export default interface UserState {
   readonly hasLikedPost: boolean;
   readonly userDataById: UserDataById;
   readonly userIdSelected: string;
+  readonly isFollowingUser: boolean;
+  readonly followers: any;
+  readonly following: any;
+  readonly isUnfollowingUser: boolean;
+  readonly hasUnfollowedUser: boolean;
 }
 
 export interface Post {
@@ -240,4 +245,30 @@ export interface FetchUserByIdFailedAction {
 export interface SetUserIdAction {
   type: typeof UserActionConstants.SET_USER_ID;
   payload: { id: string };
+}
+
+export interface FollowUserAction {
+  type: typeof UserActionConstants.FOLLOW_USER;
+  payload: string;
+}
+export interface FollowUserSucceededAction {
+  type: typeof UserActionConstants.FOLLOW_USER_SUCCEEDED;
+  payload: { any };
+}
+export interface FollowUserFailedAction {
+  type: typeof UserActionConstants.FOLLOW_USER_FAILED;
+  payload: string;
+}
+
+export interface UnfollowUserAction {
+  type: typeof UserActionConstants.UNFOLLOW_USER;
+  payload: string;
+}
+export interface UnfollowUserSucceededAction {
+  type: typeof UserActionConstants.UNFOLLOW_USER_SUCCEEDED;
+  payload: { any };
+}
+export interface UnfollowUserFailedAction {
+  type: typeof UserActionConstants.UNFOLLOW_USER_FAILED;
+  payload: string;
 }

@@ -18,12 +18,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  followers: [
-    { username: { type: String }, postedBy: { type: ObjectId, ref: "User" } },
-  ],
-  following: [
-    { username: { type: String }, postedBy: { type: ObjectId, ref: "User" } },
-  ],
+  followers: [{ type: ObjectId, ref: "User" }],
+  following: [{ type: ObjectId, ref: "User" }],
 });
 
 mongoose.model("User", userSchema);

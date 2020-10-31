@@ -13,4 +13,4 @@ export const selectHasLikedPost = (state: ApplicationState) => state.user.hasLik
 
 export const selectUserByIdInfo = (state: ApplicationState) => state.user.userDataById;
 
-export const selectUserId = (state: ApplicationState) => state.user.userIdSelected;
+export const selectUserIdByProfile = (state: ApplicationState) => state.user.userIdSelected; // this is the user id that was selected by profile

@@ -1,11 +1,12 @@
 import React, { FC, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectUserByIdInfo, selectUserId } from 'store/user/selectors';
-import { followUser } from 'store/auth/action';
+import { selectUserByIdInfo, selectUserIdByProfile } from 'store/user/selectors';
+import { followUser, unfollowUser, fetchUserById } from 'store/user/action';
+import { selectedUserId } from 'store/auth/selectors';
+import { isUserFound } from 'utils/helper';
 import UserGrid from 'components/UserGrid/UserGrid';
 import Button from 'sharedComponents/ButtonComponent';
 import './UserProfileById.scss';
-import { fetchUserById } from 'store/user/action';
 
 interface UserProfileByIdProps {
   userProfileData: {
@@ -13,7 +14,6 @@ interface UserProfileByIdProps {
       email: string;
       followers: Array<{
         _id: string;
-        username: string;
       }>;
       following: Array<{
         _id: string;
@@ -21,6 +21,7 @@ interface UserProfileByIdProps {
       name: string;
       username: string;
       _id: string;
+      isFollowingUser: boolean;
     };
     posts: Array<{
       body: string;
@@ -49,17 +50,47 @@ interface UserProfileByIdProps {
 
 const UserProfileById: FC<UserProfileByIdProps> = ({ userProfileData }) => {
   const dispatch = useDispatch();
-  const userByIdInfo = useSelector(selectUserByIdInfo);
-  const userSelectedId = useSelector(selectUserId);
-  const userData: typeof userProfileData = userByIdInfo;
+  const userByIdInfo: typeof userProfileData = useSelector(selectUserByIdInfo);
+  const userSelectedId = useSelector(selectUserIdByProfile);
+  const userId = useSelector(selectedUserId);
+  const followersArray = userByIdInfo?.user.followers;
+
+  useEffect(() => {
+    dispatch(fetchUserById(userSelectedId));
+  }, []);
 
   const followSelectedUser = () => {
     dispatch(followUser(userSelectedId));
   };
 
-  useEffect(() => {
-    dispatch(fetchUserById(userSelectedId));
-  }, []);
+  const unfollowSelectUser = () => {
+    dispatch(unfollowUser(userSelectedId));
+  };
+
+  const isFollowingUser = () => {
+    const isFollowing = isUserFound(followersArray, userId);
+    if (isFollowing) {
+      return (
+        <Button
+          title="Unfollow"
+          color="grey"
+          onClick={() => {
+            unfollowSelectUser();
+          }}
+        />
+      );
+    } else {
+      return (
+        <Button
+          title="Follow"
+          color="grey"
+          onClick={() => {
+            followSelectedUser();
+          }}
+        />
+      );
+    }
+  };
 
   return (
     <div className="user">
@@ -71,25 +102,17 @@ const UserProfileById: FC<UserProfileByIdProps> = ({ userProfileData }) => {
         /> */}
         <div className="user__info">
           <h3 className="user__username">
-            {userData ? userData.user.name : null} || @ {userData ? userData.user.username : null}
+            {userByIdInfo ? userByIdInfo.user.name : null} || @ {userByIdInfo ? userByIdInfo.user.username : null}
           </h3>
           <div className="user__dataCount">
-            <p>{userData ? userData.posts.length : null} Post</p>
-            <p>{userData ? userData.user.followers.length : 0} Followers</p>
-            <p>{userData ? userData.user.following.length : 0} Following</p>
+            <p>{userByIdInfo ? userByIdInfo.posts.length : null} Post</p>
+            <p>{userByIdInfo ? userByIdInfo.user.followers.length : 0} Followers</p>
+            <p>{userByIdInfo ? userByIdInfo.user.following.length : 0} Following</p>
           </div>
-          <div className="user__followButton">
-            <Button
-              title="Follow"
-              color="grey"
-              onClick={() => {
-                followSelectedUser();
-              }}
-            />
-          </div>
+          <div className="user__followButton">{userByIdInfo ? isFollowingUser() : null}</div>
         </div>
       </div>
-      {userData ? <UserGrid userProfileData={userData} /> : null}
+      {userByIdInfo ? <UserGrid userProfileData={userByIdInfo} /> : null}
     </div>
   );
 };

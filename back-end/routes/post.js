@@ -26,7 +26,6 @@ router.get("/userPosts", requireLogin, (req, res) => {
           if (err) {
             return res.status(422).json({ error: err });
           }
-          console.log(posts, "user");
           res.status(200).json({ user, posts });
         });
     })

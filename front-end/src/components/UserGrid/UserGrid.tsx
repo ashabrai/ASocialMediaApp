@@ -7,7 +7,6 @@ interface GridProps {
       email: string;
       followers: Array<{
         _id: string;
-        username: string;
       }>;
       following: Array<{
         _id: string;

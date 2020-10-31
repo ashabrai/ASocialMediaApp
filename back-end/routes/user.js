@@ -25,14 +25,10 @@ router.get("/user/:id", requireLogin, (req, res) => {
 });
 
 router.put("/follow", requireLogin, (req, res) => {
-  const userId = { userId: req.user._id, username: req.user.username };
-  const userToFollowId = { followId: req.body.followId };
-  console.log(userId, " user id");
-  console.log(userToFollowId, " user following");
   User.findByIdAndUpdate(
     req.body.followId,
     {
-      $push: { followers: userId },
+      $push: { followers: req.user._id },
     },
     { new: true },
     (err, result) => {
@@ -42,13 +38,15 @@ router.put("/follow", requireLogin, (req, res) => {
       User.findByIdAndUpdate(
         req.user._id,
         {
-          $push: { following: userToFollowId },
+          $push: {
+            following: req.body.followId,
+          },
         },
         { new: true }
       )
         .select("-password")
-        .then((results) => {
-          res.status(200).json(results);
+        .then((data) => {
+          res.status(200).json({ data, result });
         })
         .catch((err) => {
           return res.status(422).json({ error: err });
@@ -61,7 +59,7 @@ router.put("/unfollow", requireLogin, (req, res) => {
   User.findByIdAndUpdate(
     req.body.unfollowId,
     {
-      $pull: { followers: req.user_id },
+      $pull: { followers: req.user._id },
     },
     { new: true },
     (err, result) => {
@@ -71,12 +69,15 @@ router.put("/unfollow", requireLogin, (req, res) => {
       User.findByIdAndUpdate(
         req.user._id,
         {
-          $pull: { following: req.body.unfollowId },
+          $pull: {
+            following: req.body.unfollowId,
+          },
         },
         { new: true }
       )
-        .then((results) => {
-          res.json(results);
+        .select("-password")
+        .then((data) => {
+          res.status(200).json({ result, data });
         })
         .catch((err) => {
           return res.status(422).json({ error: err });

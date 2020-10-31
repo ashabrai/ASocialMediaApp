@@ -38,26 +38,4 @@ export default {
 
     return response;
   },
-
-  followUser: async (followId) => {
-    const url = 'http://localhost:4000/follow';
-    const options = Object.assign(
-      {},
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('jwt'),
-        },
-        body: JSON.stringify({
-          followId: followId,
-        }),
-      }
-    );
-    const response = await fetch(url, options)
-      .then((response) => response.json())
-      .catch((error) => console.log(error));
-
-    return response;
-  },
 };

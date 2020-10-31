@@ -17,6 +17,11 @@ export const initialState: UserState = {
   userDataById: null,
   postId: null,
   userIdSelected: '',
+  followers: [],
+  following: [],
+  isFollowingUser: false,
+  isUnfollowingUser: false,
+  hasUnfollowedUser: false,
 };
 
 const userReducer: Reducer = (state = initialState, action) => {
@@ -239,6 +244,72 @@ const userReducer: Reducer = (state = initialState, action) => {
       return {
         ...state,
         userIdSelected: action.payload,
+      };
+    }
+
+    case UserActionConstants.FOLLOW_USER: {
+      return {
+        ...state,
+        isFollowingUser: true,
+      };
+    }
+
+    case UserActionConstants.FOLLOW_USER_SUCCEEDED: {
+      return {
+        ...state,
+        isUnfollowingUser: false,
+        hasUnfollowedUser: true,
+        followers: action.payload.data.followers,
+        following: action.payload.data.following,
+        userDataById: {
+          posts: [...state.userDataById.posts],
+          user: {
+            ...state.userDataById.user,
+            followers: action.payload.result.followers,
+            following: action.payload.result.following,
+          },
+        },
+      };
+    }
+
+    case UserActionConstants.FOLLOW_USER_FAILED: {
+      return {
+        ...state,
+        isFollowingUser: false,
+        errors: action.payload.error,
+      };
+    }
+
+    case UserActionConstants.UNFOLLOW_USER: {
+      return {
+        ...state,
+        isUnfollowingUser: true,
+      };
+    }
+    case UserActionConstants.UNFOLLOW_USER_SUCCEEDED: {
+      return {
+        ...state,
+        isUnfollowingUser: false,
+        hasUnfollowedUser: true,
+        followers: action.payload.data.followers,
+        following: action.payload.data.following,
+        userDataById: {
+          posts: [...state.userDataById.posts],
+          user: {
+            ...state.userDataById.user,
+            isFollowingUser: false,
+            followers: action.payload.result.followers,
+            following: action.payload.result.following,
+          },
+        },
+      };
+    }
+    case UserActionConstants.UNFOLLOW_USER_FAILED: {
+      return {
+        ...state,
+        isUnfollowingUser: false,
+        hasUnfollowedUser: false,
+        following: [],
       };
     }
 

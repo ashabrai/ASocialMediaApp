@@ -36,9 +36,15 @@ interface HomePageProps {
 
 const Homepage: FC<HomePageProps> = ({ allPosts, isLoggedIn }) => {
   const dispatch = useDispatch();
-  const userIdSelected = useSelector(selectedUserId);
+  const userIdSelected = useSelector(selectedUserId); // this is the current user whose signed in ID
   const allPostsValue: typeof allPosts = useSelector(selectAllPosts);
   const isLoggedInValue: typeof isLoggedIn = useSelector(selectIsLoggedIn);
+
+  useEffect(() => {
+    if (isLoggedInValue) {
+      dispatch(fetchAllPosts());
+    }
+  }, [dispatch, isLoggedInValue]);
 
   const setUserId = (post) => {
     const userId = post.postedBy._id;
@@ -53,12 +59,6 @@ const Homepage: FC<HomePageProps> = ({ allPosts, isLoggedIn }) => {
       </Link>
     );
   };
-
-  useEffect(() => {
-    if (isLoggedInValue) {
-      dispatch(fetchAllPosts());
-    }
-  }, [dispatch, isLoggedInValue]);
 
   return (
     <div className="home">

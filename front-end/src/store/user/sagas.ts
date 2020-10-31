@@ -17,6 +17,10 @@ import {
   deleteUserPostFailed,
   fetchUserByIdSucceeded,
   fetchUserByIdFailed,
+  followUserSucceeded,
+  followUserFailed,
+  unfollowUserSucceeded,
+  unfollowUserFailed,
 } from './action';
 
 import Api from './api';
@@ -111,6 +115,26 @@ function* fetchUserById(action) {
   }
 }
 
+function* followUserGenerator(action) {
+  try {
+    const followId = action.payload;
+    const response = yield call(Api.followUser, followId);
+    yield put(followUserSucceeded(response));
+  } catch (e) {
+    yield put(followUserFailed(e));
+  }
+}
+
+function* unfollowUserGenerator(action) {
+  try {
+    const followId = action.payload;
+    const response = yield call(Api.unfollowUser, followId);
+    yield put(unfollowUserSucceeded(response));
+  } catch (e) {
+    yield put(unfollowUserFailed(e));
+  }
+}
+
 function* watchAllUserRequest() {
   yield takeLatest(UserActionConstants.CREATE_POST, getImageURL);
   yield takeLatest(UserActionConstants.FETCH_ALL_POSTS, fetchAllPosts);
@@ -120,6 +144,8 @@ function* watchAllUserRequest() {
   yield takeLatest(UserActionConstants.COMMENT_POST, commentUserPost);
   yield takeLatest(UserActionConstants.DELETE_USER_POST, deletePost);
   yield takeLatest(UserActionConstants.FETCH_USER_BY_ID, fetchUserById);
+  yield takeLatest(UserActionConstants.FOLLOW_USER, followUserGenerator);
+  yield takeLatest(UserActionConstants.UNFOLLOW_USER, unfollowUserGenerator);
 }
 
 export default watchAllUserRequest;

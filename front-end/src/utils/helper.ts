@@ -11,3 +11,8 @@ export const dateConverted = (date) => {
   const convertedDate = new Date(date).toLocaleDateString('en-us');
   return convertedDate;
 };
+
+export const isUserFound = (data, userId) => {
+  const test = data.includes(userId);
+  return test;
+};
