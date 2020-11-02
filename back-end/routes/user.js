@@ -31,7 +31,9 @@ router.put("/follow", requireLogin, (req, res) => {
       $push: { followers: req.user._id },
     },
     { new: true },
-    (err, result) => {
+  )
+  .select("-password")
+  .exec((err, dataForFollowId) => {
       if (err) {
         return res.status(422).json({ error: err });
       }
@@ -45,14 +47,13 @@ router.put("/follow", requireLogin, (req, res) => {
         { new: true }
       )
         .select("-password")
-        .then((data) => {
-          res.status(200).json({ data, result });
+        .then((dataForCurrentUser) => {
+          res.status(200).json({ dataForCurrentUser, dataForFollowId });
         })
         .catch((err) => {
           return res.status(422).json({ error: err });
         });
-    }
-  );
+    })
 });
 
 router.put("/unfollow", requireLogin, (req, res) => {
@@ -62,7 +63,9 @@ router.put("/unfollow", requireLogin, (req, res) => {
       $pull: { followers: req.user._id },
     },
     { new: true },
-    (err, result) => {
+  )
+  .select('-password')
+  .exec((err, dataForFollowId) => {
       if (err) {
         return res.status(422).json({ error: err });
       }
@@ -76,13 +79,13 @@ router.put("/unfollow", requireLogin, (req, res) => {
         { new: true }
       )
         .select("-password")
-        .then((data) => {
-          res.status(200).json({ result, data });
+        .then((dataForCurrentUser) => {
+          res.status(200).json({ dataForFollowId, dataForCurrentUser });
         })
         .catch((err) => {
           return res.status(422).json({ error: err });
         });
-    }
-  );
+    })
 });
+
 module.exports = router;

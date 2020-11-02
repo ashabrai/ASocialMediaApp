@@ -16,8 +16,8 @@ export default interface UserState {
   readonly userDataById: UserDataById;
   readonly userIdSelected: string;
   readonly isFollowingUser: boolean;
-  readonly followers: any;
-  readonly following: any;
+  readonly followers: Array<{_id: string}>;
+  readonly following: Array<{_id: string}>;
   readonly isUnfollowingUser: boolean;
   readonly hasUnfollowedUser: boolean;
 }
@@ -132,6 +132,24 @@ export interface UserDataById {
   };
 }
 
+export interface FollowAndUnfollowUser {
+  dataForFollowId: {
+    followers: Array<{_id: string}>
+    following: Array<{_id: string}>
+    _id: string;
+    email: string;
+    name: string;
+    username: string;
+  };
+  dataForCurrentUser: {
+    followers: Array<{_id: string}>
+    following: Array<{_id: string}>
+    _id: string;
+    email: string;
+    name: string;
+    username: string;
+  }
+}
 // User Action Constants and Shape
 export interface CreatePostPayload {
   title: string;
@@ -253,7 +271,7 @@ export interface FollowUserAction {
 }
 export interface FollowUserSucceededAction {
   type: typeof UserActionConstants.FOLLOW_USER_SUCCEEDED;
-  payload: { any };
+  payload: FollowAndUnfollowUser;
 }
 export interface FollowUserFailedAction {
   type: typeof UserActionConstants.FOLLOW_USER_FAILED;
@@ -266,7 +284,7 @@ export interface UnfollowUserAction {
 }
 export interface UnfollowUserSucceededAction {
   type: typeof UserActionConstants.UNFOLLOW_USER_SUCCEEDED;
-  payload: { any };
+  payload: FollowAndUnfollowUser;
 }
 export interface UnfollowUserFailedAction {
   type: typeof UserActionConstants.UNFOLLOW_USER_FAILED;

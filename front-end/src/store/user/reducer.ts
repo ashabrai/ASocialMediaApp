@@ -258,15 +258,15 @@ const userReducer: Reducer = (state = initialState, action) => {
       return {
         ...state,
         isUnfollowingUser: false,
-        hasUnfollowedUser: true,
-        followers: action.payload.data.followers,
-        following: action.payload.data.following,
+        hasUnfollowedUser: false,
+        followers: action.payload.dataForCurrentUser.followers,
+        following: action.payload.dataForCurrentUser.following,
         userDataById: {
           posts: [...state.userDataById.posts],
           user: {
             ...state.userDataById.user,
-            followers: action.payload.result.followers,
-            following: action.payload.result.following,
+            followers: action.payload.dataForFollowId.followers,
+            following: action.payload.dataForFollowId.following,
           },
         },
       };
@@ -291,15 +291,15 @@ const userReducer: Reducer = (state = initialState, action) => {
         ...state,
         isUnfollowingUser: false,
         hasUnfollowedUser: true,
-        followers: action.payload.data.followers,
-        following: action.payload.data.following,
+        followers: action.payload.dataForCurrentUser.followers,
+        following: action.payload.dataForCurrentUser.following,
         userDataById: {
           posts: [...state.userDataById.posts],
           user: {
             ...state.userDataById.user,
             isFollowingUser: false,
-            followers: action.payload.result.followers,
-            following: action.payload.result.following,
+            followers: action.payload.dataForFollowId.followers,
+            following: action.payload.dataForFollowId.following,
           },
         },
       };
@@ -309,7 +309,8 @@ const userReducer: Reducer = (state = initialState, action) => {
         ...state,
         isUnfollowingUser: false,
         hasUnfollowedUser: false,
-        following: [],
+        errors: action.payload.error,
+
       };
     }
 
