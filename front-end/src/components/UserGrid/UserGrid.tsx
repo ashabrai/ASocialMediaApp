@@ -2,35 +2,52 @@ import React, { FC } from 'react';
 import './UserGrid.scss';
 
 interface GridProps {
-  userPosts: Array<{
-    body: string;
-    datePosted: number;
-    comments: Array<{
-      comment: string;
-      postedBy: string;
-      _id: string;
-    }>;
-    likes: Array<{
+  userProfileData: {
+    user: {
+      email: string;
+      followers: Array<{
+        _id: string;
+      }>;
+      following: Array<{
+        _id: string;
+      }>;
+      name: string;
       username: string;
       _id: string;
-      postedBy: string;
-    }>;
-    photo: string;
-    postedBy?: {
-      name: string;
-      _id: string;
     };
-    title: string;
-    _id: string;
-  }>;
+    posts: Array<{
+      body: string;
+      comments: Array<{
+        username: string;
+        comment: string;
+        postedBy: string;
+        _id: string;
+      }>;
+      datePosted: number;
+      likes: Array<{
+        _id: string;
+        postedBy: string;
+        username: string;
+      }>;
+      photo: string;
+      postedBy: {
+        _id: string;
+        name?: string;
+      };
+      title: string;
+      _id: string;
+    }>;
+  };
 }
 
-const Grid: FC<GridProps> = ({ userPosts }) => {
+const Grid: FC<GridProps> = ({ userProfileData }) => {
   return (
     <div className="user__gallery">
-      {userPosts.map((post, index) => (
-        <img className="user__postImage" key={index} src={post.photo} alt={post.title} />
-      ))}
+      {userProfileData
+        ? userProfileData.posts.map((post, index) => (
+            <img className="user__postImage" key={index} src={post.photo} alt={post.title} />
+          ))
+        : null}
     </div>
   );
 };

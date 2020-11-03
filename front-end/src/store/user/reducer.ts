@@ -10,13 +10,18 @@ export const initialState: UserState = {
   isCommenting: false,
   hasCommented: false,
   allPosts: [],
-  userPosts: [],
+  userData: null,
   likes: [],
   hasLikedPost: false,
   comments: [],
-  userDataById: [],
+  userDataById: null,
   postId: null,
-  userId: '',
+  userIdSelected: '',
+  followers: [],
+  following: [],
+  isFollowingUser: false,
+  isUnfollowingUser: false,
+  hasUnfollowedUser: false,
 };
 
 const userReducer: Reducer = (state = initialState, action) => {
@@ -82,7 +87,7 @@ const userReducer: Reducer = (state = initialState, action) => {
       return {
         ...state,
         isFetchingUserPosts: false,
-        userPosts: action.payload,
+        userData: action.payload,
       };
     }
 
@@ -90,7 +95,7 @@ const userReducer: Reducer = (state = initialState, action) => {
       return {
         ...state,
         isFetchingUserPosts: false,
-        userPosts: [],
+        userData: {},
       };
     }
 
@@ -213,6 +218,13 @@ const userReducer: Reducer = (state = initialState, action) => {
       };
     }
 
+    case UserActionConstants.FETCH_USER_BY_ID: {
+      return {
+        ...state,
+        userIdSelected: action.payload,
+      };
+    }
+
     case UserActionConstants.FETCH_USER_BY_ID_SUCCEEDED: {
       return {
         ...state,
@@ -231,9 +243,77 @@ const userReducer: Reducer = (state = initialState, action) => {
     case UserActionConstants.SET_USER_ID: {
       return {
         ...state,
-        userId: action.payload,
+        userIdSelected: action.payload,
       };
     }
+
+    case UserActionConstants.FOLLOW_USER: {
+      return {
+        ...state,
+        isFollowingUser: true,
+      };
+    }
+
+    case UserActionConstants.FOLLOW_USER_SUCCEEDED: {
+      return {
+        ...state,
+        isUnfollowingUser: false,
+        hasUnfollowedUser: false,
+        followers: action.payload.dataForCurrentUser.followers,
+        following: action.payload.dataForCurrentUser.following,
+        userDataById: {
+          posts: [...state.userDataById.posts],
+          user: {
+            ...state.userDataById.user,
+            followers: action.payload.dataForFollowId.followers,
+            following: action.payload.dataForFollowId.following,
+          },
+        },
+      };
+    }
+
+    case UserActionConstants.FOLLOW_USER_FAILED: {
+      return {
+        ...state,
+        isFollowingUser: false,
+        errors: action.payload.error,
+      };
+    }
+
+    case UserActionConstants.UNFOLLOW_USER: {
+      return {
+        ...state,
+        isUnfollowingUser: true,
+      };
+    }
+    case UserActionConstants.UNFOLLOW_USER_SUCCEEDED: {
+      return {
+        ...state,
+        isUnfollowingUser: false,
+        hasUnfollowedUser: true,
+        followers: action.payload.dataForCurrentUser.followers,
+        following: action.payload.dataForCurrentUser.following,
+        userDataById: {
+          posts: [...state.userDataById.posts],
+          user: {
+            ...state.userDataById.user,
+            isFollowingUser: false,
+            followers: action.payload.dataForFollowId.followers,
+            following: action.payload.dataForFollowId.following,
+          },
+        },
+      };
+    }
+    case UserActionConstants.UNFOLLOW_USER_FAILED: {
+      return {
+        ...state,
+        isUnfollowingUser: false,
+        hasUnfollowedUser: false,
+        errors: action.payload.error,
+
+      };
+    }
+
     default: {
       return state;
     }

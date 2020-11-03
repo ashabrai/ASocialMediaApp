@@ -42,7 +42,7 @@ function* userLogoutGenerator() {
   }
 }
 
-function* storeUserData(action) {
+function* storeUserDataGenerator(action) {
   try {
     const user = action.payload;
     yield put(saveUserDataSucceeded(user));
@@ -50,11 +50,12 @@ function* storeUserData(action) {
     yield put(saveUserDataFailed(e));
   }
 }
+
 function* watchAllRequest() {
   yield takeLatest(AuthActionConstants.CREATE_USER, createUserGenerator);
   yield takeLatest(AuthActionConstants.USER_LOGIN, userLoginGenerator);
   yield takeLatest(AuthActionConstants.USER_LOGOUT, userLogoutGenerator);
-  yield takeLatest(AuthActionConstants.SAVE_USER_DATA, storeUserData);
+  yield takeLatest(AuthActionConstants.SAVE_USER_DATA, storeUserDataGenerator);
 }
 
 export default watchAllRequest;

@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const requireLogin = require("../middleware/requireLogin");
 const Post = mongoose.model("Post");
+const User = mongoose.model("User");
 
 router.get("/allPosts", requireLogin, (req, res) => {
   Post.find()
@@ -16,16 +17,22 @@ router.get("/allPosts", requireLogin, (req, res) => {
 });
 
 router.get("/userPosts", requireLogin, (req, res) => {
-  Post.find({ postedBy: req.user._id })
-    .populate("postedBy,_id, name")
-    .then((myPost) => {
-      res.json(myPost);
+  User.findOne({ _id: req.user._id })
+    .select("-password")
+    .then((user) => {
+      Post.find({ postedBy: req.user._id })
+        .populate("postedBy,_id, name, ")
+        .exec((err, posts) => {
+          if (err) {
+            return res.status(422).json({ error: err });
+          }
+          res.status(200).json({ user, posts });
+        });
     })
     .catch((err) => console.log(err));
 });
 
 router.post("/createPost", requireLogin, (req, res) => {
-  console.log(req.user);
   const { title, body, imgUrl } = req.body;
   if (!title || !body || !imgUrl) {
     return res.status(422).json({ error: "Please fill all fields" });

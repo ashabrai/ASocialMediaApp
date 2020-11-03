@@ -1,8 +1,7 @@
 import { UserActionConstants } from './userActionConstants';
 import {
   Post,
-  UserPost,
-  UserPostLikes,
+  UserData,
   CreatePostPayload,
   UserDataById,
   CreatePostAction,
@@ -30,6 +29,13 @@ import {
   FetchUserByIdSucceededAction,
   FetchUserByIdFailedAction,
   SetUserIdAction,
+  UserPostLikes,
+  FollowUserAction,
+  FollowUserSucceededAction,
+  FollowUserFailedAction,
+  UnfollowUserAction,
+  UnfollowUserSucceededAction,
+  UnfollowUserFailedAction,
 } from './types';
 
 export function createPost(payload: CreatePostPayload): CreatePostAction {
@@ -74,7 +80,7 @@ export function fetchUserPosts(): FetchUserPostAction {
     type: UserActionConstants.FETCH_USER_POSTS,
   };
 }
-export function fetchUserPostsSucceeded(payload: Array<UserPost>): FetchUserPostSucceededAction {
+export function fetchUserPostsSucceeded(payload: UserData): FetchUserPostSucceededAction {
   return {
     type: UserActionConstants.FETCH_USER_POSTS_SUCCEEDED,
     payload,
@@ -93,7 +99,7 @@ export function likeUserPost(payload: { postId: string }): LikeUserPostAction {
     payload,
   };
 }
-export function likeUserPostSucceeded(payload: Post): LikeUserPostSucceededAction {
+export function likeUserPostSucceeded(payload: Array<UserPostLikes>): LikeUserPostSucceededAction {
   return {
     type: UserActionConstants.LIKE_USER_POST_SUCCEEDED,
     payload,
@@ -144,7 +150,7 @@ export function commentPostFailed(errors: string): CommentPostFailedAction {
   };
 }
 
-export function deleteUserPost(payload: { postId: string }): DeleteUserPostAction {
+export function deleteUserPost(payload: string): DeleteUserPostAction {
   return {
     type: UserActionConstants.DELETE_USER_POST,
     payload,
@@ -163,13 +169,13 @@ export function deleteUserPostFailed(errors: string): DeleteUserPostFailedAction
   };
 }
 
-export function fetchUserById(payload: { id: string }): FetchUserByIdAction {
+export function fetchUserById(payload: string): FetchUserByIdAction {
   return {
     type: UserActionConstants.FETCH_USER_BY_ID,
     payload,
   };
 }
-export function fetchUserByIdSucceeded(payload: Array<UserDataById>): FetchUserByIdSucceededAction {
+export function fetchUserByIdSucceeded(payload: UserDataById): FetchUserByIdSucceededAction {
   return {
     type: UserActionConstants.FETCH_USER_BY_ID_SUCCEEDED,
     payload,
@@ -182,9 +188,47 @@ export function fetchUserByIdFailed(errors: string): FetchUserByIdFailedAction {
   };
 }
 
-export function setUserId(payload: { id: string }): SetUserIdAction {
+export function setUserIdSelected(payload: string): SetUserIdAction {
   return {
     type: UserActionConstants.SET_USER_ID,
+    payload,
+  };
+}
+
+export function followUser(payload: string): FollowUserAction {
+  return {
+    type: UserActionConstants.FOLLOW_USER,
+    payload,
+  };
+}
+export function followUserSucceeded(payload: any): FollowUserSucceededAction {
+  return {
+    type: UserActionConstants.FOLLOW_USER_SUCCEEDED,
+    payload,
+  };
+}
+export function followUserFailed(payload: string): FollowUserFailedAction {
+  return {
+    type: UserActionConstants.FOLLOW_USER_FAILED,
+    payload,
+  };
+}
+
+export function unfollowUser(payload: string): UnfollowUserAction {
+  return {
+    type: UserActionConstants.UNFOLLOW_USER,
+    payload,
+  };
+}
+export function unfollowUserSucceeded(payload: any): UnfollowUserSucceededAction {
+  return {
+    type: UserActionConstants.UNFOLLOW_USER_SUCCEEDED,
+    payload,
+  };
+}
+export function unfollowUserFailed(payload: string): UnfollowUserFailedAction {
+  return {
+    type: UserActionConstants.UNFOLLOW_USER_FAILED,
     payload,
   };
 }

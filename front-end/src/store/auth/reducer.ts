@@ -141,7 +141,6 @@ const authReducer: Reducer = (state = initialState, action) => {
         isLoggedIn: false,
       };
     }
-
     default: {
       return state;
     }

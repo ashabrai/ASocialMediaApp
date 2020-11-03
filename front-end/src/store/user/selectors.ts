@@ -5,7 +5,7 @@ export const selectAllPosts = (state: ApplicationState) => state.user.allPosts;
 
 export const selectCreatedNewPostStatus = (state: ApplicationState) => state.user.createdNewPost;
 
-export const selectUserPosts = (state: ApplicationState) => state.user.userPosts;
+export const selectUserData = (state: ApplicationState) => state.user.userData;
 
 export const selectHasCommented = (state: ApplicationState) => state.user.hasCommented;
 
@@ -13,4 +13,4 @@ export const selectHasLikedPost = (state: ApplicationState) => state.user.hasLik
 
 export const selectUserByIdInfo = (state: ApplicationState) => state.user.userDataById;
 
-export const selectUserId = (state: ApplicationState) => state.user.userId;
+export const selectUserIdByProfile = (state: ApplicationState) => state.user.userIdSelected; // this is the user id that was selected by profile

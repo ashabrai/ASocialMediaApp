@@ -10,13 +10,18 @@ const initialStateMock = {
   isCommenting: false,
   hasCommented: false,
   allPosts: [],
-  userPosts: [],
+  userData: null,
   likes: [],
   hasLikedPost: false,
   comments: [],
-  userDataById: [],
+  userDataById: null,
   postId: null,
-  userId: '',
+  userIdSelected: '',
+  followers: [],
+  following: [],
+  isFollowingUser: false,
+  isUnfollowingUser: false,
+  hasUnfollowedUser: false,
 };
 
 describe('UserReducer', () => {
@@ -407,4 +412,148 @@ describe('UserReducer', () => {
     };
     expect(UserReducer(initialStateMock, actionMock)).toEqual(updatedStateMock);
   });
+
+  it('The SET_USER_ID action should set userIdSelected with the payload', () => {
+    const actionMock = {
+      type: UserActionConstants.SET_USER_ID,
+      payload:  '2341243242q2' ,
+    };
+
+    const updatedStateMock = {
+      ...initialStateMock,
+      userIdSelected: actionMock.payload,
+    };
+    expect(UserReducer(initialStateMock, actionMock)).toEqual(updatedStateMock);
+  });
+
+  it('The FOLLOW_USER action should set isFollowingUser to true', () => {
+    const actionMock = {
+      type: UserActionConstants.FOLLOW_USER,
+      payload: true,
+    };
+
+    const updatedStateMock = {
+      ...initialStateMock,
+      isFollowingUser: actionMock.payload,
+    };
+    expect(UserReducer(initialStateMock, actionMock)).toEqual(updatedStateMock);
+  });
+
+  it('The FOLLOW_USER_SUCCEEDED action should set isUnfollowingUser to false and hasUnfollowedUser to true.', () => {
+    const initialStateMockTest = {
+      ...initialStateMock,
+      userDataById: {
+        posts: [],
+        user: {
+          _id: '11111',
+          email: 'test33@mail.com',
+          name: 'test33',
+          username: 'test33',
+          following: [],
+          followers: [],
+        }
+      }
+    }
+    
+    const actionMock = {
+      type: UserActionConstants.FOLLOW_USER_SUCCEEDED,
+      payload: { dataForFollowId: {followers: [{_id: '2123123', username: 'test'}], following: [], _id: '12121', email: 'test@mail.com', name: 'test', username: 'test'}, dataForCurrentUser: {followers: [], following: [{_id: '1111111'}], _id: '12121', email: 'test@mail.com', name: 'test', username: 'test'}}
+    }
+
+    const updatedStateMock = {
+      ...initialStateMockTest,
+      isUnfollowingUser: false,
+      hasUnfollowedUser: false,
+      followers: actionMock.payload.dataForCurrentUser.followers,
+      following: actionMock.payload.dataForCurrentUser.following,
+      userDataById: {
+        posts: [],
+        user: {
+          ...initialStateMockTest.userDataById.user,
+          followers: actionMock.payload.dataForFollowId.followers,
+          following: actionMock.payload.dataForFollowId.following,
+        }
+      }
+    }
+    expect(UserReducer(initialStateMockTest, actionMock)).toEqual(updatedStateMock)
+  })
+  it('The FOLLOW_USER_FAILED action should set isFollowingUser to false and set the payload to the errors object', () => {
+    const actionMock = {
+      type: UserActionConstants.FOLLOW_USER_FAILED,
+      payload: { error: 'something went wrong when trying to follow user'}
+    }
+
+    const updatedStateMock = {
+      ...initialStateMock,
+      isFollowingUser: false,
+      errors: actionMock.payload.error
+    }
+    expect(UserReducer(initialStateMock, actionMock)).toEqual(updatedStateMock)
+  })
+
+  it('The UNFOLLOW_USER action should set isUnfollowingUser to true', () => {
+    const actionMock = {
+      type: UserActionConstants.UNFOLLOW_USER,
+      payload: '987876875867567'
+    };
+
+    const updatedStateMock = {
+      ...initialStateMock,
+      isUnfollowingUser: true,
+    };
+    expect(UserReducer(initialStateMock, actionMock)).toEqual(updatedStateMock);
+  });
+
+  it('The UNFOLLOW_USER_SUCCEEDED action should set isUnfollowingUser to false and hasUnfollowedUser to true and remove the following user from the followers array.', () => {
+    const initialStateMockTest = {
+      ...initialStateMock,
+      userDataById: {
+        posts: [],
+        user: {
+          _id: '11111',
+          email: 'test33@mail.com',
+          name: 'test33',
+          username: 'test33',
+          following: [{_id: '32132321'}],
+          followers: [],
+        }
+      }
+    }
+    
+    const actionMock = {
+      type: UserActionConstants.UNFOLLOW_USER_SUCCEEDED,
+      payload: { dataForFollowId: {followers: [], following: [], _id: '12121', email: 'test@mail.com', name: 'test', username: 'test'}, dataForCurrentUser: {followers: [], following: [], _id: '12121', email: 'test@mail.com', name: 'test', username: 'test'}}
+    }
+
+    const updatedStateMock = {
+      ...initialStateMockTest,
+      isUnfollowingUser: false,
+      hasUnfollowedUser: true,
+      followers: actionMock.payload.dataForCurrentUser.followers,
+      following: actionMock.payload.dataForCurrentUser.following,
+      userDataById: {
+        posts: [],
+        user: {
+          ...initialStateMockTest.userDataById.user,
+          isFollowingUser: false,
+          followers: actionMock.payload.dataForFollowId.followers,
+          following: actionMock.payload.dataForFollowId.following,
+        }
+      }
+    }
+    expect(UserReducer(initialStateMockTest, actionMock)).toEqual(updatedStateMock)
+  })
+  it('The FOLLOW_USER_FAILED action should set isFollowingUser to false and set the payload to the errors object', () => {
+    const actionMock = {
+      type: UserActionConstants.UNFOLLOW_USER_FAILED,
+      payload: { error: 'something went wrong when trying to follow user'}
+    }
+
+    const updatedStateMock = {
+      ...initialStateMock,
+      isFollowingUser: false,
+      errors: actionMock.payload.error
+    }
+    expect(UserReducer(initialStateMock, actionMock)).toEqual(updatedStateMock)
+  })
 });

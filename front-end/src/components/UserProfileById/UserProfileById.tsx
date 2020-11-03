@@ -1,43 +1,103 @@
-import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
-import { selectUserByIdInfo } from 'store/user/selectors';
+import React, { FC, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectUserByIdInfo, selectUserIdByProfile } from 'store/user/selectors';
+import { followUser, unfollowUser, fetchUserById } from 'store/user/action';
+import { selectedUserId } from 'store/auth/selectors';
+import { isUserFound } from 'utils/helper';
 import UserGrid from 'components/UserGrid/UserGrid';
+import Button from 'sharedComponents/ButtonComponent';
 import './UserProfileById.scss';
 
 interface UserProfileByIdProps {
-  user: {
-    _id: string;
-    email: string;
-    name: string;
-    username: string;
-  };
-  posts: Array<{
-    body: string;
-    comments: Array<{
-      comment: string;
-      postedBy: string;
-      _id: string;
-    }>;
-    datePosted: number;
-    likes: Array<{
-      _id: string;
-      postedBy: string;
-      username: string;
-    }>;
-    photo: string;
-    postedBy: {
-      _id: string;
+  userProfileData: {
+    user: {
+      email: string;
+      followers: Array<{
+        _id: string;
+      }>;
+      following: Array<{
+        _id: string;
+      }>;
       name: string;
+      username: string;
+      _id: string;
     };
-    title: string;
-    _id: string;
-  }>;
+    posts: Array<{
+      body: string;
+      comments: Array<{
+        username: string;
+        comment: string;
+        postedBy: string;
+        _id: string;
+      }>;
+      datePosted: number;
+      likes: Array<{
+        _id: string;
+        postedBy: string;
+        username: string;
+      }>;
+      photo: string;
+      postedBy: {
+        _id: string;
+        name: string;
+      };
+      title: string;
+      _id: string;
+    }>;
+  };
+  userSelectedValue: string;
+  userIdValue: string;
 }
 
-const UserProfileById: FC<UserProfileByIdProps> = ({ user, posts }) => {
-  const userByIdInfo = useSelector(selectUserByIdInfo);
-  const userData: typeof user = userByIdInfo.user;
-  const userPosts: typeof posts = userByIdInfo.posts;
+const UserProfileById: FC<UserProfileByIdProps> = ({ userProfileData, userSelectedValue, userIdValue }) => {
+  const dispatch = useDispatch();
+  const userByIdInfo: typeof userProfileData = useSelector(selectUserByIdInfo);
+  const userSelectedId: typeof userSelectedValue = useSelector(selectUserIdByProfile);
+  const userId: typeof userIdValue = useSelector(selectedUserId);
+  const followersArray = userByIdInfo?.user.followers;
+
+  useEffect(() => {
+    dispatch(fetchUserById(userSelectedId));
+  }, []);
+
+  const followSelectedUser = () => {
+    dispatch(followUser(userSelectedId));
+  };
+
+  const unfollowSelectUser = () => {
+    dispatch(unfollowUser(userSelectedId));
+  };
+
+  const isFollowingUser = () => {
+    const userIsFollowing: boolean = checkIfUserIsFollowing();
+
+    if (userIsFollowing) {
+      return (
+        <Button
+          title="Unfollow"
+          color="grey"
+          onClick={() => {
+            unfollowSelectUser();
+          }}
+        />
+      );
+    } else {
+      return (
+        <Button
+          title="Follow"
+          color="grey"
+          onClick={() => {
+            followSelectedUser();
+          }}
+        />
+      );
+    }
+  };
+
+  const checkIfUserIsFollowing = () => {
+    const isFollowing: boolean = isUserFound(followersArray, userId);
+    return isFollowing;
+  };
 
   return (
     <div className="user">
@@ -49,16 +109,26 @@ const UserProfileById: FC<UserProfileByIdProps> = ({ user, posts }) => {
         /> */}
         <div className="user__info">
           <h3 className="user__username">
-            {userData ? userData.name : null} || @ {userData ? userData.username : null}
+            {userByIdInfo ? userByIdInfo.user.name : null} || @ {userByIdInfo ? userByIdInfo.user.username : null}
           </h3>
           <div className="user__dataCount">
-            <p>40 Post</p>
-            <p>40 Followers</p>
-            <p>40 Following</p>
+            <p>{userByIdInfo ? userByIdInfo.posts.length : null} Post</p>
+            <p>{userByIdInfo ? userByIdInfo.user.followers.length : 0} Followers</p>
+            <p>{userByIdInfo ? userByIdInfo.user.following.length : 0} Following</p>
+          </div>
+          <div className="user__followButton">
+            {userByIdInfo && userId !== userSelectedId ? isFollowingUser() : null}
           </div>
         </div>
       </div>
-      {userPosts ? <UserGrid userPosts={userPosts} /> : null}
+      {(userByIdInfo && checkIfUserIsFollowing()) || (userByIdInfo && userId === userSelectedId) ? (
+        <UserGrid userProfileData={userByIdInfo} />
+      ) : (
+        <p>
+          Currently this users profile and posts are private, if you would like to view their profile please give them a
+          follow
+        </p>
+      )}
     </div>
   );
 };

@@ -19,7 +19,11 @@ interface PostCardProps {
   postId: string;
   meta: string;
   description: string;
-  userHasLikedPost: any;
+  userHasLikedPost: {
+    _id: string;
+    postedBy: string;
+    username: string;
+  };
   postedBy: { _id: string; username: string };
   comments: Array<{
     comment: string;
@@ -32,6 +36,7 @@ interface PostCardProps {
     username: string;
   }>;
   userId?: string;
+  postIdValue?: string;
 }
 
 const PostCard: FC<PostCardProps> = ({
@@ -45,6 +50,7 @@ const PostCard: FC<PostCardProps> = ({
   postedBy,
   userHasLikedPost,
   userId,
+  postIdValue,
 }) => {
   const dispatch = useDispatch();
   const userIdValue: typeof userId = useSelector(selectedUserId);
@@ -60,7 +66,7 @@ const PostCard: FC<PostCardProps> = ({
     dispatch(unlikeUserPost(payload));
   };
 
-  const deletePost = (postId) => {
+  const deletePost = (postId: typeof postIdValue) => {
     dispatch(deleteUserPost(postId));
   };
 
