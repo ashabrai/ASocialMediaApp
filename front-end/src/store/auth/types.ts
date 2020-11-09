@@ -26,6 +26,7 @@ export interface CreateUserPayload {
   username: string;
   email: string;
   password: string;
+  image: object;
 }
 
 export interface CreateUserSuccessPayload {
@@ -34,6 +35,7 @@ export interface CreateUserSuccessPayload {
     _id: string;
     name: string;
     username: string;
+    image: string
   };
 }
 

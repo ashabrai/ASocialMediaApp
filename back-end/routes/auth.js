@@ -12,8 +12,9 @@ router.get("/", (req, res) => {
 });
 
 router.post("/signup", (req, res) => {
-  const { name, username, email, password } = req.body;
-  if (!email || !password || !name || !username) {
+  const { name, username, email, password, image } = req.body;
+  console.log(req.body, ' body')
+  if (!email || !password || !name || !username ) {
     return res.status(422).json({ error: "Please add all the fields" });
   }
   User.findOne({ email: email }) //finding the user email from FE, and querying the DB with the email
@@ -31,6 +32,7 @@ router.post("/signup", (req, res) => {
             password: hashedPassword,
             name,
             username,
+            image
           });
           user
             .save()
@@ -68,8 +70,8 @@ router.post("/signin", (req, res) => {
         if (userFound) {
           // res.json({ message: "Successfully logged in" })
           const token = JWT.sign({ _id: savedUser._id }, JWT_SECRET);
-          const { _id, name, email, username } = savedUser;
-          res.json({ token, user: { _id, name, email, username } });
+          const { _id, name, email, username, image } = savedUser;
+          res.json({ token, user: { _id, name, email, username, image } });
         } else {
           return res
             .status(422)

@@ -16,9 +16,9 @@ const CreatePost: FC<CreatePostProps> = ({ createNewPostValue }) => {
   const dispatch = useDispatch();
   const createdNewPost: typeof createNewPostValue = useSelector(selectCreatedNewPostStatus);
 
-  const [title, setTitle] = useState<string>('');
-  const [body, setBody] = useState<string>('');
-  const [image, setImage] = useState<object>({});
+  const [title, setTitle] = useState<string>();
+  const [body, setBody] = useState<string>();
+  const [image, setImage] = useState<object>();
 
   useEffect(() => {
     if (createdNewPost) {

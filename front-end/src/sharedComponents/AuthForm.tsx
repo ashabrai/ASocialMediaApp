@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
-import { Button, Form, Grid, Header, Message, Segment, Input } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Message, Segment, Input, Label } from 'semantic-ui-react';
 
 interface PropsForAuthForm {
   name?: string;
   username?: string;
   email?: string;
   password?: string;
+  userProfileImage?: string;
   message?: any;
   header?: string;
   button?: string;
@@ -14,6 +15,7 @@ interface PropsForAuthForm {
   handleUsernameChange?: (e) => void;
   handleEmailChange: (e) => void;
   handlePasswordChange: (e) => void;
+  handleProfileImageChange?: (e) => void;
   handleClick: () => void;
 }
 
@@ -22,6 +24,7 @@ const AuthForm: FC<PropsForAuthForm> = ({
   username,
   email,
   password,
+  userProfileImage,
   message,
   header,
   button,
@@ -30,6 +33,7 @@ const AuthForm: FC<PropsForAuthForm> = ({
   handleUsernameChange,
   handleEmailChange,
   handlePasswordChange,
+  handleProfileImageChange,
   handleClick,
 }) => {
   return (
@@ -41,7 +45,8 @@ const AuthForm: FC<PropsForAuthForm> = ({
         <Segment>
           <Form size="large">
             <Form.Field>
-              {name ? (
+              {name && username ? (
+                <>
                 <Input
                   fluid
                   icon="user"
@@ -51,8 +56,6 @@ const AuthForm: FC<PropsForAuthForm> = ({
                   placeholder={name}
                   onChange={(e) => handleNameChange(e)}
                 />
-              ) : null}
-              {username ? (
                 <Input
                   fluid
                   icon="user"
@@ -62,8 +65,9 @@ const AuthForm: FC<PropsForAuthForm> = ({
                   placeholder={username}
                   onChange={(e) => handleUsernameChange(e)}
                 />
+                </>
               ) : null}
-              <Input
+              <Input 
                 type="mail"
                 fluid
                 icon="mail"
@@ -82,7 +86,19 @@ const AuthForm: FC<PropsForAuthForm> = ({
                 type="password"
                 onChange={(e) => handlePasswordChange(e)}
               />
+            {userProfileImage ? (
+            <Segment>
+              <Label attached="top">Select A Profile Image</Label>
+              <Input
+                fluid
+                type="file"
+                placeholder={userProfileImage}
+                onChange={(e) => {handleProfileImageChange(e)}}
+              />
+              </Segment>
+              ): null}
             </Form.Field>
+
             <Button color="black" fluid size="large" onClick={() => handleClick()}>
               {button}
             </Button>

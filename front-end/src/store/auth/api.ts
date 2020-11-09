@@ -2,6 +2,8 @@
 
 export default {
   createUser: async (payload) => {
+    const { name, username, 6password, email, profileImageUrl} = payload;
+    console.log(payload, ' payload in api ')
     const url = 'http://localhost:4000/signup';
     const options = Object.assign(
       {},
@@ -10,7 +12,13 @@ export default {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          name,
+          password,
+          username,
+          email,
+          image: profileImageUrl
+        }),
       }
     );
     const response = await fetch(url, options)

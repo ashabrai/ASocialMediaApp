@@ -12,10 +12,26 @@ import {
 } from './action';
 
 import Api from './api';
+import UserAPI from 'store/user/api';
 
-function* createUserGenerator(action) {
+function* getProfileImageURL(action) {
+  try{
+    const { image, name, username, email, password} = action.payload;
+    const postProfileImageToCloud = yield call(UserAPI.storeImageToCloud, image)
+    const profileImageUrl = postProfileImageToCloud.url;
+    const data = { profileImageUrl, name, username, email, password};
+    console.log(data)
+    // yield call(createUserGenerator, data)
+  }catch(e){
+    yield put(createUserFailed(e));
+
+  }
+}
+
+function* createUserGenerator(data) {
   try {
-    const response = yield call(Api.createUser, action.payload);
+    const response = yield call(Api.createUser, data);
+    console.log(response, ' response in payload')
     yield put(createUserSucceeded(response.user));
   } catch (error) {
     yield put(createUserFailed(error));
@@ -52,7 +68,7 @@ function* storeUserDataGenerator(action) {
 }
 
 function* watchAllRequest() {
-  yield takeLatest(AuthActionConstants.CREATE_USER, createUserGenerator);
+  yield takeLatest(AuthActionConstants.CREATE_USER, getProfileImageURL);
   yield takeLatest(AuthActionConstants.USER_LOGIN, userLoginGenerator);
   yield takeLatest(AuthActionConstants.USER_LOGOUT, userLogoutGenerator);
   yield takeLatest(AuthActionConstants.SAVE_USER_DATA, storeUserDataGenerator);
