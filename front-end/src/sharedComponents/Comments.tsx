@@ -9,7 +9,7 @@ interface CommentsProps {
   }>;
 }
 
-const CommentSection: FC<CommentsProps> = ({ comments }) => {
+const CommentSection: FC<CommentsProps> = ({ comments}) => {
   const [isChecked, setChecked] = useState<boolean>(true);
   const onChange = () => {
     setChecked(!isChecked);

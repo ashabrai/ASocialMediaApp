@@ -62,7 +62,6 @@ const SignUp: FC<SignUpProps> = ({ hasBeenCreated }) => {
 
   const handleProfileImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const profileImageUrl = event.target.files[0];
-    console.log(profileImageUrl, ' profile image url')
     setProfileImage(profileImageUrl)
   }
 

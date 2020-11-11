@@ -32,7 +32,7 @@ interface HomePageProps {
     }>;
     postedBy: {
       _id: string;
-      username: string;
+      username?: string;
     };
   }>;
   isLoggedIn: boolean;
@@ -54,7 +54,7 @@ interface HomePageProps {
     }>;
     postedBy: {
       _id: string;
-      username: string;
+      username?: string;
     };
   };
 }

@@ -12,8 +12,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/signup", (req, res) => {
-  const { name, username, email, password, image } = req.body;
-  console.log(req.body, ' body')
+  const { name, username, email, password, imgUrl } = req.body;
   if (!email || !password || !name || !username ) {
     return res.status(422).json({ error: "Please add all the fields" });
   }
@@ -32,14 +31,14 @@ router.post("/signup", (req, res) => {
             password: hashedPassword,
             name,
             username,
-            image
+            image: imgUrl
           });
           user
             .save()
             .then((user) => {
-              const { _id, name, username, email } = user;
+              const { _id, name, username, email, image} = user;
               res.json({
-                user: { _id, name, username, email },
+                user: { _id, name, username, email, image},
                 message: "User Created Successfully",
               });
             })

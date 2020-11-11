@@ -18,10 +18,9 @@ function* getProfileImageURL(action) {
   try{
     const { image, name, username, email, password} = action.payload;
     const postProfileImageToCloud = yield call(UserAPI.storeImageToCloud, image)
-    const profileImageUrl = postProfileImageToCloud.url;
-    const data = { profileImageUrl, name, username, email, password};
-    console.log(data)
-    // yield call(createUserGenerator, data)
+    const imgUrl = postProfileImageToCloud.url;
+    const data = { imgUrl, name, username, email, password};
+    yield call(createUserGenerator, data)
   }catch(e){
     yield put(createUserFailed(e));
 
@@ -31,7 +30,6 @@ function* getProfileImageURL(action) {
 function* createUserGenerator(data) {
   try {
     const response = yield call(Api.createUser, data);
-    console.log(response, ' response in payload')
     yield put(createUserSucceeded(response.user));
   } catch (error) {
     yield put(createUserFailed(error));
