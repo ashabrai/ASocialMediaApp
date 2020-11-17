@@ -31,9 +31,8 @@ interface UserProfileProps {
     posts: Array<{
       body: string;
       comments: Array<{
-        username: string;
         comment: string;
-        postedBy: string;
+        postedBy: {_id: string; username: string; image: string}
         _id: string;
       }>;
       datePosted: number;
@@ -66,7 +65,6 @@ const UserProfile: FC<UserProfileProps> = ({ userProfileData, userSignedIn }) =>
           alt=""
           className="user__image"
         />) : null}
-    
         <div className="user__info">
           <h3 className="user__name">
             {userInfoData.name} || @{userInfoData.username}

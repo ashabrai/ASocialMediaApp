@@ -4,7 +4,7 @@ import { Comment, Header, Checkbox } from 'semantic-ui-react';
 interface CommentsProps {
   comments: Array<{
     comment: string;
-    postedBy: { _id: string; username: string };
+    postedBy: { _id: string; username: string; image: string};
     _id: string;
   }>;
 }
@@ -26,7 +26,7 @@ const CommentSection: FC<CommentsProps> = ({ comments}) => {
         {comments.map((comment, index) => (
           <div key={index}>
             <Comment>
-              <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
+              <Comment.Avatar src={comment.postedBy.image} />
               <Comment.Content>
                 <Comment.Author as="a">{comment.postedBy.username}</Comment.Author>
                 {/* <Comment.Metadata>

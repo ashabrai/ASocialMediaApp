@@ -1,7 +1,7 @@
 import React, { useState, FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { likeUserPost, unlikeUserPost, commentPost, deleteUserPost } from 'store/user/action';
-import { selectedUserId, selectUserInfo } from 'store/auth/selectors';
+import { selectedUserId} from 'store/auth/selectors';
 import DisplayCard from 'sharedComponents/DisplayCard';
 import CommentSection from 'sharedComponents/Comments';
 import PopupContent from 'sharedComponents/PopupContent';
@@ -27,7 +27,7 @@ interface PostCardProps {
   postedBy: { _id: string; username?: string };
   comments: Array<{
     comment: string;
-    postedBy: { _id: string; username: string };
+    postedBy: { _id: string; username: string; image: string };
     _id: string;
   }>;
   likes: Array<{

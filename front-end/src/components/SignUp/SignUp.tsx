@@ -68,7 +68,6 @@ const SignUp: FC<SignUpProps> = ({ hasBeenCreated }) => {
 
   const handleSubmitButtonClick = () => {
     dispatch(createUser({ name, username, email, password, image }));
-    // here will need to pass profile image
   };
 
   const linkToLogin = <Link to="/Login">Have an account? Login in here </Link>;

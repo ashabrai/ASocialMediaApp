@@ -93,21 +93,21 @@ router.put("/unlikeUserPost", requireLogin, (req, res) => {
 });
 
 router.put("/commentPost", requireLogin, (req, res) => {
-  const comment = {
+  const comments = {
     comment: req.body.comment,
-    postedBy: req.user._id,
+    postedBy: req.user._id
   };
   Post.findByIdAndUpdate(
     req.body.postId,
     {
-      $push: { comments: comment },
+      $push: { comments: comments },
     },
     {
       new: true,
     }
   )
-    // .populate("comments.postedBy", "_id name") // what to populate the user name and their id
-    .populate("comments.postedBy", "_id username")
+    .populate("comments.postedBy", "_id username image")
+    .populate("postedBy", '_id username image')
     .exec((err, result) => {
       if (err) {
         return res.status(422).json({ error: err });

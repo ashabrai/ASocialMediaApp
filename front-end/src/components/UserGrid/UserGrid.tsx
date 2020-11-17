@@ -18,9 +18,8 @@ interface GridProps {
     posts: Array<{
       body: string;
       comments: Array<{
-        username: string;
         comment: string;
-        postedBy: string;
+        postedBy: {_id: string; username: string; image: string}
         _id: string;
       }>;
       datePosted: number;

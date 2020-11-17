@@ -18,6 +18,7 @@ interface UserProfileByIdProps {
       following: Array<{
         _id: string;
       }>;
+      image: string;
       name: string;
       username: string;
       _id: string;
@@ -25,9 +26,8 @@ interface UserProfileByIdProps {
     posts: Array<{
       body: string;
       comments: Array<{
-        username: string;
         comment: string;
-        postedBy: string;
+        postedBy: {_id: string; username: string; image: string}
         _id: string;
       }>;
       datePosted: number;
@@ -53,6 +53,8 @@ const UserProfileById: FC<UserProfileByIdProps> = ({ userProfileData, userSelect
   const dispatch = useDispatch();
   const userByIdInfo: typeof userProfileData = useSelector(selectUserByIdInfo);
   const userSelectedId: typeof userSelectedValue = useSelector(selectUserIdByProfile);
+
+  console.log(userByIdInfo, ' : userByIdInfo')
   const userId: typeof userIdValue = useSelector(selectedUserId);
   const followersArray = userByIdInfo?.user.followers;
 
@@ -102,11 +104,13 @@ const UserProfileById: FC<UserProfileByIdProps> = ({ userProfileData, userSelect
   return (
     <div className="user">
       <div className="user__container">
-        {/* <img
-          src="https://scontent.fsjc1-3.fna.fbcdn.net/v/t1.0-9/103042843_3321913957828135_209146826409009172_n.jpg?_nc_cat=106&_nc_sid=85a577&_nc_ohc=HY1KBiGPd2YAX_qentG&_nc_ht=scontent.fsjc1-3.fna&oh=5ad1f2e9baa9cff174d549c667e65bc0&oe=5F68363D"
-          alt="brai"
+        {userByIdInfo ? (
+          <img
+          src={userByIdInfo.user.image}
+          alt=""
           className="user__image"
-        /> */}
+          />
+        ) : null}
         <div className="user__info">
           <h3 className="user__username">
             {userByIdInfo ? userByIdInfo.user.name : null} || @ {userByIdInfo ? userByIdInfo.user.username : null}

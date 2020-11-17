@@ -17,10 +17,15 @@ import UserAPI from 'store/user/api';
 function* getProfileImageURL(action) {
   try{
     const { image, name, username, email, password} = action.payload;
+    if(!image){
+      let noImagePayload = { name, username, email, password};
+      yield call(createUserGenerator, noImagePayload)
+   } else{
     const postProfileImageToCloud = yield call(UserAPI.storeImageToCloud, image)
     const imgUrl = postProfileImageToCloud.url;
     const data = { imgUrl, name, username, email, password};
     yield call(createUserGenerator, data)
+   }
   }catch(e){
     yield put(createUserFailed(e));
 
