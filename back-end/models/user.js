@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    default:'https://res.cloudinary.com/dxvtpzabx/image/upload/v1604701701/Avatar-Free-PNG-Image_edhcm2.png'
+    default: 'https://res.cloudinary.com/dxvtpzabx/image/upload/v1605734993/Avatar-Free-PNG-Image_ejlxfo.png' // url coming from cloudinary
   },
   followers: [{ type: ObjectId, ref: "User" }],
   following: [{ type: ObjectId, ref: "User" }],

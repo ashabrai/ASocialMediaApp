@@ -53,8 +53,6 @@ const UserProfileById: FC<UserProfileByIdProps> = ({ userProfileData, userSelect
   const dispatch = useDispatch();
   const userByIdInfo: typeof userProfileData = useSelector(selectUserByIdInfo);
   const userSelectedId: typeof userSelectedValue = useSelector(selectUserIdByProfile);
-
-  console.log(userByIdInfo, ' : userByIdInfo')
   const userId: typeof userIdValue = useSelector(selectedUserId);
   const followersArray = userByIdInfo?.user.followers;
 

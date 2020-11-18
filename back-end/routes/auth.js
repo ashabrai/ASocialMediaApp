@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/signup", (req, res) => {
-  const { name, username, email, password, imgUrl } = req.body;
+  const { name, username, email, password, image} = req.body;
   if (!email || !password || !name || !username ) {
     return res.status(422).json({ error: "Please add all the fields" });
   }
@@ -31,7 +31,7 @@ router.post("/signup", (req, res) => {
             password: hashedPassword,
             name,
             username,
-            image: imgUrl
+            image
           });
           user
             .save()
@@ -67,7 +67,6 @@ router.post("/signin", (req, res) => {
       .compare(password, savedUser.password) //comparing the pw from the user to the one in the DB
       .then((userFound) => {
         if (userFound) {
-          // res.json({ message: "Successfully logged in" })
           const token = JWT.sign({ _id: savedUser._id }, JWT_SECRET);
           const { _id, name, email, username, image } = savedUser;
           res.json({ token, user: { _id, name, email, username, image } });

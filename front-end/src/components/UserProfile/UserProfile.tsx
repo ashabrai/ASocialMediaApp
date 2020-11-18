@@ -62,7 +62,7 @@ const UserProfile: FC<UserProfileProps> = ({ userProfileData, userSignedIn }) =>
         {userInfoData.image ? ( 
           <img
           src={userInfoData.image}
-          alt=""
+          alt={userInfoData.name}
           className="user__image"
         />) : null}
         <div className="user__info">

@@ -17,15 +17,15 @@ import UserAPI from 'store/user/api';
 function* getProfileImageURL(action) {
   try{
     const { image, name, username, email, password} = action.payload;
-    if(!image){
-      let noImagePayload = { name, username, email, password};
-      yield call(createUserGenerator, noImagePayload)
-   } else{
-    const postProfileImageToCloud = yield call(UserAPI.storeImageToCloud, image)
-    const imgUrl = postProfileImageToCloud.url;
-    const data = { imgUrl, name, username, email, password};
-    yield call(createUserGenerator, data)
-   }
+    if(!image || image === {}) { // this check is added in case the user does not initially load a photo on account creation
+      const data = { name, username, email, password};
+      yield call(createUserGenerator, data)
+    } else {
+      const postProfileImageToCloud = yield call(UserAPI.storeImageToCloud, image) // save the image to cloudinary
+      const imgUrl = postProfileImageToCloud.url; // retrieve url from cloudinary response
+      const data = { imgUrl, name, username, email, password}; // and use the image url for account creation
+      yield call(createUserGenerator, data)
+    }
   }catch(e){
     yield put(createUserFailed(e));
 
