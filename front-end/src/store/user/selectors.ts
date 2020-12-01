@@ -7,8 +7,6 @@ export const selectCreatedNewPostStatus = (state: ApplicationState) => state.use
 
 export const selectUserData = (state: ApplicationState) => state.user.userData;
 
-export const selectHasCommented = (state: ApplicationState) => state.user.hasCommented;
-
 export const selectHasLikedPost = (state: ApplicationState) => state.user.hasLikedPost;
 
 export const selectUserByIdInfo = (state: ApplicationState) => state.user.userDataById;

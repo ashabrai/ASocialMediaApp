@@ -38,4 +38,24 @@ export default {
 
     return response;
   },
+
+  updateProfileImage: async (payload) => {
+    const url = 'http://localhost:4000/updateProfileImage';
+    const options = Object.assign(
+      {},
+      {
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization' : "Bearer " + localStorage.getItem('jwt')
+        },
+        body: JSON.stringify({ userId: payload.userId, imageUrl: payload.imageUrl}),
+      }
+    )
+    const response = await fetch(url, options)
+    .then((response) => response.json())
+    .catch((err) => console.log(err))
+
+    return response;
+  }
 };

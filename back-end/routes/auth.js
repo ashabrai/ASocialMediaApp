@@ -82,4 +82,20 @@ router.post("/signin", (req, res) => {
   });
 });
 
+router.put('/updateProfileImage', requireLogin, (req, res) => {
+  User.findByIdAndUpdate(req.body.userId, 
+    { 
+      $set: {image: req.body.imageUrl}
+    }, 
+    {new: true},
+    )
+    .select('-password')
+    .exec((err, result) => {
+    if(err) {
+      return res.status(422).json({ error: 'Cannot update image' })
+    }
+    res.status(200).json(result)
+  }) 
+});
+
 module.exports = router;

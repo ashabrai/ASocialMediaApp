@@ -4,6 +4,7 @@ import {
   CreateUserSuccessPayload,
   LoginSucceedPayload,
   Auth,
+  UserDataPayload,
   CreateUserAction,
   CreateUserSucceededAction,
   CreateUserFailedAction,
@@ -95,13 +96,13 @@ export function saveUserDataFailed(payload: string): SaveUserDataFailedAction {
   };
 }
 
-export function updateUserProfileImage(payload: string): UpdateUserProfileImageAction {
+export function updateUserProfileImage(payload: object): UpdateUserProfileImageAction {
   return {
     type: AuthActionConstants.UPDATE_USER_PROFILE_IMAGE,
     payload
   }
 }
-export function updateUserProfileImageSucceeded(payload: string): UpdateUserProfileImageSucceededAction {
+export function updateUserProfileImageSucceeded(payload: UserDataPayload): UpdateUserProfileImageSucceededAction {
   return {
     type: AuthActionConstants.UPDATE_USER_PROFILE_IMAGE_SUCCEEDED,
     payload

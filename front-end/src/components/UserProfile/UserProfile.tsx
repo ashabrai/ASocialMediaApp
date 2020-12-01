@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { updateUserProfileImage } from 'store/auth/action';
 import { selectUserData } from 'store/user/selectors';
 import { selectUserInfo } from 'store/auth/selectors';
 import UserGrid from 'components/UserGrid/UserGrid';
@@ -59,7 +60,7 @@ const UserProfile: FC<UserProfileProps> = ({ userProfileData, userSignedIn }) =>
   const [profileImage, setProfileImage] = useState<object>()
   const userInfoData: typeof userSignedIn = useSelector(selectUserInfo);
   const userProfile: typeof userProfileData = useSelector(selectUserData);
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   const handleProfileImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const imageUrl = event.target.files[0];
@@ -78,6 +79,7 @@ const UserProfile: FC<UserProfileProps> = ({ userProfileData, userSignedIn }) =>
 
   const handleSubmit = () => {
     setOpen(false);
+    dispatch(updateUserProfileImage(profileImage))
   }
 
   return (

@@ -154,10 +154,7 @@ const authReducer: Reducer = (state = initialState, action) => {
       return {
         ...state,
         isUpdatingUserProfileImage: false,
-        authData: {
-          ...state.authData,
-          image: action.payload,
-        }
+        authData: action.payload
       }
     }
 

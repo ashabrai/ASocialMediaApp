@@ -48,7 +48,6 @@ export interface UserData {
       email: string;
       followers: Array<{
         _id: string;
-        username: string;
       }>;
       following: Array<{
         _id: string;
@@ -101,7 +100,6 @@ export interface UserDataById {
       email: string;
       followers: Array<{
         _id: string;
-        username: string;
       }>;
       following: Array<{
         _id: string;

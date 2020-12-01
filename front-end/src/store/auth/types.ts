@@ -50,6 +50,20 @@ export interface LoginSucceedPayload {
   };
 }
 
+export interface UserDataPayload {
+  email: string;
+  followers: Array<{
+    _id: string;
+  }>;
+  following: Array<{
+    _id: string
+  }>;
+  image: string;
+  name: string;
+  username: string;
+  _id: string
+}
+
 // Auth Action Constants and Shape
 
 export interface CreateUserAction {
@@ -104,11 +118,11 @@ export interface SaveUserDataFailedAction {
 
 export interface UpdateUserProfileImageAction {
   type: typeof AuthActionConstants.UPDATE_USER_PROFILE_IMAGE;
-  payload: string;
+  payload: object;
 }
 export interface UpdateUserProfileImageSucceededAction {
   type: typeof AuthActionConstants.UPDATE_USER_PROFILE_IMAGE_SUCCEEDED;
-  payload: any;
+  payload: UserDataPayload;
 }
 export interface UpdateUserProfileImageFailedAction {
   type: typeof AuthActionConstants.UPDATE_USER_PROFILE_IMAGE_FAILED;
