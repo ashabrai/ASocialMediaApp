@@ -7,7 +7,7 @@ const initialStateMock = {
     name: '',
     username: '',
     email: '',
-    token: '',
+    image: '',
     _id: '',
   },
   errors: undefined,
@@ -18,6 +18,7 @@ const initialStateMock = {
   isLoggedIn: false,
   isLoggedOut: false,
   userDataSaved: false,
+  isUpdatingUserProfileImage: false,
 };
 
 describe('AuthReducer', () => {
@@ -31,7 +32,7 @@ describe('AuthReducer', () => {
   it('The CREATE_USER action should set isBeingCreated to true', () => {
     const actionMock = {
       type: AuthActionConstants.CREATE_USER,
-      payload: { email: 'test@mail.com', name: 'test', password: '1111', username: 'test' },
+      payload: { email: 'test@mail.com', name: 'test', password: '1111', username: 'test', image: 'TEST.JPG' },
     };
 
     const updatedStateMock = {
@@ -43,7 +44,7 @@ describe('AuthReducer', () => {
   it('The CREATE_USER_SUCCEEDED action should correctly set the authData object with the correct values from the payload', () => {
     const actionMock = {
       type: AuthActionConstants.CREATE_USER_SUCCEEDED,
-      payload: { name: 'testing', username: 'testing', email: 'testing@mail.com', token: '12313123' },
+      payload: { name: 'testing', username: 'testing', email: 'testing@mail.com', image: 'TEST.JPG' },
     };
 
     const updatedStateMock = {
@@ -68,7 +69,7 @@ describe('AuthReducer', () => {
         name: '',
         username: '',
         email: '',
-        token: '',
+        image: '',
         _id: '',
       },
       errors: actionMock.payload.error,
@@ -149,7 +150,7 @@ describe('AuthReducer', () => {
         name: '',
         username: '',
         email: '',
-        token: '',
+        image: '',
         _id: '',
       },
     };
@@ -175,7 +176,7 @@ describe('AuthReducer', () => {
   it('The SAVE_USER_DATA action should set userDataSaved to false', () => {
     const actionMock = {
       type: AuthActionConstants.SAVE_USER_DATA,
-      payload: { name: 'test', username: 'test', email: 'test@mail.com', password: '1111', _id: '12121' },
+      payload: { name: 'test', username: 'test', email: 'test@mail.com', password: '1111', _id: '12121', image: 'testIMAGE.JPG' },
     };
 
     const updatedStateMock = {
@@ -188,7 +189,7 @@ describe('AuthReducer', () => {
   it('The SAVE_USER_DATA_SUCCEEDED action should set the authData object with the payload values, and it should set userDataSaved and isLoggedIn to true', () => {
     const actionMock = {
       type: AuthActionConstants.SAVE_USER_DATA_SUCCEEDED,
-      payload: { name: 'test', username: 'test', email: 'test@mail.com', password: '1111', _id: '12121' },
+      payload: { name: 'test', username: 'test', email: 'test@mail.com', password: '1111', _id: '12121', image: 'testIMAGE.JPG' },
     };
 
     const updatedStateMock = {
@@ -213,12 +214,44 @@ describe('AuthReducer', () => {
         name: '',
         username: '',
         email: '',
-        token: '',
+        image: '',
         _id: '',
       },
       errors: actionMock.payload.error,
     };
-
     expect(AuthReducer(initialStateMock, actionMock)).toEqual(updatedStateMock);
   });
+
+  it('The UPDATE_USER_PROFILE_IMAGE action should set isUpdatingUserProfileImage to true', () => {
+    const actionMock = {
+      type: AuthActionConstants.UPDATE_USER_PROFILE_IMAGE,
+    }
+    const updatedStateMock = {
+      ...initialStateMock,
+      isUpdatingUserProfileImage: true,
+    };
+    expect(AuthReducer(initialStateMock, actionMock)).toEqual(updatedStateMock)
+  })
+  it('The UPDATE_USER_PROFILE_IMAGE_SUCCEEDED action should set isUpdatingUserProfileImage to false and set the new payload to authData', () => {
+    const actionMock = {
+      type: AuthActionConstants.UPDATE_USER_PROFILE_IMAGE_SUCCEEDED,
+      payload: { image: 'linkToImage.jpg', followers: [], following: [], _id: '2342342', email: 'test@mail.com', name: 'test', username: 'test'}
+    }
+    const updatedStateMock = {
+      ...initialStateMock,
+      isUpdatingUserProfileImage: false,
+      authData: actionMock.payload
+    };
+    expect(AuthReducer(initialStateMock, actionMock)).toEqual(updatedStateMock)
+  })
+  it('The UPDATE_USER_PROFILE_IMAGE_FAILED action should set isUpdatingUserProfileImage to false', () => {
+    const actionMock = {
+      type: AuthActionConstants.UPDATE_USER_PROFILE_IMAGE_FAILED,
+    }
+    const updatedStateMock = {
+      ...initialStateMock,
+      isUpdatingUserProfileImage: false,
+    };
+    expect(AuthReducer(initialStateMock, actionMock)).toEqual(updatedStateMock)
+  })
 });
