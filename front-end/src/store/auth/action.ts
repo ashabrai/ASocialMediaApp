@@ -16,6 +16,9 @@ import {
   SaveUserDataAction,
   SaveUserDataSucceededAction,
   SaveUserDataFailedAction,
+  UpdateUserProfileImageAction,
+  UpdateUserProfileImageSucceededAction,
+  UpdateUserProfileImageFailedAction
 } from './types';
 
 export function createUser(payload: CreateUserPayload): CreateUserAction {
@@ -90,4 +93,23 @@ export function saveUserDataFailed(payload: string): SaveUserDataFailedAction {
     type: AuthActionConstants.SAVE_USER_DATA_FAILED,
     payload,
   };
+}
+
+export function updateUserProfileImage(payload: string): UpdateUserProfileImageAction {
+  return {
+    type: AuthActionConstants.UPDATE_USER_PROFILE_IMAGE,
+    payload
+  }
+}
+export function updateUserProfileImageSucceeded(payload: string): UpdateUserProfileImageSucceededAction {
+  return {
+    type: AuthActionConstants.UPDATE_USER_PROFILE_IMAGE_SUCCEEDED,
+    payload
+  }
+}
+export function updateUserProfileImageFailed(payload: string): UpdateUserProfileImageFailedAction {
+  return {
+    type: AuthActionConstants.UPDATE_USER_PROFILE_IMAGE_FAILED,
+    payload
+  }
 }

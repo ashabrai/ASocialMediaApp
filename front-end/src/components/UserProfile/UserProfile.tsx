@@ -1,8 +1,10 @@
-import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
+import React, { FC, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectUserData } from 'store/user/selectors';
 import { selectUserInfo } from 'store/auth/selectors';
 import UserGrid from 'components/UserGrid/UserGrid';
+import ModalContent from 'sharedComponents/Modal'
+import ImageInputField from 'sharedComponents/ImageInputField';
 import './UserProfile.scss';
 
 interface UserProfileProps {
@@ -53,8 +55,30 @@ interface UserProfileProps {
 }
 
 const UserProfile: FC<UserProfileProps> = ({ userProfileData, userSignedIn }) => {
+  const [open, setOpen] = useState<boolean>();
+  const [profileImage, setProfileImage] = useState<object>()
   const userInfoData: typeof userSignedIn = useSelector(selectUserInfo);
   const userProfile: typeof userProfileData = useSelector(selectUserData);
+  // const dispatch = useDispatch()
+
+  const handleProfileImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const imageUrl = event.target.files[0];
+    setProfileImage(imageUrl);
+  }
+
+  const displayImageForm = () => {
+    return (
+      <ImageInputField
+        labelValue='Select New Image'
+        placeHolderValue={profileImage}
+        onChange={(e) => handleProfileImageChange(e)}
+      />
+    )
+  }
+
+  const handleSubmit = () => {
+    setOpen(false);
+  }
 
   return (
     <div className="user">
@@ -73,6 +97,18 @@ const UserProfile: FC<UserProfileProps> = ({ userProfileData, userSignedIn }) =>
             <p>{userProfile ? userProfile.posts.length : 0} Post</p>
             <p>{userProfile ? userProfile.user.followers.length : 0} Followers</p>
             <p>{userProfile ? userProfile.user.following.length : 0} Following</p>
+          </div>
+          <div className="user__updatePhoto">
+            <ModalContent
+            triggerContent='Update Profile Image'
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+            open={open}
+            headerValue='Profile Image'
+            content={displayImageForm()}
+            handleClick={() => handleSubmit()}
+            handleCancel={() => setOpen(false)}
+            />
           </div>
         </div>
       </div>

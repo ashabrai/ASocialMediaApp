@@ -10,14 +10,15 @@ export interface AuthState {
   readonly hasBeenCreated: boolean;
   readonly userDataSaved: boolean;
   readonly isLoggedOut: boolean;
+  readonly isUpdatingUserProfileImage: boolean;
 }
 
 export interface Auth {
   name: string;
   username: string;
   email: string;
-  token: string;
   password?: string;
+  image:string;
   _id: string;
 }
 
@@ -98,5 +99,18 @@ export interface SaveUserDataSucceededAction {
 }
 export interface SaveUserDataFailedAction {
   type: typeof AuthActionConstants.SAVE_USER_DATA_FAILED;
+  payload: string;
+}
+
+export interface UpdateUserProfileImageAction {
+  type: typeof AuthActionConstants.UPDATE_USER_PROFILE_IMAGE;
+  payload: string;
+}
+export interface UpdateUserProfileImageSucceededAction {
+  type: typeof AuthActionConstants.UPDATE_USER_PROFILE_IMAGE_SUCCEEDED;
+  payload: any;
+}
+export interface UpdateUserProfileImageFailedAction {
+  type: typeof AuthActionConstants.UPDATE_USER_PROFILE_IMAGE_FAILED;
   payload: string;
 }
