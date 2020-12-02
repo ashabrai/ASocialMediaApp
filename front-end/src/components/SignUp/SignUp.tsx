@@ -20,6 +20,7 @@ const SignUp: FC<SignUpProps> = ({ hasBeenCreated }) => {
   const [username, setUsername] = useState<string>();
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
+  const [image, setProfileImage] = useState<object>();
   const [emailError, setEmailError] = useState<boolean>(false);
 
   useEffect(() => {
@@ -27,10 +28,6 @@ const SignUp: FC<SignUpProps> = ({ hasBeenCreated }) => {
       history.push('/AccountCreated');
     }
   }, [hasBeenCreatedValue, history]);
-
-  const handleSubmitButtonClick = () => {
-    dispatch(createUser({ name, username, email, password }));
-  };
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.target.value;
@@ -63,6 +60,16 @@ const SignUp: FC<SignUpProps> = ({ hasBeenCreated }) => {
     setPassword(password);
   };
 
+  const handleProfileImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const profileImageUrl = event.target.files[0];
+    setProfileImage(profileImageUrl)
+  }
+
+
+  const handleSubmitButtonClick = () => {
+      dispatch(createUser({ name, username, email, password, image }));
+  };
+
   const linkToLogin = <Link to="/Login">Have an account? Login in here </Link>;
 
   return (
@@ -74,12 +81,14 @@ const SignUp: FC<SignUpProps> = ({ hasBeenCreated }) => {
         email="Email"
         password="Password"
         button="Sign Up"
+        userProfileImage="Profile Image"
         message={linkToLogin}
-        emailError={emailError}
+        emailError={emailError} 
         handleNameChange={(e: React.ChangeEvent<HTMLInputElement>) => handleNameChange(e)}
         handleUsernameChange={(e: React.ChangeEvent<HTMLInputElement>) => handleUsernameChange(e)}
         handleEmailChange={(e: React.ChangeEvent<HTMLInputElement>) => handleEmailChange(e)}
         handlePasswordChange={(e: React.ChangeEvent<HTMLInputElement>) => handlePasswordChange(e)}
+        handleProfileImageChange={(e: React.ChangeEvent<HTMLInputElement>) => handleProfileImageChange(e)}
         handleClick={() => handleSubmitButtonClick()}
       />
     </div>

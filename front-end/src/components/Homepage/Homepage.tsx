@@ -17,7 +17,7 @@ interface HomePageProps {
     body: string;
     comments: Array<{
       comment: string;
-      postedBy: { _id: string; username: string };
+      postedBy: { _id: string; username: string; image: string };
       _id: string;
     }>;
     hasLikedPost: {
@@ -32,7 +32,7 @@ interface HomePageProps {
     }>;
     postedBy: {
       _id: string;
-      username: string;
+      username?: string;
     };
   }>;
   isLoggedIn: boolean;
@@ -43,7 +43,7 @@ interface HomePageProps {
     body: string;
     comments: Array<{
       comment: string;
-      postedBy: { _id: string; username: string };
+      postedBy: { _id: string; username: string; image: string};
       _id: string;
     }>;
     hasLikedPost: { _id: string; postedBy: string; username: string };
@@ -54,7 +54,7 @@ interface HomePageProps {
     }>;
     postedBy: {
       _id: string;
-      username: string;
+      username?: string;
     };
   };
 }

@@ -127,7 +127,7 @@ export default {
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + localStorage.getItem('jwt'),
         },
-        body: JSON.stringify({ postId: id, comment: comment }),
+        body: JSON.stringify({ postId: id, comment: comment}),
       }
     );
     const response = await fetch(url, options)

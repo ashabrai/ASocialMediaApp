@@ -191,7 +191,7 @@ const userReducer: Reducer = (state = initialState, action) => {
         ...state,
         hasCommented: false,
         isCommenting: false,
-        errors: action.payload.error,
+        errors: action.payload,
         postId: null,
       };
     }

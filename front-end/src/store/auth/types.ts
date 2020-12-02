@@ -10,14 +10,15 @@ export interface AuthState {
   readonly hasBeenCreated: boolean;
   readonly userDataSaved: boolean;
   readonly isLoggedOut: boolean;
+  readonly isUpdatingUserProfileImage: boolean;
 }
 
 export interface Auth {
   name: string;
   username: string;
   email: string;
-  token: string;
   password?: string;
+  image:string;
   _id: string;
 }
 
@@ -26,6 +27,7 @@ export interface CreateUserPayload {
   username: string;
   email: string;
   password: string;
+  image: object;
 }
 
 export interface CreateUserSuccessPayload {
@@ -34,6 +36,7 @@ export interface CreateUserSuccessPayload {
     _id: string;
     name: string;
     username: string;
+    image: string
   };
 }
 
@@ -45,6 +48,20 @@ export interface LoginSucceedPayload {
     email: string;
     username: string;
   };
+}
+
+export interface UserDataPayload {
+  email: string;
+  followers: Array<{
+    _id: string;
+  }>;
+  following: Array<{
+    _id: string
+  }>;
+  image: string;
+  name: string;
+  username: string;
+  _id: string
 }
 
 // Auth Action Constants and Shape
@@ -96,5 +113,18 @@ export interface SaveUserDataSucceededAction {
 }
 export interface SaveUserDataFailedAction {
   type: typeof AuthActionConstants.SAVE_USER_DATA_FAILED;
+  payload: string;
+}
+
+export interface UpdateUserProfileImageAction {
+  type: typeof AuthActionConstants.UPDATE_USER_PROFILE_IMAGE;
+  payload: object;
+}
+export interface UpdateUserProfileImageSucceededAction {
+  type: typeof AuthActionConstants.UPDATE_USER_PROFILE_IMAGE_SUCCEEDED;
+  payload: UserDataPayload;
+}
+export interface UpdateUserProfileImageFailedAction {
+  type: typeof AuthActionConstants.UPDATE_USER_PROFILE_IMAGE_FAILED;
   payload: string;
 }

@@ -7,7 +7,7 @@ export const initialState: AuthState = {
     name: '',
     username: '',
     email: '',
-    token: '',
+    image:'',
     _id: '',
   },
   errors: undefined,
@@ -18,6 +18,7 @@ export const initialState: AuthState = {
   isLoggedIn: false,
   isLoggedOut: false,
   userDataSaved: false,
+  isUpdatingUserProfileImage: false,
 };
 
 const authReducer: Reducer = (state = initialState, action) => {
@@ -47,7 +48,7 @@ const authReducer: Reducer = (state = initialState, action) => {
           name: '',
           username: '',
           email: '',
-          token: '',
+          image: '',
           _id: '',
         },
         errors: action.payload.error,
@@ -96,7 +97,7 @@ const authReducer: Reducer = (state = initialState, action) => {
           name: '',
           username: '',
           email: '',
-          token: '',
+          image:'',
           _id: '',
         },
       };
@@ -134,13 +135,36 @@ const authReducer: Reducer = (state = initialState, action) => {
           name: '',
           username: '',
           email: '',
-          token: '',
+          image: '',
           _id: '',
         },
         errors: action.payload.error,
         isLoggedIn: false,
       };
     }
+
+    case AuthActionConstants.UPDATE_USER_PROFILE_IMAGE: {
+      return {
+        ...state,
+        isUpdatingUserProfileImage: true,
+      }
+    }
+
+    case AuthActionConstants.UPDATE_USER_PROFILE_IMAGE_SUCCEEDED: {
+      return {
+        ...state,
+        isUpdatingUserProfileImage: false,
+        authData: action.payload
+      }
+    }
+
+    case AuthActionConstants.UPDATE_USER_PROFILE_IMAGE_FAILED: {
+      return {
+        ...state,
+        isUpdatingUserProfileImage: false,
+      }
+    }
+
     default: {
       return state;
     }

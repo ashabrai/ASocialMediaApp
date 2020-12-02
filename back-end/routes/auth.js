@@ -12,8 +12,8 @@ router.get("/", (req, res) => {
 });
 
 router.post("/signup", (req, res) => {
-  const { name, username, email, password } = req.body;
-  if (!email || !password || !name || !username) {
+  const { name, username, email, password, image} = req.body;
+  if (!email || !password || !name || !username ) {
     return res.status(422).json({ error: "Please add all the fields" });
   }
   User.findOne({ email: email }) //finding the user email from FE, and querying the DB with the email
@@ -31,13 +31,14 @@ router.post("/signup", (req, res) => {
             password: hashedPassword,
             name,
             username,
+            image
           });
           user
             .save()
             .then((user) => {
-              const { _id, name, username, email } = user;
+              const { _id, name, username, email, image} = user;
               res.json({
-                user: { _id, name, username, email },
+                user: { _id, name, username, email, image},
                 message: "User Created Successfully",
               });
             })
@@ -66,10 +67,9 @@ router.post("/signin", (req, res) => {
       .compare(password, savedUser.password) //comparing the pw from the user to the one in the DB
       .then((userFound) => {
         if (userFound) {
-          // res.json({ message: "Successfully logged in" })
           const token = JWT.sign({ _id: savedUser._id }, JWT_SECRET);
-          const { _id, name, email, username } = savedUser;
-          res.json({ token, user: { _id, name, email, username } });
+          const { _id, name, email, username, image } = savedUser;
+          res.json({ token, user: { _id, name, email, username, image } });
         } else {
           return res
             .status(422)
@@ -80,6 +80,22 @@ router.post("/signin", (req, res) => {
         console.log(err);
       });
   });
+});
+
+router.put('/updateProfileImage', requireLogin, (req, res) => {
+  User.findByIdAndUpdate(req.body.userId, 
+    { 
+      $set: {image: req.body.imageUrl}
+    }, 
+    {new: true},
+    )
+    .select('-password')
+    .exec((err, result) => {
+    if(err) {
+      return res.status(422).json({ error: 'Cannot update image' })
+    }
+    res.status(200).json(result)
+  }) 
 });
 
 module.exports = router;

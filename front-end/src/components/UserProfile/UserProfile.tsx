@@ -1,8 +1,11 @@
-import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
+import React, { FC, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateUserProfileImage } from 'store/auth/action';
 import { selectUserData } from 'store/user/selectors';
 import { selectUserInfo } from 'store/auth/selectors';
 import UserGrid from 'components/UserGrid/UserGrid';
+import ModalContent from 'sharedComponents/Modal'
+import ImageInputField from 'sharedComponents/ImageInputField';
 import './UserProfile.scss';
 
 interface UserProfileProps {
@@ -11,6 +14,7 @@ interface UserProfileProps {
     username: string;
     email: string;
     _id: string;
+    image: string;
   };
   userProfileData: {
     user: {
@@ -25,13 +29,13 @@ interface UserProfileProps {
       name: string;
       username: string;
       _id: string;
+      image: string;
     };
     posts: Array<{
       body: string;
       comments: Array<{
-        username: string;
         comment: string;
-        postedBy: string;
+        postedBy: {_id: string; username: string; image: string}
         _id: string;
       }>;
       datePosted: number;
@@ -43,7 +47,7 @@ interface UserProfileProps {
       photo: string;
       postedBy: {
         _id: string;
-        name?: string;
+        username?: string;
       };
       title: string;
       _id: string;
@@ -52,17 +56,41 @@ interface UserProfileProps {
 }
 
 const UserProfile: FC<UserProfileProps> = ({ userProfileData, userSignedIn }) => {
+  const [open, setOpen] = useState<boolean>();
+  const [profileImage, setProfileImage] = useState<object>()
   const userInfoData: typeof userSignedIn = useSelector(selectUserInfo);
   const userProfile: typeof userProfileData = useSelector(selectUserData);
+  const dispatch = useDispatch()
+
+  const handleProfileImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const imageUrl = event.target.files[0];
+    setProfileImage(imageUrl);
+  }
+
+  const displayImageForm = () => {
+    return (
+      <ImageInputField
+        labelValue='Select New Image'
+        placeHolderValue={profileImage}
+        onChange={(e) => handleProfileImageChange(e)}
+      />
+    )
+  }
+
+  const handleSubmit = () => {
+    setOpen(false);
+    dispatch(updateUserProfileImage(profileImage))
+  }
 
   return (
     <div className="user">
       <div className="user__container">
-        {/* <img
-          src="https://scontent.fsjc1-3.fna.fbcdn.net/v/t1.0-9/103042843_3321913957828135_209146826409009172_n.jpg?_nc_cat=106&_nc_sid=85a577&_nc_ohc=HY1KBiGPd2YAX_qentG&_nc_ht=scontent.fsjc1-3.fna&oh=5ad1f2e9baa9cff174d549c667e65bc0&oe=5F68363D"
-          alt="brai"
+        {userInfoData.image ? ( 
+          <img
+          src={userInfoData.image}
+          alt={userInfoData.name}
           className="user__image"
-        /> */}
+        />) : null}
         <div className="user__info">
           <h3 className="user__name">
             {userInfoData.name} || @{userInfoData.username}
@@ -71,6 +99,18 @@ const UserProfile: FC<UserProfileProps> = ({ userProfileData, userSignedIn }) =>
             <p>{userProfile ? userProfile.posts.length : 0} Post</p>
             <p>{userProfile ? userProfile.user.followers.length : 0} Followers</p>
             <p>{userProfile ? userProfile.user.following.length : 0} Following</p>
+          </div>
+          <div className="user__updatePhoto">
+            <ModalContent
+            triggerContent='Update Profile Image'
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+            open={open}
+            headerValue='Profile Image'
+            content={displayImageForm()}
+            handleClick={() => handleSubmit()}
+            handleCancel={() => setOpen(false)}
+            />
           </div>
         </div>
       </div>

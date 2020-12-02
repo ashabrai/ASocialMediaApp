@@ -25,8 +25,9 @@ export default interface UserState {
 export interface Post {
   body: string;
   comments: Array<{
+    username: string;
     comment: string;
-    postedBy: { _id: string; username: string };
+    postedBy: { _id: string; username: string; image: string};
     _id: string;
   }>;
   datePosted: string;
@@ -47,7 +48,6 @@ export interface UserData {
       email: string;
       followers: Array<{
         _id: string;
-        username: string;
       }>;
       following: Array<{
         _id: string;
@@ -61,7 +61,8 @@ export interface UserData {
       comments: Array<{
         username: string;
         comment: string;
-        postedBy: string;
+        image: string;
+        postedBy: {_id: string; username: string; image: string;};
         _id: string;
       }>;
       datePosted: number;
@@ -87,8 +88,9 @@ export interface UserPostLikes {
 }
 
 export interface PostComments {
+  username: string;
   comment: string;
-  postedBy: string;
+  postedBy: {_id: string; username: string; image: string;};
   _id: string;
 }
 
@@ -98,7 +100,6 @@ export interface UserDataById {
       email: string;
       followers: Array<{
         _id: string;
-        username: string;
       }>;
       following: Array<{
         _id: string;
@@ -110,9 +111,8 @@ export interface UserDataById {
     posts: Array<{
       body: string;
       comments: Array<{
-        username: string;
         comment: string;
-        postedBy: string;
+        postedBy: { _id: string; username: string; image: string;};
         _id: string;
       }>;
       datePosted: number;
